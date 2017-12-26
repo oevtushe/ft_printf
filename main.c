@@ -197,36 +197,37 @@ void	free_format(t_format **format)
 	free(*format);
 }
 
+void	lst_addelem(t_list **lst, void *content, size_t content_size)
+{
+	t_list	*new_elem;
+
+	new_elem = ft_lstnew(content, content_size);
+	ft_lstappend(lst, new_elem);
+	free(content);
+}
+
 void	split_str(char *str, t_list **plain, t_list **format)
 {
 	size_t		prev;
 	size_t		pos;
 	char		*tmp;
-	char		*sub;
 	t_defaults	*defaults;
-	t_list		*new_elem;
-	t_format	*new_format;
+
 	prev = 0;
 	defaults = init_defaults();
 	while ((tmp = ft_strchr(&(str[prev]), '%')))
 	{
 		pos = tmp - str;
-		sub = ft_strsub(str, prev, pos - prev);
-		new_elem = ft_lstnew(sub, ft_strlen(sub) + 1);
-		free(sub);
-		ft_lstappend(plain, new_elem);
-		new_format = format_parser(str, defaults, &pos);
-		new_elem = ft_lstnew(new_format, sizeof(t_format));
-		free_format(&new_format);
-		ft_lstappend(format, new_elem);
+		tmp = ft_strsub(str, prev, pos - prev);
+		lst_addelem(plain, tmp, ft_strlen(tmp) + 1);
+		tmp = (void*)format_parser(str, defaults, &pos);
+		lst_addelem(format, tmp, sizeof(t_format));
 		prev = pos + 1;
 	}
 	if (prev != ft_strlen(str))
 	{
-		sub = ft_strsub(str, prev, ft_strlen(str) - prev);
-		new_elem = ft_lstnew(sub, ft_strlen(sub) + 1);
-		free(sub);
-		ft_lstappend(plain, new_elem);
+		tmp = ft_strsub(str, prev, ft_strlen(str) - prev);
+		lst_addelem(plain, tmp, ft_strlen((char*)tmp) + 1);
 	}
 }
 
