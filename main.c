@@ -1,244 +1,126 @@
 #include "libft.h"
-#include <stdlib.h>
-#include <stdio.h>
+#include "ft_printf.h"
+#include <stdarg.h>
 
-#define	FLAG_PLUS '+'
-#define	FLAG_MINUS '-'
-#define	FLAG_ZERO '0'
-#define	FLAG_SPACE ' '
-
-#define TYPE_STRING 's'
-#define TYPE_DECIMAL 'd'
-#define TYPE_FLOAT 'f'
-
-#define MODIFIER_h "h"
-#define MODIFIER_hh "hh"
-#define MODIFIER_l "l"
-#define MODIFIER_ll "ll"
-#define MODIFIER_L "L"
-
-typedef	struct	s_format
+typedef	struct	s_assoc
 {
-	char	*flags;
-	int		width;
-	int		precision;
-	char	*modifier;
 	char	type;
-}				t_format;
+	char	*(*manager)(t_format*, void*);
+}				t_assoc;
 
-typedef struct	s_dafaults
+char			*reformat_string(char *str, size_t new_len, char filler, char side)
 {
-	char	*all_flags;
-	char	*all_types;
-	char	**all_modifiers;
-}				t_defaults;
-
-char	*init_flags(void)
-{
-	char *res;
-
-	res = ft_strnew(4);
-	res[0] = FLAG_PLUS;
-	res[1] = FLAG_MINUS;
-	res[2] = FLAG_ZERO;
-	res[3] = FLAG_SPACE;
-	return (res);
-}
-
-char	*init_types(void)
-{
-	char *res;
-
-	res = ft_strnew(3);
-	res[0] = TYPE_STRING;
-	res[1] = TYPE_DECIMAL;
-	res[2] = TYPE_FLOAT;
-	return (res);
-}
-
-char	**init_modifiers(void)
-{
-	char **res;
-
-	res = (char**)malloc(sizeof(char*) * 6);
-	res[0] = ft_strdup(MODIFIER_hh);
-	res[1] = ft_strdup(MODIFIER_ll);
-	res[2] = ft_strdup(MODIFIER_h);
-	res[3] = ft_strdup(MODIFIER_l);
-	res[4] = ft_strdup(MODIFIER_L);
-	res[5] = NULL;
-	return (res);
-}
-
-t_defaults	*init_defaults(void)
-{
-	t_defaults	*res;
-	char		*all_flags;
-	char		*all_types;
-	char		**all_modifiers;
-
-	all_flags = init_flags();
-	all_types = init_types();
-	all_modifiers = init_modifiers();
-	res = (t_defaults*)malloc(sizeof(t_defaults));
-	res->all_flags = all_flags;
-	res->all_types = all_types;
-	res->all_modifiers = all_modifiers;
-	return (res);
-}
-
-void	ft_strappend(char **str, char c)
-{
-	size_t	len;
+	size_t	tjlen;
 	char	*res;
+	char	*to_join;
 
-	res = NULL;
-	len = (*str) ? ft_strlen(*str) : 0;
-	res = ft_strnew(len + 1);
-	if (*str)
-		ft_strcpy(res, *str);
-	res[len] = c;
-	if (*str)
-		free(*str);
-	*str = res;
+	tjlen = new_len - ft_strlen(str);
+	to_join = ft_strnew(tjlen);
+	ft_memset(to_join, filler, tjlen);
+	if (side == '-')
+		res = ft_strjoin(str, to_join);
+	else
+		res = ft_strjoin(to_join, str);
+	return (res);
 }
 
-char	*get_flags(char *str, char *all_flags, size_t *idx)
+char			*string_manager(t_format *format, void *str)
 {
-	char *flags;
+	int		len;
+	char	*res;
+	char	*tmp;
 
-	flags = NULL;
-	while (ft_strchr(all_flags, str[++(*idx)]))
-		if (!flags || !ft_strchr(flags, str[(*idx)]))
-			ft_strappend(&flags, str[(*idx)]);
-	return (flags);
-}
-
-int		get_width(char *str, size_t *idx)
-{
-	int width;
-
-	width = 0;
-	if (ft_isdigit(str[(*idx)]))
+	len  = (int)ft_strlen(str);
+	res = (char*)str;
+	if (format->precision < len)
 	{
-		width = ft_atoi(&(str[(*idx)]));
-		while (ft_isdigit(str[(*idx)]))
-			++(*idx);
+		res = ft_strsub(res, 0, format->precision);
 	}
-	return (width);
-}
-
-int		get_precision(char *str, size_t *idx)
-{
-	int precision;
-
-	precision = 0;
-	if (str[(*idx)] == '.')
+	if (format->width > len)
 	{
-		++(*idx);
-		precision = ft_atoi(&(str[(*idx)]));
-		while (ft_isdigit(str[(*idx)]))
-			++(*idx);
-	}
-	return (precision);
-}
-
-char	*get_modifier(char *str, char **all_modifiers, size_t *idx)
-{
-	int		i;
-	int		j;
-	int		k;
-	char	*modifier;
-
-	i = -1;
-	modifier = NULL;
-	while (all_modifiers[++i])
-	{
-		j = *idx;
-		k = -1;
-		while (str[j] == all_modifiers[i][++k])
-			++j;
-		if (ft_strlen(all_modifiers[i]) == (size_t)k)
+		len = format->width;
+		if (ft_strchr(format->flags, FLAG_MINUS))
 		{
-			modifier = ft_strdup(all_modifiers[i]);
-			*idx = j;
-			break ;
+			tmp = res;
+			res = reformat_string(res, len, ' ', FLAG_MINUS);
+			ft_strdel(&tmp);
+		}
+		else
+		{
+			tmp = res;
+			res = reformat_string(res, len, ' ', 0);
+			ft_strdel(&tmp);
 		}
 	}
-	return (modifier);
+	/* modifiers */
+	return (res);
 }
 
-/* %+6.3sstring */
-t_format	*format_parser(char *str, t_defaults *defaults, size_t *idx)
+t_list			*init_assocs(void)
 {
-	t_format	*cur_format;
-
-	cur_format = (t_format*)malloc(sizeof(t_format));
-	cur_format->flags = get_flags(str, defaults->all_flags, idx);
-	cur_format->width = get_width(str, idx);
-	cur_format->precision = get_precision(str, idx);
-	cur_format->modifier = get_modifier(str, defaults->all_modifiers, idx);
-	if (ft_strchr(defaults->all_types, str[(*idx)]))
-		cur_format->type = str[(*idx)];
-	else
-	{
-		if (cur_format->flags)
-			free(cur_format->flags);
-		if (cur_format->modifier)
-			free(cur_format->modifier);
-		free(cur_format);
-	}
-	return (cur_format);
-}
-
-void	free_format(t_format **format)
-{
-	free((*format)->flags);
-	free(*format);
-}
-
-void	lst_addelem(t_list **lst, void *content, size_t content_size)
-{
+	t_list	*lst;
 	t_list	*new_elem;
+	t_assoc *assoc;
 
-	new_elem = ft_lstnew(content, content_size);
-	ft_lstappend(lst, new_elem);
-	free(content);
+	lst = NULL;
+	assoc = (t_assoc*)malloc(sizeof(t_assoc));
+	assoc->type = 's';
+	assoc->manager = string_manager;
+	new_elem = ft_lstnew(assoc, sizeof(t_assoc));
+	ft_lstappend(&lst, new_elem);
+	return (lst);
 }
 
-void	split_str(char *str, t_list **plain, t_list **format)
-{
-	size_t		prev;
-	size_t		pos;
-	char		*tmp;
-	t_defaults	*defaults;
+/*
+char
+unsigned char
+short
+unsigned short
+const char *
+double
+long double
+void *
+int
+long
+long long
+unsigned int
+unsigned long
+unsigned long long
+*/
 
-	prev = 0;
-	defaults = init_defaults();
-	while ((tmp = ft_strchr(&(str[prev]), '%')))
-	{
-		pos = tmp - str;
-		tmp = ft_strsub(str, prev, pos - prev);
-		lst_addelem(plain, tmp, ft_strlen(tmp) + 1);
-		tmp = (void*)format_parser(str, defaults, &pos);
-		lst_addelem(format, tmp, sizeof(t_format));
-		prev = pos + 1;
-	}
-	if (prev != ft_strlen(str))
-	{
-		tmp = ft_strsub(str, prev, ft_strlen(str) - prev);
-		lst_addelem(plain, tmp, ft_strlen((char*)tmp) + 1);
-	}
-}
-
-int		main(void)
+int		ft_printf(const char *format, ...)
 {
-	char str[] = "%+0-6.4lldsome str";
+	va_list ap;
+	char	*str;
 	t_list	*plain;
-	t_list	*format;
+	t_list	*extra;
+	//t_list	*assocs;
+	t_format *sfmt;
 
 	plain = NULL;
-	format = NULL;
-	split_str(str, &plain, &format);
+	extra = NULL;
+	//assocs = init_assocs();
+	split_str(format, &plain, &extra);
+	va_start(ap, format);
+	while (extra)
+	{
+		sfmt = (t_format*)extra->content;
+		if (sfmt->type == 's')
+			str = string_manager(sfmt, va_arg(ap, const char *));
+		else if (sfmt->type == 'd')
+			str = decimal_manager(sfmt, va_arg(ap, int));
+		ft_putstr(str);
+	}
+	va_end(ap);
+	return (0);
+}
+
+/* str */
+int		main(void)
+{
+	char format[] = "%-8.6s\n";
+	char str[] = "lolchez";
+
+	ft_printf(format, str);
 	return (0);
 }
