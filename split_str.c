@@ -38,4 +38,5 @@ void	split_str(const char *str, t_list **plain, t_list **format)
 		tmp = ft_strsub(str, prev, ft_strlen(str) - prev);
 		lst_addelem(plain, tmp, ft_strlen((char*)tmp) + 1);
 	}
+	free_defs(&defaults);
 }
