@@ -29,7 +29,7 @@ static int	get_precision(const char *str, size_t *idx)
 {
 	int precision;
 
-	precision = 0;
+	precision = -1;
 	if (str[(*idx)] == '.')
 	{
 		++(*idx);
