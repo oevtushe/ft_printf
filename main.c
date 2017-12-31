@@ -5,7 +5,7 @@
 typedef	struct	s_assoc
 {
 	char	type;
-	char	*(*manager)(t_format*, void*);
+	char	*(*manager)(t_format*, const void*);
 }				t_assoc;
 
 char			*reformat_string(char *str, size_t new_len, char filler, char side)
@@ -24,15 +24,15 @@ char			*reformat_string(char *str, size_t new_len, char filler, char side)
 	return (res);
 }
 
-char			*string_manager(t_format *format, void *str)
+char			*string_manager(t_format *format, const void *str)
 {
 	int		len;
 	char	*res;
 	char	*tmp;
 
 	len  = (int)ft_strlen(str);
-	res = (char*)str;
-	if (format->precision < len)
+	res = ft_strdup(str);
+	if (format->precision >= 0 && format->precision < len)
 	{
 		res = ft_strsub(res, 0, format->precision);
 	}
@@ -88,39 +88,116 @@ unsigned long
 unsigned long long
 */
 
+t_assoc	*get_mngr(t_list *lst, char type)
+{
+	t_assoc	*cur;
+
+	cur = NULL;
+	while (lst)
+	{
+		cur = (t_assoc*)lst->content;
+		if (cur->type == type)
+			break ;
+		lst = lst->next;
+	}
+	return (cur);
+}
+
+char	*mngr_usr(va_list ap, t_format *sfmt, t_list *assocs)
+{
+	char	*res;
+	t_assoc	*cur;
+
+	res = NULL;
+	cur = get_mngr(assocs, sfmt->type);
+	if (sfmt->type == 's')
+		res = cur->manager(sfmt, va_arg(ap, const char *));
+	return (res);
+}
+
+char	*easy_joiner(char *str, char *fst, char *scd)
+{
+	char *tmp;
+	char *res;
+
+	res = ft_strjoin(str, fst);
+	tmp = res;
+	res = ft_strjoin(str, scd);
+	free(tmp);
+	return (res);
+}
+
+void	del_sfmt(void *data, size_t size)
+{
+	t_format *sfmt;
+
+	++size;
+	sfmt = (t_format*)data;
+	free(sfmt->flags);
+	free(sfmt->modifier);
+	free(sfmt);
+}
+
+void	del_str(void *data, size_t size)
+{
+	++size;
+	free(data);
+}
+
+char	*maker(t_list *plain, t_list *extra, va_list ap)
+{
+	char	*fmt;
+	char	*str;
+	char	*tmp;
+	t_list	*assocs;
+
+	assocs = init_assocs();
+	str = ft_strnew(0);
+	while (extra)
+	{
+		fmt = mngr_usr(ap, (t_format*)extra->content, assocs);
+		tmp = str;
+		str = easy_joiner(str, (char*)plain->content, fmt);
+		free(tmp);
+		free(fmt);
+		plain = plain->next;
+		extra = extra->next;
+	}
+	if (plain)
+	{
+		tmp = str;
+		str = ft_strjoin(str, (char*)plain->content);
+		free(tmp);
+	}
+	return (str);
+}
+
 int		ft_printf(const char *format, ...)
 {
 	va_list ap;
+	va_list	cap;
 	char	*str;
 	t_list	*plain;
 	t_list	*extra;
-	//t_list	*assocs;
-	t_format *sfmt;
 
 	plain = NULL;
 	extra = NULL;
-	//assocs = init_assocs();
 	split_str(format, &plain, &extra);
 	va_start(ap, format);
-	while (extra)
-	{
-		sfmt = (t_format*)extra->content;
-		if (sfmt->type == 's')
-			str = string_manager(sfmt, va_arg(ap, const char *));
-		else if (sfmt->type == 'd')
-			str = decimal_manager(sfmt, va_arg(ap, int));
-		ft_putstr(str);
-	}
+	va_copy(cap, ap);
+	str = maker(plain, extra, cap);
+	ft_putstr(str);
 	va_end(ap);
-	return (0);
+	ft_lstdel(&plain, del_str);
+	ft_lstdel(&extra, del_sfmt);
+	return (ft_strlen(str));
 }
 
 /* str */
-int		main(void)
+int		main(int argc, char **argv)
 {
-	char format[] = "%-8.6s\n";
-	char str[] = "lolchez";
-
-	ft_printf(format, str);
+	if (argc != 3)
+		return (1);
+	ft_printf(argv[1], argv[2]);
 	return (0);
 }
