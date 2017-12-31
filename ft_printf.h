@@ -35,8 +35,25 @@ typedef	struct	s_defaults
 	char	**all_modifiers;
 }				t_defaults;
 
+typedef	struct	s_assoc
+{
+	char	type;
+	char	*(*manager)(t_format*, const void*);
+}				t_assoc;
+
 t_format		*format_parser(const char *str, t_defaults *defaults, size_t *idx);
-t_defaults		*init_defaults(void);
 void			ft_strappend(char **str, char c);
 void			split_str(const char *format, t_list **plain, t_list **extra);
+
+/* initializers */
+t_defaults		*init_defaults(void);
+t_list			*init_assocs(void);
+
+/* managers */
+char			*string_manager(t_format *format, const void *str);
+
+/* freshers */
+void			del_simple(void *data, size_t size);
+void			del_sfmt(void *data, size_t size);
+void			free_defs(t_defaults **defs);
 #endif

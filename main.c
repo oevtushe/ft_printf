@@ -2,73 +2,19 @@
 #include "ft_printf.h"
 #include <stdarg.h>
 
-typedef	struct	s_assoc
+t_assoc	*get_mngr(t_list *lst, char type)
 {
-	char	type;
-	char	*(*manager)(t_format*, const void*);
-}				t_assoc;
+	t_assoc	*cur;
 
-char			*reformat_string(char *str, size_t new_len, char filler, char side)
-{
-	size_t	tjlen;
-	char	*res;
-	char	*to_join;
-
-	tjlen = new_len - ft_strlen(str);
-	to_join = ft_strnew(tjlen);
-	ft_memset(to_join, filler, tjlen);
-	if (side == '-')
-		res = ft_strjoin(str, to_join);
-	else
-		res = ft_strjoin(to_join, str);
-	return (res);
-}
-
-char			*string_manager(t_format *format, const void *str)
-{
-	int		len;
-	char	*res;
-	char	*tmp;
-
-	len  = (int)ft_strlen(str);
-	res = ft_strdup(str);
-	if (format->precision >= 0 && format->precision < len)
+	cur = NULL;
+	while (lst)
 	{
-		res = ft_strsub(res, 0, format->precision);
+		cur = (t_assoc*)lst->content;
+		if (cur->type == type)
+			break ;
+		lst = lst->next;
 	}
-	if (format->width > len)
-	{
-		len = format->width;
-		if (ft_strchr(format->flags, FLAG_MINUS))
-		{
-			tmp = res;
-			res = reformat_string(res, len, ' ', FLAG_MINUS);
-			ft_strdel(&tmp);
-		}
-		else
-		{
-			tmp = res;
-			res = reformat_string(res, len, ' ', 0);
-			ft_strdel(&tmp);
-		}
-	}
-	/* modifiers */
-	return (res);
-}
-
-t_list			*init_assocs(void)
-{
-	t_list	*lst;
-	t_list	*new_elem;
-	t_assoc *assoc;
-
-	lst = NULL;
-	assoc = (t_assoc*)malloc(sizeof(t_assoc));
-	assoc->type = 's';
-	assoc->manager = string_manager;
-	new_elem = ft_lstnew(assoc, sizeof(t_assoc));
-	ft_lstappend(&lst, new_elem);
-	return (lst);
+	return (cur);
 }
 
 /*
@@ -88,20 +34,17 @@ unsigned long
 unsigned long long
 */
 
-t_assoc	*get_mngr(t_list *lst, char type)
-{
-	t_assoc	*cur;
+/*
+   char
+   short
+   int
+   float
 
-	cur = NULL;
-	while (lst)
-	{
-		cur = (t_assoc*)lst->content;
-		if (cur->type == type)
-			break ;
-		lst = lst->next;
-	}
-	return (cur);
-}
+   const char *
+   const void *
+
+   unsigned
+*/
 
 char	*mngr_usr(va_list ap, t_format *sfmt, t_list *assocs)
 {
@@ -122,26 +65,9 @@ char	*easy_joiner(char *str, char *fst, char *scd)
 
 	res = ft_strjoin(str, fst);
 	tmp = res;
-	res = ft_strjoin(str, scd);
+	res = ft_strjoin(res, scd);
 	free(tmp);
 	return (res);
-}
-
-void	del_sfmt(void *data, size_t size)
-{
-	t_format *sfmt;
-
-	++size;
-	sfmt = (t_format*)data;
-	free(sfmt->flags);
-	free(sfmt->modifier);
-	free(sfmt);
-}
-
-void	del_str(void *data, size_t size)
-{
-	++size;
-	free(data);
 }
 
 char	*maker(t_list *plain, t_list *extra, va_list ap)
@@ -169,13 +95,14 @@ char	*maker(t_list *plain, t_list *extra, va_list ap)
 		str = ft_strjoin(str, (char*)plain->content);
 		free(tmp);
 	}
+	ft_lstdel(&assocs, del_simple);
 	return (str);
 }
 
 int		ft_printf(const char *format, ...)
 {
 	va_list ap;
-	va_list	cap;
+	int		len;
 	char	*str;
 	t_list	*plain;
 	t_list	*extra;
@@ -184,13 +111,14 @@ int		ft_printf(const char *format, ...)
 	extra = NULL;
 	split_str(format, &plain, &extra);
 	va_start(ap, format);
-	va_copy(cap, ap);
-	str = maker(plain, extra, cap);
+	str = maker(plain, extra, ap);
 	ft_putstr(str);
+	len = (int)ft_strlen(str);
 	va_end(ap);
-	ft_lstdel(&plain, del_str);
+	free(str);
+	ft_lstdel(&plain, del_simple);
 	ft_lstdel(&extra, del_sfmt);
-	return (ft_strlen(str));
+	return (len);
 }
 
 /* str */

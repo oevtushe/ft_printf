@@ -1,5 +1,13 @@
 NAME := ft_printf
-SRCS := main.c init_defaults.c format_parser.c ft_strappend.c split_str.c
+SRCS := main.c\
+		init_defaults.c\
+		format_parser.c\
+		ft_strappend.c\
+		split_str.c\
+		freshers.c\
+		init_defaults.c\
+		string_manager.c\
+		init_assocs.c
 OBJS := $(SRCS: %.c=%.o)
 DEPS := ft_printf.h
 
