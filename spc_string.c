@@ -13,7 +13,7 @@ char		*spc_string(char **str, size_t new_len, char filler, char side)
 		res = ft_strjoin(*str, to_join);
 	else
 		res = ft_strjoin(to_join, *str);
-	ft_strdel(*str);
+	ft_strdel(str);
 	return (res);
 }
 

@@ -2,21 +2,6 @@
 #include "ft_printf.h"
 #include <stdarg.h>
 
-t_assoc	*get_mngr(t_list *lst, char type)
-{
-	t_assoc	*cur;
-
-	cur = NULL;
-	while (lst)
-	{
-		cur = (t_assoc*)lst->content;
-		if (cur->type == type)
-			break ;
-		lst = lst->next;
-	}
-	return (cur);
-}
-
 /*
 char
 unsigned char
@@ -63,18 +48,12 @@ unsigned long long
 char	*mngr_usr(va_list ap, t_format *sfmt, t_list *assocs)
 {
 	char	*res;
-	t_assoc	*cur;
-	int		arg;
 
 	res = NULL;
-	cur = get_mngr(assocs, sfmt->type);
 	if (sfmt->type == 's')
-		res = cur->manager(sfmt, va_arg(ap, const char *));
+		res = string_manager(sfmt, va_arg(ap, const char *));
 	if (sfmt->type == 'd')
-	{
-		arg = va_arg(ap, int);
-		res = cur->manager(sfmt, &arg);
-	}
+		res = decimal_manager(sfmt, va_arg(ap, int));
 	return (res);
 }
 
@@ -156,13 +135,11 @@ char	*str_add_prefix(char **str, char c)
 	return (res);
 }
 
-char	*decimal_manager(t_format *sfmt, const void *data)
+char	*decimal_manager(t_format *sfmt, const int val)
 {
-	int		val;
 	char	*res;
 	int		len;
 
-	val = *((int*)data);
 	res = ft_itoa(val);
 	len = ft_strlen(res);
 	if (sfmt->precision > len)

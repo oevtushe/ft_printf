@@ -4,7 +4,6 @@ char			*string_manager(t_format *format, const void *str)
 {
 	int		len;
 	char	*res;
-	char	*tmp;
 
 	len  = (int)ft_strlen(str);
 	res = ft_strdup(str);
