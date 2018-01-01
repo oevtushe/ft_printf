@@ -34,11 +34,11 @@ unsigned long
 unsigned long long
 */
 
-/*
+/* Default
+
    char
-   short
    int
-   float
+   double
 
    const char *
    const void *
@@ -46,15 +46,35 @@ unsigned long long
    unsigned
 */
 
+/* Modifiers
+
+   short
+   long int
+   long double
+   long long int
+   short
+
+   unsigned long int
+   unsigned long long int
+
+   unsigned short
+*/
+
 char	*mngr_usr(va_list ap, t_format *sfmt, t_list *assocs)
 {
 	char	*res;
 	t_assoc	*cur;
+	int		arg;
 
 	res = NULL;
 	cur = get_mngr(assocs, sfmt->type);
 	if (sfmt->type == 's')
 		res = cur->manager(sfmt, va_arg(ap, const char *));
+	if (sfmt->type == 'd')
+	{
+		arg = va_arg(ap, int);
+		res = cur->manager(sfmt, &arg);
+	}
 	return (res);
 }
 
@@ -121,11 +141,69 @@ int		ft_printf(const char *format, ...)
 	return (len);
 }
 
+/* delete str */
+char	*str_add_prefix(char **str, char c)
+{
+	char	*tmp;
+	char	*res;
+
+	res = ft_strnew(1);
+	res[0] = c;
+	tmp = res;
+	res = ft_strjoin(res, *str);
+	free(tmp);
+	ft_strdel(str);
+	return (res);
+}
+
+char	*decimal_manager(t_format *sfmt, const void *data)
+{
+	int		val;
+	char	*res;
+	int		len;
+
+	val = *((int*)data);
+	res = ft_itoa(val);
+	len = ft_strlen(res);
+	if (sfmt->precision > len)
+	{
+		len = sfmt->precision;
+		res = spc_string(&res, len, '0', 0);
+	}
+	else if (sfmt->width > len && strchr(sfmt->flags, '0'))
+	{
+		len = sfmt->width;
+		res = spc_string(&res, len, '0', 0);
+	}
+	if (sfmt->width > len && strchr(sfmt->flags, '-'))
+	{
+		len = sfmt->width;
+		res = spc_string(&res, len, ' ', '-');
+	}
+	if (ft_strchr(sfmt->flags, '+') && val > 0)
+	{
+		res = str_add_prefix(&res, '+');
+		++len;
+	}
+	else if (ft_strchr(sfmt->flags, ' ') && val > 0)
+	{
+		res = str_add_prefix(&res, ' ');
+		++len;
+	}
+	if (sfmt->width > len)
+	{
+		len = sfmt->width;
+		res = spc_string(&res, len, ' ', 0);
+	}
+	/* modifiers */
+	return (res);
+}
+
 /* str */
 int		main(int argc, char **argv)
 {
 	if (argc != 3)
 		return (1);
-	ft_printf(argv[1], argv[2]);
+	ft_printf(argv[1], ft_atoi(argv[2]));
 	return (0);
 }
