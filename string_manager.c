@@ -1,6 +1,6 @@
 #include "ft_printf.h"
 
-char			*string_manager(t_format *format, const void *str)
+char			*string_manager(t_format *format, const char *str)
 {
 	int		len;
 	char	*res;

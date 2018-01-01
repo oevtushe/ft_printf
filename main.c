@@ -1,8 +1,10 @@
 #include "libft.h"
 #include "ft_printf.h"
 #include <stdarg.h>
+#include <stdio.h>//
 
 /*
+
 char
 unsigned char
 short
@@ -45,27 +47,17 @@ unsigned long long
    unsigned short
 */
 
-char	*mngr_usr(va_list ap, t_format *sfmt, t_list *assocs)
+char	*mngr_usr(va_list ap, t_format *sfmt)
 {
 	char	*res;
 
 	res = NULL;
+	/*
 	if (sfmt->type == 's')
 		res = string_manager(sfmt, va_arg(ap, const char *));
+		*/
 	if (sfmt->type == 'd')
-		res = decimal_manager(sfmt, va_arg(ap, int));
-	return (res);
-}
-
-char	*easy_joiner(char *str, char *fst, char *scd)
-{
-	char *tmp;
-	char *res;
-
-	res = ft_strjoin(str, fst);
-	tmp = res;
-	res = ft_strjoin(res, scd);
-	free(tmp);
+		res = decimal_manager(ap, sfmt);
 	return (res);
 }
 
@@ -74,13 +66,11 @@ char	*maker(t_list *plain, t_list *extra, va_list ap)
 	char	*fmt;
 	char	*str;
 	char	*tmp;
-	t_list	*assocs;
 
-	assocs = init_assocs();
 	str = ft_strnew(0);
 	while (extra)
 	{
-		fmt = mngr_usr(ap, (t_format*)extra->content, assocs);
+		fmt = mngr_usr(ap, (t_format*)extra->content);
 		tmp = str;
 		str = easy_joiner(str, (char*)plain->content, fmt);
 		free(tmp);
@@ -94,7 +84,6 @@ char	*maker(t_list *plain, t_list *extra, va_list ap)
 		str = ft_strjoin(str, (char*)plain->content);
 		free(tmp);
 	}
-	ft_lstdel(&assocs, del_simple);
 	return (str);
 }
 
@@ -116,64 +105,8 @@ int		ft_printf(const char *format, ...)
 	va_end(ap);
 	free(str);
 	ft_lstdel(&plain, del_simple);
-	ft_lstdel(&extra, del_sfmt);
+	ft_lstdel(&extra, del_simple);
 	return (len);
-}
-
-/* delete str */
-char	*str_add_prefix(char **str, char c)
-{
-	char	*tmp;
-	char	*res;
-
-	res = ft_strnew(1);
-	res[0] = c;
-	tmp = res;
-	res = ft_strjoin(res, *str);
-	free(tmp);
-	ft_strdel(str);
-	return (res);
-}
-
-char	*decimal_manager(t_format *sfmt, const int val)
-{
-	char	*res;
-	int		len;
-
-	res = ft_itoa(val);
-	len = ft_strlen(res);
-	if (sfmt->precision > len)
-	{
-		len = sfmt->precision;
-		res = spc_string(&res, len, '0', 0);
-	}
-	else if (sfmt->width > len && strchr(sfmt->flags, '0'))
-	{
-		len = sfmt->width;
-		res = spc_string(&res, len, '0', 0);
-	}
-	if (sfmt->width > len && strchr(sfmt->flags, '-'))
-	{
-		len = sfmt->width;
-		res = spc_string(&res, len, ' ', '-');
-	}
-	if (ft_strchr(sfmt->flags, '+') && val > 0)
-	{
-		res = str_add_prefix(&res, '+');
-		++len;
-	}
-	else if (ft_strchr(sfmt->flags, ' ') && val > 0)
-	{
-		res = str_add_prefix(&res, ' ');
-		++len;
-	}
-	if (sfmt->width > len)
-	{
-		len = sfmt->width;
-		res = spc_string(&res, len, ' ', 0);
-	}
-	/* modifiers */
-	return (res);
 }
 
 /* str */
@@ -182,5 +115,7 @@ int		main(int argc, char **argv)
 	if (argc != 3)
 		return (1);
 	ft_printf(argv[1], ft_atoi(argv[2]));
+	printf("\n");
+	printf(argv[1], ft_atoi(argv[2]));
 	return (0);
 }

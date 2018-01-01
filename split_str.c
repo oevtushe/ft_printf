@@ -1,9 +1,14 @@
 #include "ft_printf.h"
 
-void	free_format(t_format **format)
+static char	*init_types(void)
 {
-	free((*format)->flags);
-	free(*format);
+	char *res;
+
+	res = ft_strnew(3);
+	res[0] = 's';
+	res[1] = 'd';
+	res[2] = 'f';
+	return (res);
 }
 
 void	lst_addelem(t_list **lst, void *content, size_t content_size)
@@ -20,16 +25,16 @@ void	split_str(const char *str, t_list **plain, t_list **format)
 	size_t		prev;
 	size_t		pos;
 	char		*tmp;
-	t_defaults	*defaults;
+	char		*all_types;
 
 	prev = 0;
-	defaults = init_defaults();
+	all_types = init_types();
 	while ((tmp = ft_strchr(&(str[prev]), '%')))
 	{
 		pos = tmp - str;
 		tmp = ft_strsub(str, prev, pos - prev);
 		lst_addelem(plain, tmp, ft_strlen(tmp) + 1);
-		tmp = (void*)format_parser(str, defaults, &pos);
+		tmp = (void*)format_parser(str, all_types, &pos);
 		lst_addelem(format, tmp, sizeof(t_format));
 		prev = pos + 1;
 	}
@@ -38,5 +43,5 @@ void	split_str(const char *str, t_list **plain, t_list **format)
 		tmp = ft_strsub(str, prev, ft_strlen(str) - prev);
 		lst_addelem(plain, tmp, ft_strlen((char*)tmp) + 1);
 	}
-	free_defs(&defaults);
+	free(all_types);
 }

@@ -1,17 +1,6 @@
 #include "ft_printf.h"
 
-static char		*get_flags(const char *str, char *all_flags, size_t *idx)
-{
-	char *flags;
-
-	flags = ft_strnew(0);
-	while (ft_strchr(all_flags, str[++(*idx)]))
-		if (!flags || !ft_strchr(flags, str[(*idx)]))
-			ft_strappend(&flags, str[(*idx)]);
-	return (flags);
-}
-
-static int		get_width(const char *str, size_t *idx)
+void		init_width(const char *str, t_format *cf, size_t *idx)
 {
 	size_t width;
 
@@ -22,10 +11,10 @@ static int		get_width(const char *str, size_t *idx)
 		while (ft_isdigit(str[(*idx)]))
 			++(*idx);
 	}
-	return (width);
+	cf->width = width;
 }
 
-static int	get_precision(const char *str, size_t *idx)
+void		init_precision(const char *str, t_format *cf, size_t *idx)
 {
 	int precision;
 
@@ -37,52 +26,67 @@ static int	get_precision(const char *str, size_t *idx)
 		while (ft_isdigit(str[(*idx)]))
 			++(*idx);
 	}
-	return (precision);
+	cf->precision = precision;
 }
 
-static char	*get_modifier(const char *str, char **all_modifiers, size_t *idx)
+void		init_modifiers(const char *str, t_format *cf, size_t *idx)
 {
-	int		i;
-	int		j;
-	int		k;
-	char	*modifier;
-
-	i = -1;
-	modifier = NULL;
-	while (all_modifiers[++i])
+	if (str[*idx] == 'l' && str[*idx + 1] != 'l')
 	{
-		j = *idx;
-		k = -1;
-		while (str[j] == all_modifiers[i][++k])
-			++j;
-		if (ft_strlen(all_modifiers[i]) == (size_t)k)
-		{
-			modifier = ft_strdup(all_modifiers[i]);
-			*idx = j;
-			break ;
-		}
+		cf->MODIFIER_l = 1;
+		++(*idx);
 	}
-	return (modifier);
+	else if (str[*idx] == 'l' && str[*idx + 1] == 'l')
+	{
+		cf->MODIFIER_ll = 1;
+		*idx += 2;
+	}
+	else if (str[*idx] == 'h' && str[*idx + 1] != 'h')
+	{
+		cf->MODIFIER_h = 1;
+		++(*idx);
+	}
+	else if (str[*idx] == 'h' && str[*idx + 1] == 'h')
+	{
+		cf->MODIFIER_hh = 1;
+		*idx += 2;
+	}
 }
 
-t_format	*format_parser(const char *str, t_defaults *defaults, size_t *idx)
+void		init_flags(const char *str, t_format *cf, size_t *idx)
+{
+	while (str[*idx])
+	{
+		if (str[*idx] == '+')
+			cf->FLAG_PLUS = 1;
+		else if (str[*idx] == '-')
+			cf->FLAG_MINUS = 1;
+		else if (str[*idx] == ' ')
+			cf->FLAG_SPACE = 1;
+		else if (str[*idx] == '0')
+			cf->FLAG_ZERO = 1;
+		else 
+			break ;
+		++(*idx);
+	}
+}
+
+t_format	*format_parser(const char *str, const char *all_types, size_t *idx)
 {
 	t_format	*cur_format;
 
+	++(*idx);
 	cur_format = (t_format*)malloc(sizeof(t_format));
-	cur_format->flags = get_flags(str, defaults->all_flags, idx);
-	cur_format->width = get_width(str, idx);
-	cur_format->precision = get_precision(str, idx);
-	cur_format->modifier = get_modifier(str, defaults->all_modifiers, idx);
-	if (ft_strchr(defaults->all_types, str[(*idx)]))
+	init_flags(str, cur_format, idx);
+	init_width(str, cur_format, idx);
+	init_precision(str, cur_format, idx);
+	init_modifiers(str, cur_format, idx);
+	if (ft_strchr(all_types, str[(*idx)]))
 		cur_format->type = str[(*idx)];
 	else
 	{
-		if (cur_format->flags)
-			free(cur_format->flags);
-		if (cur_format->modifier)
-			free(cur_format->modifier);
 		free(cur_format);
+		cur_format = NULL;
 	}
 	return (cur_format);
 }

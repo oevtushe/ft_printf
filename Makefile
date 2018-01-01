@@ -1,13 +1,10 @@
 NAME := ft_printf
 SRCS := main.c \
-		init_defaults.c \
 		format_parser.c \
-		ft_strappend.c \
 		split_str.c \
 		freshers.c \
-		string_manager.c \
-		init_assocs.c \
-		spc_string.c
+		decimals.c \
+		str_hdlrs.c
 OBJS := $(SRCS:%.c=%.o)
 DEPS := ft_printf.h
 
@@ -33,3 +30,4 @@ fclean: clean
 re: fclean
 	make
 
+.PHONY: clean fclean re all
