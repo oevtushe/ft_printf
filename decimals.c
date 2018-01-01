@@ -20,14 +20,19 @@ static char	*decimal_manager_simple(t_format *sfmt, const int val)
 	decimal_flag_except(sfmt);
 	if (sfmt->precision > len)
 		res = spc_string(&res, (len = sfmt->precision), '0', 0);
+	if (sfmt->width > len && sfmt->FLAG_ZERO)
+	{
+		len = sfmt->width;
+		if ((sfmt->FLAG_PLUS || sfmt->FLAG_SPACE) && val >= 0)
+			--len;
+		res = spc_string(&res, len, '0', 0);
+	}
 	if (sfmt->FLAG_PLUS && val >= 0)
 		res = str_add_prefix(&res, &len, '+');
 	if (sfmt->width > len && sfmt->FLAG_MINUS)
 		res = spc_string(&res, (len = sfmt->width), ' ', '-');
 	if (sfmt->FLAG_SPACE && val >= 0)
 		res = str_add_prefix(&res, &len, ' ');
-	if (sfmt->width > len && sfmt->FLAG_ZERO)
-		res = spc_string(&res, (len = sfmt->width), '0', 0);
 	if (sfmt->width > len)
 		res = spc_string(&res, (len = sfmt->width), ' ', 0);
 	return (res);
