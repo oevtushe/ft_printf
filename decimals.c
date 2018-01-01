@@ -29,10 +29,10 @@ static char	*decimal_manager_simple(t_format *sfmt, const int val)
 	}
 	if (sfmt->FLAG_PLUS && val >= 0)
 		res = str_add_prefix(&res, &len, '+');
-	if (sfmt->width > len && sfmt->FLAG_MINUS)
-		res = spc_string(&res, (len = sfmt->width), ' ', '-');
 	if (sfmt->FLAG_SPACE && val >= 0)
 		res = str_add_prefix(&res, &len, ' ');
+	if (sfmt->width > len && sfmt->FLAG_MINUS)
+		res = spc_string(&res, (len = sfmt->width), ' ', '-');
 	if (sfmt->width > len)
 		res = spc_string(&res, (len = sfmt->width), ' ', 0);
 	return (res);
