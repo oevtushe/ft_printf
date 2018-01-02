@@ -5,14 +5,16 @@ char	*ft_strnew(const size_t len)
 {
 	size_t	i;
 	char	*str;
+	size_t	nl;
 
-	if (!len)
+	nl = len + 1;
+	if (!nl)
 		return (NULL);
 	i = 0;
-	str = (char*)malloc(len + 1);
+	str = (char*)malloc(nl);
 	if (!str)
 		return (NULL);
-	while (i < len)
+	while (i < nl)
 		str[i++] = 0;
 	return (str);
 }

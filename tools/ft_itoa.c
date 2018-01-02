@@ -11,6 +11,7 @@ char			*ft_itoa(const int n)
 		sign = -1;
 		nn = n * -1L;
 	}
-
+	else
+		nn = n;
 	return (ft_lltoa_hlp(nn, sign));
 }
