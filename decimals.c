@@ -40,6 +40,7 @@ static char	*decimal_cast(t_format *sfmt, const int val, char *val_str)
 
 char	*decimal_manager(va_list ap, t_format *sfmt)
 {
+	int	shit;
 	char *res;
 	char *str;
 
@@ -51,12 +52,16 @@ char	*decimal_manager(va_list ap, t_format *sfmt)
 	if (ft_strcmp(sfmt->modifiers, MODIFIER_hh))
 	else
 	*/
+	/*
 	if (sfmt->MODIFIER_l)
 		str = ft_ltoa(va_arg(ap, long int));
 	else
 		str = ft_itoa(va_arg(ap, int));
 		res = decimal_manager_simple(sfmt, va_arg(ap, int));
-	res = decimal_manager(sfmt, str);
+		*/
+	shit = va_arg(ap, int);
+	str = ft_itoa(shit);
+	res = decimal_cast(sfmt, shit, str);
 	free(str);
 	return (res);
 }

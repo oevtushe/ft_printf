@@ -23,6 +23,7 @@ char			*ft_lltoa(const long long int val);
 char			*ft_ulltoa(const unsigned long long int val);
 char			*ft_lltoa_hlp(const unsigned long long int val, int sign);
 
+char			*ft_strcpy(char *dst, const char *src);
 char			*ft_strdup(const char *s1);
 char			*ft_strnew(const size_t len);
 char			*ft_strcat(char *s1, const char *s2);
@@ -30,7 +31,6 @@ char			*ft_strjoin(char const *s1, char const *s2);
 size_t			ft_strlen(const char *s);
 char			*ft_strnew(const size_t len);
 void			ft_strdel(char **str);
-char			*ft_strcpy(char *dst, const char *src);
 void			ft_putstr(char const *str);
 char			*ft_strsub(char const *s, unsigned int start, size_t len);
 

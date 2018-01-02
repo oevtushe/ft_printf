@@ -6,6 +6,7 @@ TF := ft_strlen.c \
 	   ft_itoa.c \
 	   ft_ltoa.c \
 	   ft_lltoa.c \
+	   ft_strcpy.c \
 	   ft_ulltoa.c \
 	   ft_lltoa_hlp.c \
 	   ft_strcat.c \
@@ -54,6 +55,8 @@ $(NAME): $(OBJS)
 %.o: %.c $(DEPS)
 	gcc $(KEYS) -c -o $@ $< -I./$(DEPS_DIR)
 
+link: $(NAME) main.c
+	gcc $(KEYS) -o main main.c -L. -lftprintf -I./$(DEPS_DIR)
 clean:
 	rm -f $(OBJS)
 fclean: clean
