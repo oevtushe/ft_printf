@@ -1,4 +1,4 @@
-#include "ft_printf.h"
+#include "ft_printf_helpers.h"
 
 static void	decimal_flag_except(t_format *sfmt)
 {
@@ -10,12 +10,12 @@ static void	decimal_flag_except(t_format *sfmt)
 		sfmt->FLAG_SPACE = 0;
 }
 
-static char	*decimal_manager_simple(t_format *sfmt, const int val)
+static char	*decimal_cast(t_format *sfmt, const int val, char *val_str)
 {
 	char	*res;
 	int		len;
 
-	res = ft_itoa(val);
+	res = ft_strdup(val_str);
 	len = ft_strlen(res);
 	decimal_flag_except(sfmt);
 	if (sfmt->precision > len)
@@ -41,6 +41,7 @@ static char	*decimal_manager_simple(t_format *sfmt, const int val)
 char	*decimal_manager(va_list ap, t_format *sfmt)
 {
 	char *res;
+	char *str;
 
 	res = NULL;
 	/*
@@ -50,6 +51,12 @@ char	*decimal_manager(va_list ap, t_format *sfmt)
 	if (ft_strcmp(sfmt->modifiers, MODIFIER_hh))
 	else
 	*/
-	res = decimal_manager_simple(sfmt, va_arg(ap, int));
+	if (sfmt->MODIFIER_l)
+		str = ft_ltoa(va_arg(ap, long int));
+	else
+		str = ft_itoa(va_arg(ap, int));
+		res = decimal_manager_simple(sfmt, va_arg(ap, int));
+	res = decimal_manager(sfmt, str);
+	free(str);
 	return (res);
 }
