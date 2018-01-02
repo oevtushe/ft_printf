@@ -14,7 +14,7 @@ typedef struct	s_list
 
 char			*spc_string(char **str, size_t new_len, char filler, char side);
 char			*easy_joiner(char *str, char *fst, char *scd);
-char			*str_add_prefix(char **str, int *len, char c);
+char			*str_add_prefix(char **str, char c);
 void			ft_strappend(char **str, char c);
 
 char			*ft_itoa(const int val);
