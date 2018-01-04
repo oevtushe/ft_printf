@@ -26,8 +26,8 @@ typedef struct	s_format
 	int		MODIFIER_z;
 }				t_format;
 
-t_format		*format_parser(const char *str, const char *all_types, size_t *idx);
-void			split_str(const char *format, t_list **plain, t_list **extra);
+t_format		*format_parser(const char *str, const char *all_types, size_t *idx, va_list ap);
+void			split_str(const char *format, t_list **plain, t_list **extra, va_list ap);
 
 /* managers */
 char			*decimal_manager(va_list ap, t_format *sfmt);

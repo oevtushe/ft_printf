@@ -1,6 +1,6 @@
 #include "ft_printf_helpers.h"
 
-void		init_width(const char *str, t_format *cf, size_t *idx)
+static void		init_width(const char *str, t_format *cf, size_t *idx, va_list ap)
 {
 	size_t width;
 
@@ -11,10 +11,15 @@ void		init_width(const char *str, t_format *cf, size_t *idx)
 		while (ft_isdigit(str[(*idx)]))
 			++(*idx);
 	}
+	else if (str[(*idx)] == '*')
+	{
+		width = va_arg(ap, int);
+		++(*idx);
+	}
 	cf->width = width;
 }
 
-void		init_precision(const char *str, t_format *cf, size_t *idx)
+static void		init_precision(const char *str, t_format *cf, size_t *idx, va_list ap)
 {
 	int precision;
 
@@ -22,14 +27,22 @@ void		init_precision(const char *str, t_format *cf, size_t *idx)
 	if (str[(*idx)] == '.')
 	{
 		++(*idx);
-		precision = ft_atoi(&(str[(*idx)]));
-		while (ft_isdigit(str[(*idx)]))
+		if (str[(*idx)] == '*')
+		{
+			precision = va_arg(ap, int);
 			++(*idx);
+		}
+		else
+		{
+			precision = ft_atoi(&(str[(*idx)]));
+			while (ft_isdigit(str[(*idx)]))
+				++(*idx);
+		}
 	}
 	cf->precision = precision;
 }
 
-void		init_modifiers(const char *str, t_format *cf, size_t *idx)
+static void		init_modifiers(const char *str, t_format *cf, size_t *idx)
 {
 	if (str[*idx] == 'l' && str[*idx + 1] != 'l')
 	{
@@ -63,7 +76,7 @@ void		init_modifiers(const char *str, t_format *cf, size_t *idx)
 	}
 }
 
-void		init_flags(const char *str, t_format *cf, size_t *idx)
+static void		init_flags(const char *str, t_format *cf, size_t *idx)
 {
 	while (str[*idx])
 	{
@@ -97,7 +110,7 @@ static void		init_default(t_format *cf)
 	cf->precision = -1;
 }
 
-t_format	*format_parser(const char *str, const char *all_types, size_t *idx)
+t_format	*format_parser(const char *str, const char *all_types, size_t *idx, va_list ap)
 {
 	t_format	*cur_format;
 
@@ -105,8 +118,8 @@ t_format	*format_parser(const char *str, const char *all_types, size_t *idx)
 	cur_format = (t_format*)malloc(sizeof(t_format));
 	init_default(cur_format);
 	init_flags(str, cur_format, idx);
-	init_width(str, cur_format, idx);
-	init_precision(str, cur_format, idx);
+	init_width(str, cur_format, idx, ap);
+	init_precision(str, cur_format, idx, ap);
 	init_modifiers(str, cur_format, idx);
 	if (ft_strchr(all_types, str[(*idx)]))
 		cur_format->type = str[(*idx)];

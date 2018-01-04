@@ -20,7 +20,7 @@ void	lst_addelem(t_list **lst, void *content, size_t content_size)
 	free(content);
 }
 
-void	split_str(const char *str, t_list **plain, t_list **format)
+void	split_str(const char *str, t_list **plain, t_list **format, va_list ap)
 {
 	size_t		prev;
 	size_t		pos;
@@ -34,7 +34,7 @@ void	split_str(const char *str, t_list **plain, t_list **format)
 		pos = tmp - str;
 		tmp = ft_strsub(str, prev, pos - prev);
 		lst_addelem(plain, tmp, ft_strlen(tmp) + 1);
-		tmp = (void*)format_parser(str, all_types, &pos);
+		tmp = (void*)format_parser(str, all_types, &pos, ap);
 		lst_addelem(format, tmp, sizeof(t_format));
 		prev = pos + 1;
 	}

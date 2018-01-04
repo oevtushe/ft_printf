@@ -97,8 +97,8 @@ int		ft_printf(const char *format, ...)
 
 	plain = NULL;
 	extra = NULL;
-	split_str(format, &plain, &extra);
 	va_start(ap, format);
+	split_str(format, &plain, &extra, ap);
 	str = maker(plain, extra, ap);
 	ft_putstr(str);
 	len = (int)ft_strlen(str);
