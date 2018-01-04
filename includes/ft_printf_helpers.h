@@ -4,6 +4,7 @@
 #include "ft_tools.h"
 #include <stdlib.h>
 #include <stdarg.h>
+#include <inttypes.h>
 
 typedef struct	s_format
 {
@@ -21,6 +22,8 @@ typedef struct	s_format
 	int		MODIFIER_h;
 	int		MODIFIER_hh;
 	int		MODIFIER_L;
+	int		MODIFIER_j;
+	int		MODIFIER_z;
 }				t_format;
 
 t_format		*format_parser(const char *str, const char *all_types, size_t *idx);

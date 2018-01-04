@@ -2,6 +2,7 @@
 # define _FT_TOOLS_H
 
 #include <string.h>
+#include <inttypes.h>
 
 # define LONG_INT_MAX 9223372036854775807
 
@@ -21,7 +22,10 @@ char			*ft_itoa(const int val);
 char			*ft_ltoa(const long int val);
 char			*ft_lltoa(const long long int val);
 char			*ft_ulltoa(const unsigned long long int val);
-char			*ft_lltoa_hlp(const unsigned long long int val, int sign);
+char			*ft_uimtoa(const uintmax_t val);
+char			*ft_uimtoa_hlp(const uintmax_t val, int sign);
+
+int				ft_abs(int val);
 
 char			*ft_strcpy(char *dst, const char *src);
 char			*ft_strdup(const char *s1);

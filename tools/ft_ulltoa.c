@@ -2,5 +2,5 @@
 
 char			*ft_ulltoa(const unsigned long long int n)
 {
-	return (ft_lltoa_hlp(n, 1));
+	return (ft_uimtoa_hlp(n, 1));
 }

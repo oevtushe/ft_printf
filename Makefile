@@ -8,7 +8,8 @@ TF := ft_strlen.c \
 	   ft_lltoa.c \
 	   ft_strcpy.c \
 	   ft_ulltoa.c \
-	   ft_lltoa_hlp.c \
+	   ft_uimtoa.c \
+	   ft_uimtoa_hlp.c \
 	   ft_strcat.c \
 	   ft_strjoin.c \
 	   easy_joiner.c \
@@ -27,6 +28,7 @@ TF := ft_strlen.c \
 	   ft_strsub.c \
 	   ft_isdigit.c \
 	   ft_strdup.c \
+	   ft_abs.c \
 	   ft_memset.c
 TOOLS_SRCS := $(addprefix $(TD),$(TF))
 
@@ -64,4 +66,4 @@ fclean: clean
 re: fclean
 	make
 
-.PHONY: clean fclean re all
+.PHONY: clean fclean re all link
