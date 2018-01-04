@@ -51,6 +51,16 @@ void		init_modifiers(const char *str, t_format *cf, size_t *idx)
 		cf->MODIFIER_hh = 1;
 		*idx += 2;
 	}
+	else if (str[*idx] == 'j')
+	{
+		cf->MODIFIER_j = 1;
+		*idx += 1;
+	}
+	else if (str[*idx] == 'z')
+	{
+		cf->MODIFIER_z = 1;
+		*idx += 1;
+	}
 }
 
 void		init_flags(const char *str, t_format *cf, size_t *idx)
@@ -77,6 +87,8 @@ static void		init_default(t_format *cf)
 	cf->MODIFIER_ll = 0;
 	cf->MODIFIER_h = 0;
 	cf->MODIFIER_hh = 0;
+	cf->MODIFIER_j = 0;
+	cf->MODIFIER_z = 0;
 	cf->FLAG_PLUS = 0;
 	cf->FLAG_MINUS = 0;
 	cf->FLAG_SPACE = 0;

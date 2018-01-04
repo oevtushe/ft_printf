@@ -14,23 +14,18 @@ static void	decimal_flag_except(t_format *sfmt, int negative)
 		sfmt->FLAG_SPACE = 0;
 }
 
-int		abs(int val)
-{
-	return ((val > 0 ) ? val : -val);
-}
-
-char	*form_value(unsigned long long int val, int sign, t_format *sfmt)
+static char	*form_value(uintmax_t val, int sign, t_format *sfmt)
 {
 	char			*res;
 	int				len;
 
 	decimal_flag_except(sfmt, (sign < 0));
-	res = ft_ulltoa(val);
+	res = ft_uimtoa(val);
 	len = ft_strlen(res);
 	if (sfmt->precision > len)
 		res = spc_string(&res, sfmt->precision, '0', 0);
 	else if (sfmt->width > len && sfmt->FLAG_ZERO)
-		res = spc_string(&res, sfmt->width - abs(sign), '0', 0);
+		res = spc_string(&res, sfmt->width - ft_abs(sign), '0', 0);
 	if (sfmt->FLAG_PLUS)
 		res = str_add_prefix(&res, '+');
 	else if (sfmt->FLAG_SPACE)
@@ -40,7 +35,7 @@ char	*form_value(unsigned long long int val, int sign, t_format *sfmt)
 	return (res);
 }
 
-char	*align(char **sv, t_format *sfmt)
+static char	*align(char **sv, t_format *sfmt)
 {
 	int		len;
 	char	*res;
@@ -55,11 +50,11 @@ char	*align(char **sv, t_format *sfmt)
 	return (res);
 }
 
-char	*form_value_ll(long long int val, t_format *sfmt)
+static char	*form_value_im(intmax_t val, t_format *sfmt)
 {
-	int						sign;
-	unsigned long long int	uval;
-	char					*res;
+	int			sign;
+	uintmax_t	uval;
+	char		*res;
 
 	if (val > 0 && (sfmt->FLAG_PLUS || sfmt->FLAG_SPACE))
 		sign = 1;
@@ -73,16 +68,34 @@ char	*form_value_ll(long long int val, t_format *sfmt)
 	return (res);
 }
 
-char	*decimal_manager(va_list ap, t_format *sfmt)
+static char	*form_value_st(size_t val, t_format *sfmt)
+{
+	int			sign;
+	char		*res;
+
+	if ((sfmt->FLAG_PLUS || sfmt->FLAG_SPACE))
+		sign = 1;
+	else
+		sign = 0;
+	res = form_value(val, sign, sfmt);
+	res = align(&res, sfmt);
+	return (res);
+}
+
+char		*decimal_manager(va_list ap, t_format *sfmt)
 {
 	char *res;
 
 	res = NULL;
 	if (sfmt->MODIFIER_l)
-		res = form_value_ll(va_arg(ap, long int), sfmt);
+		res = form_value_im(va_arg(ap, long int), sfmt);
 	else if (sfmt->MODIFIER_ll)
-		res = form_value_ll(va_arg(ap, long long int), sfmt);
+		res = form_value_im(va_arg(ap, long long int), sfmt);
+	else if (sfmt->MODIFIER_j)
+		res = form_value_im(va_arg(ap, intmax_t), sfmt);
+	else if (sfmt->MODIFIER_z)
+		res = form_value_st(va_arg(ap, size_t), sfmt);
 	else
-		res = form_value_ll(va_arg(ap, int), sfmt);
+		res = form_value_im(va_arg(ap, int), sfmt);
 	return (res);
 }
