@@ -67,12 +67,12 @@ static void		init_modifiers(const char *str, t_format *cf, size_t *idx)
 	else if (str[*idx] == 'j')
 	{
 		cf->MODIFIER_j = 1;
-		*idx += 1;
+		++(*idx);
 	}
 	else if (str[*idx] == 'z')
 	{
 		cf->MODIFIER_z = 1;
-		*idx += 1;
+		++(*idx);
 	}
 }
 
