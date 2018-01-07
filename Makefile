@@ -19,6 +19,7 @@ TF := ft_strlen.c \
 	   spc_string.c \
 	   str_add_prefix.c \
 	   ft_lstnew.c \
+	   ft_lstlen.c \
 	   ft_lstappend.c \
 	   ft_lstdel.c \
 	   ft_memcpy.c \
@@ -28,6 +29,8 @@ TF := ft_strlen.c \
 	   ft_strsub.c \
 	   ft_isdigit.c \
 	   ft_strdup.c \
+	   ft_lstaddelem.c \
+	   ft_memalloc.c \
 	   ft_abs.c \
 	   ft_memset.c
 TOOLS_SRCS := $(addprefix $(TD),$(TF))
@@ -37,6 +40,8 @@ GEN_LOGIC_SRCS := ft_printf.c \
 				  split_str.c \
 				  signed_decimals.c \
 				  decimal_flag_except.c \
+				  get_format_str.c \
+				  init_types.c \
 				  form_value.c \
 				  align.c \
 				  freshers.c
