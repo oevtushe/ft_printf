@@ -96,16 +96,6 @@ static void		init_flags(const char *str, t_format *cf, size_t *idx)
 
 static void		init_default(t_format *cf)
 {
-	cf->MODIFIER_l = 0;
-	cf->MODIFIER_ll = 0;
-	cf->MODIFIER_h = 0;
-	cf->MODIFIER_hh = 0;
-	cf->MODIFIER_j = 0;
-	cf->MODIFIER_z = 0;
-	cf->FLAG_PLUS = 0;
-	cf->FLAG_MINUS = 0;
-	cf->FLAG_SPACE = 0;
-	cf->FLAG_ZERO = 0;
 	cf->width = -1;
 	cf->precision = -1;
 }
@@ -119,7 +109,7 @@ t_format	*format_parser(const char *str, const char *all_types, size_t *idx, va_
 	t_format	*cur_format;
 
 	++(*idx);
-	cur_format = (t_format*)malloc(sizeof(t_format));
+	cur_format = (t_format*)ft_memalloc(sizeof(t_format));
 	init_default(cur_format);
 	init_flags(str, cur_format, idx);
 	init_width(str, cur_format, idx, ap);
