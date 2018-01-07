@@ -57,7 +57,11 @@ char	*mngr_usr(va_list ap, t_format *sfmt)
 		res = string_manager(sfmt, va_arg(ap, const char *));
 		*/
 	if (sfmt->type == 'd')
-		res = decimal_manager(ap, sfmt);
+		res = signed_decimal_manager(ap, sfmt);
+	/*
+	else if (sfmt->type == 'u')
+		res = unsigned_decimal_manager(ap, sfmt);
+		*/
 	return (res);
 }
 

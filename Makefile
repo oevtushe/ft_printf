@@ -35,7 +35,10 @@ TOOLS_SRCS := $(addprefix $(TD),$(TF))
 GEN_LOGIC_SRCS := ft_printf.c \
 				  format_parser.c \
 				  split_str.c \
-				  decimals.c \
+				  signed_decimals.c \
+				  decimal_flag_except.c \
+				  form_value.c \
+				  align.c \
 				  freshers.c
 SRCS := $(TOOLS_SRCS) $(GEN_LOGIC_SRCS)
 

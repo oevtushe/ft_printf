@@ -110,6 +110,10 @@ static void		init_default(t_format *cf)
 	cf->precision = -1;
 }
 
+/*
+   num$ 
+   - could be after % or * 
+   - if $ specified in single format, it should be specified in all conversations */
 t_format	*format_parser(const char *str, const char *all_types, size_t *idx, va_list ap)
 {
 	t_format	*cur_format;
