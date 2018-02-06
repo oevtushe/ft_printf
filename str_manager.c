@@ -34,9 +34,8 @@ char		*str_manager(t_format *sfmt)
 	int		len;
 	char	*res;
 
-	if (sfmt->MODIFIER_l)
-		len = ft_wcslen(sfmt->data) * (sizeof(wchar_t));
 	res = ft_strdup(sfmt->data);
+	len = ft_strlen(res);
 	sfmt->data = NULL;
 	if (sfmt->precision >= 0)
 	{
