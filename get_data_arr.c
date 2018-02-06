@@ -88,6 +88,8 @@ void	**get_data_arr(t_list *extra, va_list ap)
 			data[dta_i++] = dec_ptr_modifiers(ap);
 		else if (type_arr[ta_idx][len - 1] == 's')
 			data[dta_i++] = str_modifiers(type_arr[ta_idx], ap);
+		else if (type_arr[ta_idx][len - 1] == 'c')
+			data[dta_i++] = chr_modifiers(type_arr[ta_idx], ap);
 	}
 	void_ptr_arr_del((void***)&type_arr);
 	return (data);

@@ -13,10 +13,11 @@ typedef struct	s_list
 	struct s_list	*next;
 }				t_list;
 
-char			*spc_string(char **str, size_t new_len, char filler, char side);
+void			spc_string(char **str, size_t new_len, char filler, char side);
 char			*easy_joiner(char *str, char *fst, char *scd);
-char			*str_add_prefix(char **str, char c);
+void			str_add_prefix(char **str, char c);
 void			ft_strappend(char **str, char c);
+void			ft_str_realloc(char **str, size_t new_len);
 
 /* del itoa */
 char			*ft_itoa(const int val);
@@ -32,6 +33,7 @@ size_t			ft_lstlen(const t_list *lst);
 
 int				ft_abs(int val);
 
+void			strconnect(char **s1, char *s2);
 char			*ft_strcpy(char *dst, const char *src);
 char			*ft_strdup(const char *s1);
 char			*ft_strnew(const size_t len);

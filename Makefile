@@ -28,10 +28,12 @@ TF := ft_strlen.c \
 	   ft_memdup.c \
 	   ft_memdel.c \
 	   ft_putstr.c \
+	   ft_str_realloc.c \
 	   ft_strchr.c \
 	   ft_itoabase.c \
 	   ft_atoi.c \
 	   ft_strsub.c \
+	   strconnect.c \
 	   ft_isdigit.c \
 	   ft_strdup.c \
 	   ft_lstaddelem.c \
@@ -46,10 +48,10 @@ GEN_LOGIC_SRCS := ft_printf.c \
 				  get_format_str.c \
 				  get_arr_size.c \
 				  pos_manager.c \
-				  str_manager.c \
 				  get_data_arr.c \
 				  align.c \
 				  freshers.c
+
 DECIMAL_DIR := decimals/
 DECIMAL_FILES := decimal_flag_except.c \
 				 signed_decimals.c \
@@ -60,7 +62,14 @@ DECIMAL_FILES := decimal_flag_except.c \
 				 form_value.c
 DECIMAL_LOGIC_SRCS := $(addprefix $(DECIMAL_DIR),$(DECIMAL_FILES))
 
-SRCS := $(TOOLS_SRCS) $(GEN_LOGIC_SRCS) $(DECIMAL_LOGIC_SRCS)
+STRINGS_DIR := strings/
+STRINGS_FILES := unicode_to_utf8.c \
+				 str_manager.c \
+				 ft_witomb.c \
+				 wcs_to_utf8.c
+STRINGS_LOGIC_SRCS := $(addprefix $(STRINGS_DIR),$(STRINGS_FILES))
+
+SRCS := $(TOOLS_SRCS) $(GEN_LOGIC_SRCS) $(DECIMAL_LOGIC_SRCS) $(STRINGS_LOGIC_SRCS)
 
 OBJS := $(SRCS:%.c=%.o)
 

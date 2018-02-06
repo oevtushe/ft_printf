@@ -13,13 +13,13 @@ static int			bit_cnt(wchar_t val)
 	return (cnt);
 }
 
-static unsigned int	get_tail(wchar_t val, unsigned int bp)
+static wint_t	get_tail(wint_t val, unsigned int bp)
 {
 	int				bi;
-	unsigned int	tmp;
-	unsigned int	res;
+	wint_t			tmp;
+	wint_t			res;
 
-	bi = sizeof(int) * 8;
+	bi = sizeof(wint_t) * 8;
 	res = 0;
 	tmp = val;
 	if (bp > 0)
@@ -42,15 +42,17 @@ static unsigned int	get_tail(wchar_t val, unsigned int bp)
 ** 0xF0808080 -> 11110xxx 10xxxxxx 10xxxxxx 10xxxxxx
 */
 
-int					unicode_to_utf8(wchar_t val)
+wint_t			unicode_to_utf8(wint_t val)
 {
-	unsigned int	b1;
-	unsigned int	b2;
-	int				bc;
-	size_t			bi;
+	wint_t		b1;
+	wint_t		b2;
+	int			bc;
+	size_t		bi;
 
-	bi = sizeof(int) * 8;
+	bi = sizeof(wint_t) * 8;
 	bc = bit_cnt(val);
+	if (bc < 7)
+		return (val);
 	if (bc > 16 && bc <= 21)
 	{
 		b1 = get_tail(val, 3) | 0xF0808080;
@@ -66,6 +68,5 @@ int					unicode_to_utf8(wchar_t val)
 		b1 = get_tail(val, 1) | 0xC080;
 		b2 = ((val >> 6) << (bi - 5)) >> (bi - 13);
 	}
-	val = (b1 | b2);
-	return (val);
+	return (b1 | b2);
 }

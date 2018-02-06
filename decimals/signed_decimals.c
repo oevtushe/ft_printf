@@ -36,6 +36,6 @@ char		*signed_decimal_manager(t_format *sfmt)
 		sign = -1;
 	uval = (sign < 0) ? (val * -1L) : val;
 	res = form_value(uval, sign, sfmt);
-	res = align(&res, sfmt);
+	align(&res, sfmt);
 	return (res);
 }
