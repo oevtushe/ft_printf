@@ -20,7 +20,6 @@
 
 typedef struct	s_format
 {
-	char	type;
 	int		width;
 	int		precision;
 	void	*data;
@@ -29,6 +28,12 @@ typedef struct	s_format
 	int		FLAG_MINUS;
 	int		FLAG_SPACE;
 	int		FLAG_ZERO;
+	enum
+	{
+		T_D = 'd', T_S = 's',
+		T_C = 'c', T_U = 'u',
+		T_PT = '%', T_PS = 'n'
+	} type;
 	enum
 	{
 		M_DEFAULT, M_L, M_LL, M_H, M_HH,
