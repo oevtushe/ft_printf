@@ -38,7 +38,8 @@ static void	flags_rd(const char *str, size_t *idx)
 
 	i = *idx;
 	while (str[i] == '+' || str[i] == '-' 
-			|| str[i] == ' ' || str[i] == '0')
+			|| str[i] == ' ' || str[i] == '0' ||
+				str[i] == '#' || str[i] == '\'')
 		++i;
 	*idx = i;
 }
@@ -65,7 +66,23 @@ static void	precision_rd(const char *str, size_t *idx)
 	}
 }
 
-char	*get_format_str(const char *str, size_t *idx, char *all_types)
+static void modifiers_rd(const char *str, size_t *idx)
+{
+	if (str[*idx] == 'l' && str[*idx + 1] == 'l')
+		*idx += 2;
+	else if (str[*idx] == 'l')
+		*idx += 1;
+	else if (str[*idx] == 'h' && str[*idx + 1] == 'h')
+		*idx += 2;
+	else if (str[*idx] == 'h')
+		*idx += 1;
+	else if (str[*idx] == 'j')
+		*idx += 1;
+	else if (str[*idx] == 'z')
+		*idx += 1;
+}
+
+char	*get_format_str(const char *str, size_t *idx)
 {
 	size_t	start;
 	char	*res;
@@ -76,10 +93,9 @@ char	*get_format_str(const char *str, size_t *idx, char *all_types)
 	flags_rd(str, idx);
 	width_rd(str, idx);
 	precision_rd(str, idx);
-	if (ft_strchr(all_types, str[*idx]))
-	{
+	modifiers_rd(str, idx);
+	if (str[*idx])
 		++(*idx);
-		res = ft_strsub(str, start, *idx - start);
-	}
+	res = ft_strsub(str, start, *idx - start);
 	return (res);
 }

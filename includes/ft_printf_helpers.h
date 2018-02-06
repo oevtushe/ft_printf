@@ -6,12 +6,24 @@
 #include <stdarg.h>
 #include <inttypes.h>
 
+#define ALL_TYPES "sSpdDioOuUxXcCeEfFgGaAn"
+
+#define DATA_LOADER(type, tn)\
+	static void	*load_##tn(va_list ap)\
+	{\
+		type val;\
+		\
+		val = va_arg(ap, type);\
+		return (ft_memdup(((void*)&val), sizeof(val)));\
+	}
+
 typedef struct	s_format
 {
 	char	type;
 	int		width;
 	int		precision;
-	
+	void	*data;
+
 	int		FLAG_PLUS;
 	int		FLAG_MINUS;
 	int		FLAG_SPACE;
@@ -26,17 +38,30 @@ typedef struct	s_format
 	int		MODIFIER_z;
 }				t_format;
 
-t_format		*format_parser(const char *str, const char *all_types, size_t *idx, va_list ap);
+int				get_arr_size(t_list *extra);
+void			**get_data_arr(t_list *extra, va_list ap);
+t_format		*format_parser(const char *str, int *di, void **data, int is_dlr);
 void			split_str(const char *format, t_list **plain, t_list **extra);
 char			*align(char **sv, t_format *sfmt);
 void			decimal_flag_except(t_format *sfmt, int negative);
-char			*form_value(uintmax_t val, int sign, t_format *sfmt);
-char			*get_format_str(const char *str, size_t *idx, char *all_types);
+char			*get_format_str(const char *str, size_t *idx);
 char			*init_types(void);
+void			*dec_ptr_modifiers(va_list ap);
+char			*pos_manager(t_format *sfmt, int len);
+void			*str_modifiers(char *type, va_list ap);
+
+/* decimals */
+void			*unsigned_decimal_modifiers(char *str, va_list ap);
+void			*signed_decimal_modifiers(char *str, va_list ap);
+char			*form_value(uintmax_t val, int sign, t_format *sfmt);
 
 /* managers */
-char			*signed_decimal_manager(va_list ap, t_format *sfmt);
+char			*signed_decimal_manager(t_format *sfmt);
+char			*unsigned_decimal_manager(t_format *sfmt);
+char			*str_manager(t_format *sfmt);
 
 /* freshers */
 void			del_simple(void *data, size_t size);
+void			del_extra(void *data, size_t size);
+void			void_ptr_arr_del(void ***dta);
 #endif

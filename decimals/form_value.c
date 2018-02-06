@@ -10,7 +10,7 @@ char	*form_value(uintmax_t val, int sign, t_format *sfmt)
 	len = ft_strlen(res);
 	if (sfmt->precision > len)
 		res = spc_string(&res, sfmt->precision, '0', 0);
-	else if (sfmt->precision < len && res[0] == '0')
+	else if (sfmt->precision == 0 && res[0] == '0')
 	{
 		free(res);
 		res = ft_strnew(0);

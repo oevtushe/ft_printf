@@ -3,69 +3,44 @@
 #include <stdarg.h>
 #include <stdio.h>//
 
-/*
+char	*percent_manager(void)
+{
+	char *p;
 
-char
-unsigned char
-short
-unsigned short
-const char *
-double
-long double
-void *
-int
-long
-long long
-unsigned int
-unsigned long
-unsigned long long
-*/
+	p = ft_strnew(1);
+	p[0] = '%';
+	return (p);
+}
 
-/* Default
+char	*undef_manager(t_format *sfmt)
+{
+	char *p;
 
-   char
-   int
-   double
+	p = ft_strdup((char *)sfmt->data);
+	return (p);
+}
 
-   const char *
-   const void *
-
-   unsigned
-*/
-
-/* Modifiers
-
-   short
-   long int
-   long double
-   long long int
-   short
-
-   unsigned long int
-   unsigned long long int
-
-   unsigned short
-*/
-
-char	*mngr_usr(va_list ap, t_format *sfmt)
+char	*mngr_usr(t_format *sfmt, int len)
 {
 	char	*res;
 
 	res = NULL;
-	/*
-	if (sfmt->type == 's')
-		res = string_manager(sfmt, va_arg(ap, const char *));
-		*/
 	if (sfmt->type == 'd')
-		res = signed_decimal_manager(ap, sfmt);
-	/*
+		res = signed_decimal_manager(sfmt);
 	else if (sfmt->type == 'u')
-		res = unsigned_decimal_manager(ap, sfmt);
-		*/
+		res = unsigned_decimal_manager(sfmt);
+	else if (sfmt->type == '%')
+		res = percent_manager();
+	else if (sfmt->type == 'n')
+		res = pos_manager(sfmt, len);
+	else if (sfmt->type == 's')
+		res = str_manager(sfmt);
+	else
+		res = undef_manager(sfmt);
 	return (res);
 }
 
-char	*maker(t_list *plain, t_list *extra, va_list ap)
+char	*maker(t_list *plain, t_list *extra)
 {
 	char	*fmt;
 	char	*str;
@@ -74,7 +49,8 @@ char	*maker(t_list *plain, t_list *extra, va_list ap)
 	str = ft_strnew(0);
 	while (extra)
 	{
-		fmt = mngr_usr(ap, (t_format*)extra->content);
+		fmt = mngr_usr((t_format*)extra->content, 
+				ft_strlen(str) + ft_strlen(plain->content));
 		tmp = str;
 		str = easy_joiner(str, (char*)plain->content, fmt);
 		free(tmp);
@@ -91,84 +67,73 @@ char	*maker(t_list *plain, t_list *extra, va_list ap)
 	return (str);
 }
 
-int		get_idx(const char *str, int *i)
+int		logic_type(const char *str)
 {
-	int j;
-	int	val;
-
-	j = *i;
-	val = 0;
-	if (ft_isdigit(str[*i]))
-	{
-		val = ft_atoi(&str[*i]);
-		while (ft_isdigit(str[j]))
-			++j;
-		if (str[j] == '$')
-			*i = j;
-		else
-			val = 0;
-	}
-	return (val);
-}
-
-int		get_max_idx(const char *str)
-{
-	int		i;
-	int		cur_max;
-	int		tmp;
-	char	*pos;
+	int i;
+	int type;
 
 	i = 1;
-	cur_max = get_idx(str, &i);
-	while ((pos = ft_strchr(&str[i], '*')))
-	{
-		i = pos - str;
+	type = 0;
+	while (ft_isdigit(str[i]))
 		++i;
-		tmp = get_idx(str, &i);
-		cur_max = (tmp > cur_max) ? tmp : cur_max;
-	}
-	return (cur_max);
+	if (str[i] == '$')
+		type = 1;
+	return (type);
 }
 
-int		get_arr_size(t_list *extra)
+/*
+** free(data) -> all arr content catched by struct
+*/
+void	reformat_extra(t_list *extra, va_list ap)
 {
-	char	*cur;
-	int		tmp;
-	int		max;
+	void		**data;
+	int			di;
+	t_format	*sfmt;
+	int			is_dlr;
 
-	tmp = 0;
-	max = 0;
+	di = 0;
+	is_dlr = 0;
+	data = get_data_arr(extra, ap);
+	if (extra)
+		is_dlr = logic_type((char *)extra->content);
 	while (extra)
 	{
-		cur = (char*)extra->content;
-		tmp = get_max_idx(cur);
-		if (!tmp)
-			return (ft_lstlen(extra));
-		max = (tmp > max) ? tmp : max;
+		sfmt = format_parser((char *)extra->content, &di, data, is_dlr);
+		free(extra->content);
+		extra->content = sfmt;
+		extra->content_size = sizeof(t_format);
 		extra = extra->next;
 	}
-	return (max);
+	free(data);
 }
 
-int		ft_printf(const char *format, ...)
+char	*ft_format(const char *format, va_list ap)
 {
-	va_list ap;
-	int		len;
 	char	*str;
 	t_list	*plain;
 	t_list	*extra;
 
 	plain = NULL;
 	extra = NULL;
-	va_start(ap, format);
 	split_str(format, &plain, &extra);
-	get_arr_size(extra);
-	str = maker(plain, extra, ap);
-	ft_putstr(str);
-	len = (int)ft_strlen(str);
-	va_end(ap);
-	free(str);
+	reformat_extra(extra, ap);
+	str = maker(plain, extra);
 	ft_lstdel(&plain, del_simple);
-	ft_lstdel(&extra, del_simple);
+	ft_lstdel(&extra, del_extra);
+	return (str);
+}
+
+int		ft_printf(const char *format, ...)
+{
+	int		len;
+	va_list ap;
+	char	*str;
+
+	va_start(ap, format);
+	str = ft_format(format, ap);
+	ft_putstr(str);
+	va_end(ap);
+	len = ft_strlen(str);
+	free(str);
 	return (len);
 }

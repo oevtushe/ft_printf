@@ -18,12 +18,15 @@ char			*easy_joiner(char *str, char *fst, char *scd);
 char			*str_add_prefix(char **str, char c);
 void			ft_strappend(char **str, char c);
 
+/* del itoa */
 char			*ft_itoa(const int val);
+char			*ft_itoabase(intmax_t val, int base);
 char			*ft_ltoa(const long int val);
 char			*ft_lltoa(const long long int val);
 char			*ft_ulltoa(const unsigned long long int val);
 char			*ft_uimtoa(const uintmax_t val);
 char			*ft_uimtoa_hlp(const uintmax_t val, int sign);
+char			*ft_itoabase(intmax_t val, int base);
 void			ft_lstaddelem(t_list **lst, void **content, size_t content_size);
 size_t			ft_lstlen(const t_list *lst);
 
@@ -37,6 +40,7 @@ char			*ft_strjoin(char const *s1, char const *s2);
 size_t			ft_strlen(const char *s);
 char			*ft_strnew(const size_t len);
 void			ft_strdel(char **str);
+char			*ft_strncpy(char *dst, const char *src, size_t len);
 void			ft_putstr(char const *str);
 char			*ft_strsub(char const *s, unsigned int start, size_t len);
 
@@ -47,6 +51,8 @@ char			*ft_strchr(const char *s, int c);
 void			*ft_memset(void *b, int c, size_t len);
 void			*ft_memcpy(void *dst, const void *src, size_t n);
 void			*ft_memalloc(size_t size);
+void			*ft_memdup(void *data, size_t size);
+void			*ft_memdel(void **data);
 
 void			ft_lstdel(t_list **alst, void (*del)(void*, size_t));
 void			ft_lstappend(t_list **lst, t_list *new);
