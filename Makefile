@@ -66,6 +66,7 @@ STRINGS_DIR := strings/
 STRINGS_FILES := unicode_to_utf8.c \
 				 str_manager.c \
 				 ft_witomb.c \
+				 chr_manager.c \
 				 wcs_to_utf8.c
 STRINGS_LOGIC_SRCS := $(addprefix $(STRINGS_DIR),$(STRINGS_FILES))
 

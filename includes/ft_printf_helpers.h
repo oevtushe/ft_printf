@@ -64,6 +64,7 @@ char			*form_value(uintmax_t val, int sign, t_format *sfmt);
 
 char			*str_manager(t_format *sfmt);
 void			*chr_modifiers(char *type, va_list ap);
+char			*chr_manager(t_format *sfmt);
 unsigned int	unicode_to_utf8(wchar_t wcr);
 char			*wcs_to_utf8(wchar_t *wcs);
 char			*ft_witomb(wint_t wi);
