@@ -4,17 +4,17 @@ static  intmax_t	gen_load_decimal(t_format *sfmt)
 {
 	intmax_t val;
 
-	if (sfmt->MODIFIER_ll)
+	if (sfmt->modifier == M_LL)
 		val = *((long long int *)sfmt->data);
-	else if (sfmt->MODIFIER_l)
+	else if (sfmt->modifier == M_L)
 		val = *((long int *)sfmt->data);
-	else if (sfmt->MODIFIER_h)
+	else if (sfmt->modifier == M_H)
 		val = *((int *)sfmt->data);
-	else if (sfmt->MODIFIER_hh)
+	else if (sfmt->modifier == M_HH)
 		val = *((int *)sfmt->data);
-	else if (sfmt->MODIFIER_j)
+	else if (sfmt->modifier == M_J)
 		val = *((intmax_t *)sfmt->data);
-	else if (sfmt->MODIFIER_z)
+	else if (sfmt->modifier == M_Z)
 		val = *((ssize_t *)sfmt->data);
 	else
 		val = *((int *)sfmt->data);

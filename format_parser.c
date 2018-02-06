@@ -68,37 +68,28 @@ static int	get_precision(const char *str, int *di, size_t *idx, void **data)
 	return (precision);
 }
 
-static void modifiers_rd(const char *str, size_t *idx)
-{
-	if (str[*idx] == 'l' && str[*idx + 1] == 'l')
-		*idx += 2;
-	else if (str[*idx] == 'l')
-		*idx += 1;
-	else if (str[*idx] == 'h' && str[*idx + 1] == 'h')
-		*idx += 2;
-	else if (str[*idx] == 'h')
-		*idx += 1;
-	else if (str[*idx] == 'j')
-		*idx += 1;
-	else if (str[*idx] == 'z')
-		*idx += 1;
-}
-
 static void		init_modifiers(const char *str, t_format *cf, size_t *idx)
 {
-	if (str[*idx] == 'l' && str[*idx + 1] != 'l')
-		cf->MODIFIER_l = 1;
-	else if (str[*idx] == 'l' && str[*idx + 1] == 'l')
-		cf->MODIFIER_ll = 1;
-	else if (str[*idx] == 'h' && str[*idx + 1] != 'h')
-		cf->MODIFIER_h = 1;
+	int mdf;
+
+	mdf = M_DEFAULT;
+	if (str[*idx] == 'l' && str[*idx + 1] == 'l')
+		mdf = M_LL;
+	else if (str[*idx] == 'l')
+		mdf = M_L;
 	else if (str[*idx] == 'h' && str[*idx + 1] == 'h')
-		cf->MODIFIER_hh = 1;
+		mdf = M_HH;
+	else if (str[*idx] == 'h')
+		mdf = M_H;
 	else if (str[*idx] == 'j')
-		cf->MODIFIER_j = 1;
+		mdf = M_J;
 	else if (str[*idx] == 'z')
-		cf->MODIFIER_z = 1;
-	modifiers_rd(str, idx);
+		mdf = M_Z;
+	cf->modifier = mdf;
+	if (mdf == M_HH || mdf == M_LL)
+		*idx += 2;
+	else if(mdf == M_L || mdf == M_H || mdf == M_J || mdf == M_Z)
+		(*idx)++;
 }
 
 static void		init_flags(const char *str, t_format *cf, size_t *idx)

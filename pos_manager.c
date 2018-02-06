@@ -2,17 +2,17 @@
 
 char	*pos_manager(t_format *sfmt, int len)
 {
-	if (sfmt->MODIFIER_l)
+	if (sfmt->modifier == M_L)
 		*(long int *)sfmt->data = len;	
-	else if (sfmt->MODIFIER_ll)
+	else if (sfmt->modifier == M_LL)
 		*(long long int *)sfmt->data = len;	
-	else if (sfmt->MODIFIER_h)
+	else if (sfmt->modifier == M_H)
 		*(short int *)sfmt->data = len;	
-	else if (sfmt->MODIFIER_hh)
+	else if (sfmt->modifier == M_HH)
 		*(char *)sfmt->data = len;	
-	else if (sfmt->MODIFIER_j)
+	else if (sfmt->modifier == M_J)
 		*(intmax_t *)sfmt->data = len;	
-	else if (sfmt->MODIFIER_z)
+	else if (sfmt->modifier == M_Z)
 		*(ssize_t *)sfmt->data = len;	
 	else
 		*(int *)sfmt->data = len;

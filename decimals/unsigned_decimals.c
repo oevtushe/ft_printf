@@ -4,17 +4,17 @@ static  intmax_t	gen_load_unsd(t_format *sfmt)
 {
 	uintmax_t val;
 
-	if (sfmt->MODIFIER_ll)
+	if (sfmt->modifier == M_LL)
 		val = *((unsigned long long int *)sfmt->data);
-	else if (sfmt->MODIFIER_l)
+	else if (sfmt->modifier == M_L)
 		val = *((unsigned long int *)sfmt->data);
-	else if (sfmt->MODIFIER_h)
+	else if (sfmt->modifier == M_H)
 		val = *((unsigned int *)sfmt->data);
-	else if (sfmt->MODIFIER_hh)
+	else if (sfmt->modifier == M_HH)
 		val = *((unsigned int *)sfmt->data);
-	else if (sfmt->MODIFIER_j)
+	else if (sfmt->modifier == M_J)
 		val = *((uintmax_t *)sfmt->data);
-	else if (sfmt->MODIFIER_z)
+	else if (sfmt->modifier == M_Z)
 		val = *((size_t *)sfmt->data);
 	else
 		val = *((unsigned int *)sfmt->data);

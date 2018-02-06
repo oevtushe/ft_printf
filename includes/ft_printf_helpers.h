@@ -28,14 +28,11 @@ typedef struct	s_format
 	int		FLAG_MINUS;
 	int		FLAG_SPACE;
 	int		FLAG_ZERO;
-
-	int		MODIFIER_l;
-	int		MODIFIER_ll;
-	int		MODIFIER_h;
-	int		MODIFIER_hh;
-	int		MODIFIER_L;
-	int		MODIFIER_j;
-	int		MODIFIER_z;
+	enum
+	{
+		M_DEFAULT, M_L, M_LL, M_H, M_HH,
+		M_J, M_Z
+	} modifier;
 }				t_format;
 
 int				get_arr_size(t_list *extra);
@@ -54,6 +51,9 @@ void			*str_modifiers(char *type, va_list ap);
 void			*unsigned_decimal_modifiers(char *str, va_list ap);
 void			*signed_decimal_modifiers(char *str, va_list ap);
 char			*form_value(uintmax_t val, int sign, t_format *sfmt);
+
+/* strings */
+unsigned int	unicode_to_utf8(wchar_t wcr);
 
 /* managers */
 char			*signed_decimal_manager(t_format *sfmt);
