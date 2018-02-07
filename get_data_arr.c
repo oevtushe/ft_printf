@@ -86,7 +86,7 @@ static void	*get_data(char **type_arr, int idx, va_list ap)
 		data = dec_ptr_modifiers(ap);
 	else if (type == T_STR || type == T_WSTR)
 		data = str_modifiers(type_arr[idx], ap);
-	else if (type == T_CHR)
+	else if (type == T_CHR || type == T_WCHR)
 		data = chr_modifiers(type_arr[idx], ap);
 	return (data);
 }

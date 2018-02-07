@@ -4,7 +4,7 @@ char	*chr_manager(t_format *sfmt)
 {
 	char	*res;
 
-	if (sfmt->modifier == M_L)
+	if (sfmt->modifier == M_L || sfmt->type == T_WCHR)
 		res = ft_witomb(unicode_to_utf8(*(wint_t *)sfmt->data));
 	else
 	{
