@@ -25,7 +25,7 @@ static void	ft_itoa_hlp(uintmax_t val, int base, char *res, int *idx)
 	}
 }
 
-static char	*ft_uitoabase_gen(uintmax_t val, int sign, int base)
+char		*ft_uimtoabase_gen(uintmax_t val, int sign, int base)
 {
 	char	*res;
 	int		idx;
@@ -44,20 +44,4 @@ static char	*ft_uitoabase_gen(uintmax_t val, int sign, int base)
 		ft_itoa_hlp(val, base, res, &idx);
 	}
 	return (res);
-}
-
-char	*ft_itoabase(const intmax_t val, int base)
-{
-	int			sign;
-	uintmax_t	uval;
-
-	sign = 0;
-	if (val < 0)
-	{
-		uval = val * -1L;
-		sign = 1;
-	}
-	else
-		uval = val;
-	return (ft_uitoabase_gen(uval, sign, base));
 }

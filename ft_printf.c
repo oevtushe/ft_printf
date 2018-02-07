@@ -37,6 +37,8 @@ char	*mngr_usr(t_format *sfmt, int len)
 		res = str_manager(sfmt);
 	else if (sfmt->type == T_CHR || sfmt->type == T_WCHR)
 		res = chr_manager(sfmt);
+	else if (sfmt->type == T_PTR)
+		res = ptr_manager(sfmt);
 	else
 		res = undef_manager(sfmt);
 	return (res);

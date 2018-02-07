@@ -33,7 +33,8 @@ typedef struct	s_format
 	{
 		T_UNDEF, T_DEC = 'd', T_STR = 's',
 		T_CHR = 'c', T_WCHR = 'C', T_UNSIGNED = 'u',
-		T_PT = '%', T_PS = 'n', T_WSTR = 'S'
+		T_PT = '%', T_PS = 'n', T_WSTR = 'S',
+		T_PTR = 'p'
 	}		type;
 	enum
 	{
@@ -53,6 +54,8 @@ char			*init_types(void);
 void			*dec_ptr_modifiers(va_list ap);
 char			*pos_manager(t_format *sfmt, int len);
 void			*str_modifiers(char *type, va_list ap);
+char			*ptr_manager(t_format *sfmt);
+void			*ptr_modifiers(va_list ap);
 
 /*
 ** Decimals
@@ -62,7 +65,7 @@ char			*unsigned_decimal_manager(t_format *sfmt);
 char			*signed_decimal_manager(t_format *sfmt);
 void			*unsigned_decimal_modifiers(char *str, va_list ap);
 void			*signed_decimal_modifiers(char *str, va_list ap);
-char			*form_value(uintmax_t val, int sign, t_format *sfmt);
+void			form_value(char **val, int sign, t_format *sfmt);
 
 /*
 ** Strings

@@ -14,9 +14,9 @@
 
 static int		last_check(unsigned long int val, int sign)
 {
-	if (val > LONG_INT_MAX && sign > 0)
+	if (val > LONG_MAX && sign > 0)
 		return (-1);
-	else if (val > LONG_INT_MAX && sign < 0)
+	else if (val > LONG_MAX && sign < 0)
 		return (0);
 	else
 		return (val * sign);

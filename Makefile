@@ -19,7 +19,6 @@ TF := ft_strlen.c \
 	   spc_string.c \
 	   str_add_prefix.c \
 	   ft_lstnew.c \
-	   ft_itoabase.c \
 	   ft_lstlen.c \
 	   ft_lstappend.c \
 	   ft_strncpy.c \
@@ -29,8 +28,9 @@ TF := ft_strlen.c \
 	   ft_memdel.c \
 	   ft_putstr.c \
 	   ft_str_realloc.c \
+	   ft_uimtoabase_gen.c \
 	   ft_strchr.c \
-	   ft_itoabase.c \
+	   ft_imtoabase.c \
 	   ft_atoi.c \
 	   ft_strsub.c \
 	   strconnect.c \
@@ -47,16 +47,18 @@ GEN_LOGIC_SRCS := ft_printf.c \
 				  split_str.c \
 				  get_format_str.c \
 				  get_arr_size.c \
-				  pos_manager.c \
 				  get_data_arr.c \
 				  align.c \
+				  ptr_manager.c \
+				  ptr_modifiers.c \
+				  pos_manager.c \
+				  pos_modifiers.c \
 				  freshers.c
 
 DIGITS_DIR := digits/
 DIGITS_FILES := decimal_flag_except.c \
 				 signed_decimals.c \
 				 unsigned_decimals.c \
-				 dec_ptr_modifiers.c \
 				 signed_decimal_modifiers.c \
 				 unsigned_decimal_modifiers.c \
 				 form_value.c

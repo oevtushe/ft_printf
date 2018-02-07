@@ -35,7 +35,8 @@ char		*signed_decimal_manager(t_format *sfmt)
 	else if (val < 0)
 		sign = -1;
 	uval = (sign < 0) ? (val * -1L) : val;
-	res = form_value(uval, sign, sfmt);
+	res = ft_uimtoa(uval);
+	form_value(&res, sign, sfmt);
 	align(&res, sfmt);
 	return (res);
 }

@@ -28,7 +28,8 @@ char		*unsigned_decimal_manager(t_format *sfmt)
 
 	sfmt->FLAG_PLUS = 0;
 	uval = gen_load_unsd(sfmt);
-	res = form_value(uval, 0, sfmt);
+	res = ft_uimtoa(uval);
+	form_value(&res, 0, sfmt);
 	align(&res, sfmt);
 	return (res);
 }

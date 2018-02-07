@@ -1,10 +1,9 @@
 #ifndef _FT_TOOLS_H
 # define _FT_TOOLS_H
 
-#include <string.h>
-#include <inttypes.h>
-
-# define LONG_INT_MAX 9223372036854775807
+# include <string.h>
+# include <inttypes.h>
+# include <limits.h>
 
 typedef struct	s_list
 {
@@ -20,7 +19,8 @@ void			ft_strappend(char **str, char c);
 void			ft_str_realloc(char **str, size_t new_len);
 
 /* del itoa */
-char			*ft_itoabase(const intmax_t val, int base);
+char			*ft_imtoabase(const intmax_t val, int base);
+char			*ft_uimtoabase_gen(uintmax_t val, int sign, int base);
 char			*ft_uimtoa(const uintmax_t val);
 char			*ft_uimtoa_hlp(const uintmax_t val, int sign);
 void			ft_lstaddelem(t_list **lst, void **content, size_t content_size);
