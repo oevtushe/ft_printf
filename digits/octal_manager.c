@@ -1,6 +1,6 @@
 #include "ft_printf_helpers.h"
 
-char		*unsigned_decimal_manager(t_format *sfmt)
+char		*octal_manager(t_format *sfmt)
 {
 	uintmax_t	uval;
 	char		*res;
@@ -8,7 +8,7 @@ char		*unsigned_decimal_manager(t_format *sfmt)
 	sfmt->FLAG_PLUS = 0;
 	sfmt->FLAG_SPACE = 0;
 	uval = gen_load_unsd(sfmt);
-	res = ft_uimtoa(uval);
+	res = ft_uimtoabase_gen(uval, 0, 8);
 	form_value(&res, 0, sfmt);
 	align(&res, sfmt);
 	return (res);

@@ -59,6 +59,8 @@ DIGITS_DIR := digits/
 DIGITS_FILES := decimal_flag_except.c \
 				 signed_decimals.c \
 				 unsigned_decimals.c \
+				 octal_manager.c \
+				 gen_load_unsd.c \
 				 signed_decimal_modifiers.c \
 				 unsigned_decimal_modifiers.c \
 				 form_value.c

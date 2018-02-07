@@ -1,10 +1,12 @@
 #include "ft_tools.h"
 
-static int	val_len(uintmax_t val)
+static int	val_len(uintmax_t val, unsigned int base, int sign)
 {
-	if (val < 10)
+	if (val < base && sign)
+		return (2);
+	else if (val < base)
 		return (1);
-	return (1 + val_len(val / 10));
+	return (1 + val_len(val / base, base, sign));
 }
 
 static char	get_chr(uintmax_t val)
@@ -14,9 +16,9 @@ static char	get_chr(uintmax_t val)
 	return (val - 10 + 'a');
 }
 
-static void	ft_itoa_hlp(uintmax_t val, int base, char *res, int *idx)
+static void	ft_itoa_hlp(uintmax_t val, unsigned int base, char *res, int *idx)
 {
-	if (val < (uintmax_t)base)
+	if (val < base)
 		res[(*idx)++] = get_chr(val);
 	else
 	{
@@ -25,7 +27,7 @@ static void	ft_itoa_hlp(uintmax_t val, int base, char *res, int *idx)
 	}
 }
 
-char		*ft_uimtoabase_gen(uintmax_t val, int sign, int base)
+char	*ft_uimtoabase_gen(uintmax_t val, int sign, unsigned int base)
 {
 	char	*res;
 	int		idx;
@@ -34,14 +36,13 @@ char		*ft_uimtoabase_gen(uintmax_t val, int sign, int base)
 	res = NULL;
 	if (base > 1 && base < 17)
 	{
-		if (sign && base == 10)
+		res = ft_strnew(val_len(val, base, sign));
+		if (res)
 		{
-			res = ft_strnew(val_len(val) + 1);
-			res[idx++] = '-';
+			if (sign)
+				res[idx++] = '-';
+			ft_itoa_hlp(val, base, res, &idx);
 		}
-		else
-			res = ft_strnew(val_len(val));
-		ft_itoa_hlp(val, base, res, &idx);
 	}
 	return (res);
 }

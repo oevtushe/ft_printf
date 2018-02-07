@@ -1,6 +1,6 @@
 #include "ft_tools.h"
 
-char	*ft_imtoabase(const intmax_t val, int base)
+char	*ft_imtoabase(intmax_t val, unsigned int base)
 {
 	int			sign;
 	uintmax_t	uval;
@@ -9,7 +9,8 @@ char	*ft_imtoabase(const intmax_t val, int base)
 	if (val < 0)
 	{
 		uval = val * -1L;
-		sign = 1;
+		if (base == 10)
+			sign = 1;
 	}
 	else
 		uval = val;

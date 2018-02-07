@@ -39,6 +39,8 @@ char	*mngr_usr(t_format *sfmt, int len)
 		res = chr_manager(sfmt);
 	else if (sfmt->type == T_PTR)
 		res = ptr_manager(sfmt);
+	else if (sfmt->type == T_OCT)
+		res = octal_manager(sfmt);
 	else
 		res = undef_manager(sfmt);
 	return (res);

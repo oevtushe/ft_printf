@@ -80,7 +80,7 @@ static void	*get_data(char **type_arr, int idx, va_list ap)
 	data = NULL;
 	if (type == T_DEC || type == T_DEC2)
 		data = signed_decimal_modifiers(type_arr[idx], ap);
-	else if (type == T_UNSIGNED)
+	else if (type == T_UNSIGNED || type == T_OCT)
 		data = unsigned_decimal_modifiers(type_arr[idx], ap);
 	else if (type == T_PS)
 		data = dec_ptr_modifiers(ap);
