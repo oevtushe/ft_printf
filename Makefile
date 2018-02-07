@@ -52,15 +52,15 @@ GEN_LOGIC_SRCS := ft_printf.c \
 				  align.c \
 				  freshers.c
 
-DECIMAL_DIR := decimals/
-DECIMAL_FILES := decimal_flag_except.c \
+DIGITS_DIR := digits/
+DIGITS_FILES := decimal_flag_except.c \
 				 signed_decimals.c \
 				 unsigned_decimals.c \
 				 dec_ptr_modifiers.c \
 				 signed_decimal_modifiers.c \
 				 unsigned_decimal_modifiers.c \
 				 form_value.c
-DECIMAL_LOGIC_SRCS := $(addprefix $(DECIMAL_DIR),$(DECIMAL_FILES))
+DIGITS_LOGIC_SRCS := $(addprefix $(DIGITS_DIR),$(DIGITS_FILES))
 
 STRINGS_DIR := strings/
 STRINGS_FILES := unicode_to_utf8.c \
@@ -72,7 +72,7 @@ STRINGS_FILES := unicode_to_utf8.c \
 				 wcs_to_utf8.c
 STRINGS_LOGIC_SRCS := $(addprefix $(STRINGS_DIR),$(STRINGS_FILES))
 
-SRCS := $(TOOLS_SRCS) $(GEN_LOGIC_SRCS) $(DECIMAL_LOGIC_SRCS) $(STRINGS_LOGIC_SRCS)
+SRCS := $(TOOLS_SRCS) $(GEN_LOGIC_SRCS) $(DIGITS_LOGIC_SRCS) $(STRINGS_LOGIC_SRCS)
 
 OBJS := $(SRCS:%.c=%.o)
 
