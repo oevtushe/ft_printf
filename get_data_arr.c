@@ -78,7 +78,7 @@ static void	*get_data(char **type_arr, int idx, va_list ap)
 	len = ft_strlen(type_arr[idx]);
 	type = type_arr[idx][len - 1];
 	data = NULL;
-	if (type == T_DEC)
+	if (type == T_DEC || type == T_DEC2)
 		data = signed_decimal_modifiers(type_arr[idx], ap);
 	else if (type == T_UNSIGNED)
 		data = unsigned_decimal_modifiers(type_arr[idx], ap);

@@ -25,7 +25,7 @@ char	*mngr_usr(t_format *sfmt, int len)
 	char	*res;
 
 	res = NULL;
-	if (sfmt->type == T_DEC)
+	if (sfmt->type == T_DEC || sfmt->type == T_DEC2)
 		res = signed_decimal_manager(sfmt);
 	else if (sfmt->type == T_UNSIGNED)
 		res = unsigned_decimal_manager(sfmt);
