@@ -20,14 +20,9 @@ void			ft_strappend(char **str, char c);
 void			ft_str_realloc(char **str, size_t new_len);
 
 /* del itoa */
-char			*ft_itoa(const int val);
-char			*ft_itoabase(intmax_t val, int base);
-char			*ft_ltoa(const long int val);
-char			*ft_lltoa(const long long int val);
-char			*ft_ulltoa(const unsigned long long int val);
+char			*ft_itoabase(const intmax_t val, int base);
 char			*ft_uimtoa(const uintmax_t val);
 char			*ft_uimtoa_hlp(const uintmax_t val, int sign);
-char			*ft_itoabase(intmax_t val, int base);
 void			ft_lstaddelem(t_list **lst, void **content, size_t content_size);
 size_t			ft_lstlen(const t_list *lst);
 

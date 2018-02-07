@@ -46,7 +46,7 @@ static char	*ft_uitoabase_gen(uintmax_t val, int sign, int base)
 	return (res);
 }
 
-char	*ft_itoabase(intmax_t val, int base)
+char	*ft_itoabase(const intmax_t val, int base)
 {
 	int			sign;
 	uintmax_t	uval;
