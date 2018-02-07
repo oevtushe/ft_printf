@@ -66,14 +66,17 @@ int			get_arr_size(t_list *extra)
 	while (extra)
 	{
 		cur = (char*)extra->content;
-		tmp = get_max_idx_dl(cur);
-		if (!tmp)
+		if (ft_strchr(ALL_TYPES, cur[ft_strlen(cur) - 1]))
 		{
-			tmp = get_max_idx_smp(cur);
-			max += tmp;
+			tmp = get_max_idx_dl(cur);
+			if (!tmp)
+			{
+				tmp = get_max_idx_smp(cur);
+				max += tmp;
+			}
+			else
+				max = (tmp > max) ? tmp : max;
 		}
-		else
-			max = (tmp > max) ? tmp : max;
 		extra = extra->next;
 	}
 	return (max);

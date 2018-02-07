@@ -86,6 +86,7 @@ int		logic_type(const char *str)
 /*
 ** free(data) -> all arr content catched by struct
 */
+
 void	reformat_extra(t_list *extra, va_list ap)
 {
 	void		**data;
@@ -96,7 +97,8 @@ void	reformat_extra(t_list *extra, va_list ap)
 	di = 0;
 	is_dlr = 0;
 	data = get_data_arr(extra, ap);
-	if (extra)
+	if (extra && ft_strchr(ALL_TYPES, 
+				((char*)extra->content)[ft_strlen(extra->content) - 1]))
 		is_dlr = logic_type((char *)extra->content);
 	while (extra)
 	{

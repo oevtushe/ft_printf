@@ -1,5 +1,9 @@
 #include "ft_printf_helpers.h"
 
+/*
+** Min len of format string is 2, no bug here
+*/
+
 static char	*get_type(const char *str, size_t len)
 {
 	char *type;
@@ -58,7 +62,8 @@ static char	**get_type_arr(t_list *extra, int	arr_sz)
 	{
 		str = (char *)extra->content;
 		len = ft_strlen(str);
-		read_str_type_data(str, len, type_arr, &ta_idx);
+		if (ft_strchr(ALL_TYPES, str[len - 1]))
+			read_str_type_data(str, len, type_arr, &ta_idx);
 		extra = extra->next;
 	}
 	return (type_arr);
