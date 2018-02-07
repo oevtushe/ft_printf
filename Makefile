@@ -17,6 +17,7 @@ TF := ft_strlen.c \
 	   ft_strappend.c \
 	   ft_strdel.c \
 	   spc_string.c \
+	   ft_strtoupper.c \
 	   str_add_prefix.c \
 	   ft_lstnew.c \
 	   ft_lstlen.c \
@@ -60,6 +61,7 @@ DIGITS_FILES := decimal_flag_except.c \
 				 signed_decimals.c \
 				 unsigned_decimals.c \
 				 octal_manager.c \
+				 hex_manager.c \
 				 gen_load_unsd.c \
 				 signed_decimal_modifiers.c \
 				 unsigned_decimal_modifiers.c \

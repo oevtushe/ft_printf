@@ -29,6 +29,7 @@ size_t			ft_lstlen(const t_list *lst);
 int				ft_abs(int val);
 
 void			strconnect(char **s1, char *s2);
+void			ft_strtoupper(char *str);
 char			*ft_strcpy(char *dst, const char *src);
 char			*ft_strdup(const char *s1);
 char			*ft_strnew(const size_t len);

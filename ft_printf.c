@@ -41,6 +41,8 @@ char	*mngr_usr(t_format *sfmt, int len)
 		res = ptr_manager(sfmt);
 	else if (sfmt->type == T_OCT)
 		res = octal_manager(sfmt);
+	else if (sfmt->type == T_HEX || sfmt->type == T_BHEX)
+		res = hex_manager(sfmt);
 	else
 		res = undef_manager(sfmt);
 	return (res);

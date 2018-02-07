@@ -28,13 +28,14 @@ typedef struct	s_format
 	int		FLAG_MINUS;
 	int		FLAG_SPACE;
 	int		FLAG_ZERO;
+	int		FLAG_SHARP;
 
 	enum
 	{
 		T_UNDEF, T_DEC = 'd', T_DEC2 = 'i', T_STR = 's',
 		T_CHR = 'c', T_WCHR = 'C', T_UNSIGNED = 'u',
 		T_PT = '%', T_PS = 'n', T_WSTR = 'S',
-		T_PTR = 'p', T_OCT = 'o'
+		T_PTR = 'p', T_OCT = 'o', T_HEX = 'x', T_BHEX = 'X'
 	}		type;
 	enum
 	{
@@ -63,6 +64,7 @@ void			*ptr_modifiers(va_list ap);
 
 intmax_t		gen_load_unsd(t_format *sfmt);
 char			*octal_manager(t_format *sfmt);
+char			*hex_manager(t_format *sfmt);
 char			*unsigned_decimal_manager(t_format *sfmt);
 char			*octal_manager(t_format *sfmt);
 char			*signed_decimal_manager(t_format *sfmt);
