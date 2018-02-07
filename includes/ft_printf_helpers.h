@@ -31,9 +31,9 @@ typedef struct	s_format
 
 	enum
 	{
-		T_UNDEF, T_D = 'd', T_S = 's',
-		T_C = 'c', T_U = 'u',
-		T_PT = '%', T_PS = 'n'
+		T_UNDEF, T_DEC = 'd', T_STR = 's',
+		T_CHR = 'c', T_UNSIGNED = 'u',
+		T_PT = '%', T_PS = 'n', T_WSTR = 'S'
 	}		type;
 	enum
 	{

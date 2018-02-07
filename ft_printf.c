@@ -25,17 +25,17 @@ char	*mngr_usr(t_format *sfmt, int len)
 	char	*res;
 
 	res = NULL;
-	if (sfmt->type == T_D)
+	if (sfmt->type == T_DEC)
 		res = signed_decimal_manager(sfmt);
-	else if (sfmt->type == T_U)
+	else if (sfmt->type == T_UNSIGNED)
 		res = unsigned_decimal_manager(sfmt);
-	else if (sfmt->type == T_PT)
-		res = percent_manager();
 	else if (sfmt->type == T_PS)
+		res = percent_manager();
+	else if (sfmt->type == T_PT)
 		res = pos_manager(sfmt, len);
-	else if (sfmt->type == T_S)
+	else if (sfmt->type == T_STR || sfmt->type == T_WSTR)
 		res = str_manager(sfmt);
-	else if (sfmt->type == T_C)
+	else if (sfmt->type == T_CHR)
 		res = chr_manager(sfmt);
 	else
 		res = undef_manager(sfmt);
