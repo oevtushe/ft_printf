@@ -28,17 +28,18 @@ typedef struct	s_format
 	int		FLAG_MINUS;
 	int		FLAG_SPACE;
 	int		FLAG_ZERO;
+
 	enum
 	{
-		T_D = 'd', T_S = 's',
+		T_UNDEF, T_D = 'd', T_S = 's',
 		T_C = 'c', T_U = 'u',
 		T_PT = '%', T_PS = 'n'
-	} type;
+	}		type;
 	enum
 	{
 		M_DEFAULT, M_L, M_LL, M_H, M_HH,
 		M_J, M_Z
-	} modifier;
+	}		modifier;
 }				t_format;
 
 int				get_arr_size(t_list *extra);

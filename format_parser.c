@@ -146,7 +146,7 @@ t_format	*format_parser(const char *str, int *di, void **data, int is_dlr)
 	init_default(cur_format);
 	if (ft_strchr(ALL_TYPES, str[ft_strlen(str) - 1]) || str[1] == '%')
 	{
-		if (is_dlr)
+		if (is_dlr && str[1] != '%')
 			cur_format->data = get_cur_data(str, &idx, di, data);
 		init_flags(str, cur_format, &idx);
 		cur_format->width = get_width(str, di, &idx, data);
@@ -157,6 +157,9 @@ t_format	*format_parser(const char *str, int *di, void **data, int is_dlr)
 			cur_format->data = get_cur_data(str, &idx, di, data);
 	}
 	else
+	{
 		cur_format->data = ft_strdup(str);
+		cur_format->type = T_UNDEF;
+	}
 	return (cur_format);
 }
