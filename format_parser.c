@@ -106,6 +106,8 @@ static void		init_flags(const char *str, t_format *cf, size_t *idx)
 			cf->FLAG_ZERO = 1;
 		else if (str[*idx] == '#')
 			cf->FLAG_SHARP = 1;
+		else if (str[*idx] == '\'')
+			cf->FLAG_SQUOTE = 1;
 		else 
 			break ;
 		++(*idx);

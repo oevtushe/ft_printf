@@ -29,6 +29,7 @@ typedef struct	s_format
 	int		FLAG_SPACE;
 	int		FLAG_ZERO;
 	int		FLAG_SHARP;
+	int		FLAG_SQUOTE;
 
 	enum
 	{
@@ -71,6 +72,7 @@ char			*signed_decimal_manager(t_format *sfmt);
 void			*unsigned_decimal_modifiers(char *str, va_list ap);
 void			*signed_decimal_modifiers(char *str, va_list ap);
 void			width_and_prec(char **val, int pref, t_format *sfmt);
+void			group_by_thousands(char **val);
 
 /*
 ** Strings

@@ -21,6 +21,16 @@ static  intmax_t	gen_load_decimal(t_format *sfmt)
 	return (val);
 }
 
+void		handle_signs(t_format *sfmt, char **res, int sign)
+{
+	if (sfmt->FLAG_PLUS)
+		str_add_prefix(res, '+');
+	else if (sfmt->FLAG_SPACE)
+		str_add_prefix(res, ' ');
+	else if (sign < 0)
+		str_add_prefix(res, '-');
+}
+
 char		*signed_decimal_manager(t_format *sfmt)
 {
 	int			sign;
@@ -37,13 +47,11 @@ char		*signed_decimal_manager(t_format *sfmt)
 	decimal_flag_except(sfmt, (sign < 0));
 	uval = (sign < 0) ? (val * -1L) : val;
 	res = ft_uimtoa(uval);
+	/* for debug */
+	if (sfmt->FLAG_SQUOTE && MB_CUR_MAX > 1)
+		group_by_thousands(&res);
 	width_and_prec(&res, ft_abs(sign), sfmt);
-	if (sfmt->FLAG_PLUS)
-		str_add_prefix(&res, '+');
-	else if (sfmt->FLAG_SPACE)
-		str_add_prefix(&res, ' ');
-	else if (sign < 0)
-		str_add_prefix(&res, '-');
+	handle_signs(sfmt, &res, sign);
 	align(&res, sfmt);
 	return (res);
 }
