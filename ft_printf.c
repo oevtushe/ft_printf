@@ -25,9 +25,9 @@ char	*mngr_usr(t_format *sfmt, int len)
 	char	*res;
 
 	res = NULL;
-	if (sfmt->type == T_DEC || sfmt->type == T_DEC2)
+	if (sfmt->type == T_DEC || sfmt->type == T_DEC2 || sfmt->type == T_LDEC)
 		res = signed_decimal_manager(sfmt);
-	else if (sfmt->type == T_UNSIGNED)
+	else if (sfmt->type == T_UNSIGNED || sfmt->type == T_LUNSIGNED)
 		res = unsigned_decimal_manager(sfmt);
 	else if (sfmt->type == T_PS)
 		res = percent_manager();

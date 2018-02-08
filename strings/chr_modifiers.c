@@ -5,7 +5,7 @@ DATA_LOADER(wint_t, wi)
 
 void		*chr_modifiers(char *type, va_list ap)
 {
-	if (type[0] == 'l')
+	if (type[0] == M_L || type[0] == T_WCHR)
 		return (load_wi(ap));
 	else
 		return (load_d(ap));

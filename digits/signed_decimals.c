@@ -39,6 +39,8 @@ char		*signed_decimal_manager(t_format *sfmt)
 	char		*res;
 
 	sign = 0;
+	if (sfmt->type == T_LDEC)
+		sfmt->modifier = M_L;
 	val = gen_load_decimal(sfmt);
 	if (val > 0 && (sfmt->FLAG_PLUS || sfmt->FLAG_SPACE))
 		sign = 1;

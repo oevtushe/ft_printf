@@ -78,10 +78,10 @@ static void	*get_data(char **type_arr, int idx, va_list ap)
 	len = ft_strlen(type_arr[idx]);
 	type = type_arr[idx][len - 1];
 	data = NULL;
-	if (type == T_DEC || type == T_DEC2)
+	if (type == T_DEC || type == T_DEC2 || type == T_LDEC)
 		data = signed_decimal_modifiers(type_arr[idx], ap);
 	else if (type == T_UNSIGNED || type == T_OCT || type == T_HEX ||
-				type == T_BHEX)
+				type == T_BHEX || type == T_LUNSIGNED)
 		data = unsigned_decimal_modifiers(type_arr[idx], ap);
 	else if (type == T_PS)
 		data = dec_ptr_modifiers(ap);
