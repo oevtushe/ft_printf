@@ -34,9 +34,16 @@ char		*signed_decimal_manager(t_format *sfmt)
 		sign = 1;
 	else if (val < 0)
 		sign = -1;
+	decimal_flag_except(sfmt, (sign < 0));
 	uval = (sign < 0) ? (val * -1L) : val;
 	res = ft_uimtoa(uval);
-	form_value(&res, sign, sfmt);
+	width_and_prec(&res, ft_abs(sign), sfmt);
+	if (sfmt->FLAG_PLUS)
+		str_add_prefix(&res, '+');
+	else if (sfmt->FLAG_SPACE)
+		str_add_prefix(&res, ' ');
+	else if (sign < 0)
+		str_add_prefix(&res, '-');
 	align(&res, sfmt);
 	return (res);
 }

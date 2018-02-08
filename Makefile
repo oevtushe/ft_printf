@@ -65,7 +65,7 @@ DIGITS_FILES := decimal_flag_except.c \
 				 gen_load_unsd.c \
 				 signed_decimal_modifiers.c \
 				 unsigned_decimal_modifiers.c \
-				 form_value.c
+				 width_and_prec.c
 DIGITS_LOGIC_SRCS := $(addprefix $(DIGITS_DIR),$(DIGITS_FILES))
 
 STRINGS_DIR := strings/

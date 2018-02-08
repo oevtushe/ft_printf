@@ -7,9 +7,10 @@ char		*unsigned_decimal_manager(t_format *sfmt)
 
 	sfmt->FLAG_PLUS = 0;
 	sfmt->FLAG_SPACE = 0;
+	decimal_flag_except(sfmt, 0);
 	uval = gen_load_unsd(sfmt);
 	res = ft_uimtoa(uval);
-	form_value(&res, 0, sfmt);
+	width_and_prec(&res, 0, sfmt);
 	align(&res, sfmt);
 	return (res);
 }

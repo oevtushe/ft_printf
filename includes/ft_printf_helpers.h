@@ -70,7 +70,7 @@ char			*octal_manager(t_format *sfmt);
 char			*signed_decimal_manager(t_format *sfmt);
 void			*unsigned_decimal_modifiers(char *str, va_list ap);
 void			*signed_decimal_modifiers(char *str, va_list ap);
-void			form_value(char **val, int sign, t_format *sfmt);
+void			width_and_prec(char **val, int pref, t_format *sfmt);
 
 /*
 ** Strings
