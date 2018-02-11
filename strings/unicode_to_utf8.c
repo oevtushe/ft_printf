@@ -51,7 +51,7 @@ wint_t			unicode_to_utf8(wint_t val)
 
 	bi = sizeof(wint_t) * 8;
 	bc = bit_cnt(val);
-	if (bc < 7)
+	if (bc <= 7)
 		return (val);
 	if (bc > 16 && bc <= 21)
 	{
