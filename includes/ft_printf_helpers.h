@@ -6,8 +6,9 @@
 #include <stdarg.h>
 #include <inttypes.h>
 #include <wchar.h>
+#include <unistd.h>
 
-#define ALL_TYPES "sSpdDioOuUxXcCeEfFgGaAn"
+#define ALL_TYPES "sSpdDioOuUxXcCn"
 
 #define DATA_LOADER(type, tn)\
 	static void	*load_##tn(va_list ap)\
