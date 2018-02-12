@@ -9,6 +9,6 @@ char	*easy_joiner(char *str, char *fst, char *scd)
 	res = ft_strjoin(str, fst);
 	tmp = res;
 	res = ft_strjoin(res, scd);
-	free(tmp);
+	ft_strdel(&tmp);
 	return (res);
 }

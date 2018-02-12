@@ -1,6 +1,6 @@
 #include "ft_printf_helpers.h"
 
-char	*pos_manager(t_format *sfmt, int len)
+char	*pos_manager(t_format *sfmt, int len, size_t *ln)
 {
 	if (sfmt->modifier == M_L)
 		*(long int *)sfmt->data = len;	
@@ -17,5 +17,6 @@ char	*pos_manager(t_format *sfmt, int len)
 	else
 		*(int *)sfmt->data = len;
 	sfmt->data = NULL;
+	*ln = 0;
 	return (ft_strnew(0));
 }

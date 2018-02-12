@@ -31,7 +31,7 @@ void		handle_signs(t_format *sfmt, char **res, int sign)
 		str_add_prefix(res, '-');
 }
 
-char		*signed_decimal_manager(t_format *sfmt)
+char		*signed_decimal_manager(t_format *sfmt, size_t *len)
 {
 	int			sign;
 	intmax_t	val;
@@ -49,11 +49,11 @@ char		*signed_decimal_manager(t_format *sfmt)
 	decimal_flag_except(sfmt, (sign < 0));
 	uval = (sign < 0) ? (val * -1L) : val;
 	res = ft_uimtoa(uval);
-	/* for debug */
 	if (sfmt->FLAG_SQUOTE && MB_CUR_MAX > 1)
 		group_by_thousands(&res);
 	width_and_prec(&res, ft_abs(sign), sfmt);
 	handle_signs(sfmt, &res, sign);
 	align(&res, sfmt);
+	*len = ft_strlen(res);
 	return (res);
 }

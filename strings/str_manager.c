@@ -1,7 +1,7 @@
 #include "ft_printf_helpers.h"
 
 /* sfmt->precision >= 0 like in man (str may not have term. zero) */
-char		*str_manager(t_format *sfmt)
+char		*str_manager(t_format *sfmt, size_t *ln)
 {
 	int		len;
 	char	*res;
@@ -15,5 +15,6 @@ char		*str_manager(t_format *sfmt)
 	if (sfmt->precision >= 0 && sfmt->precision < len)
 		ft_str_realloc(&res, sfmt->precision);
 	align(&res, sfmt);
+	*ln = ft_strlen(res);
 	return (res);
 }

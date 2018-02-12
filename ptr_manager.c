@@ -1,6 +1,6 @@
 #include "ft_printf_helpers.h"
 
-char	*ptr_manager(t_format *sfmt)
+char	*ptr_manager(t_format *sfmt, size_t *len)
 {
 	char	*res;
 	char	*tmp;
@@ -17,5 +17,6 @@ char	*ptr_manager(t_format *sfmt)
 		align(&res, sfmt);
 		ft_strdel(&tmp);
 	}
+	*len = ft_strlen(res);
 	return (res);
 }

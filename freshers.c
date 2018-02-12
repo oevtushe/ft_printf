@@ -11,10 +11,7 @@ void	del_extra(void *data, size_t size)
 {
 	++size;
 	if (data)
-	{
-		free(((t_format *)data)->data);
 		free(data);
-	}
 }
 
 void	void_ptr_arr_del(void ***dta)

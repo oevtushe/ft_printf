@@ -1,31 +1,27 @@
 #include "ft_printf_helpers.h"
 
-static void	printer(char **res, t_format *sfmt)
+static size_t	helper(char **res, t_format *sfmt)
 {
-	size_t cnt;
 	size_t len;
 
-	cnt = 0;
 	if ((*res)[0] == '\0')
 	{
 		align(res, sfmt);
-		len = ft_strlen(*res);
-		len = len ? len : 1;
+		len = ft_strlen(*res) + 1;
 		if (sfmt->FLAG_MINUS)
 			(*res)[0] = 0;
-		else if (len)
-			(*res)[len - 1] = 0;
-		while (cnt < len)
-			write(1, &(*res)[cnt++], 1);
+		else if (len > 1)
+			(*res)[len-- - 2] = 0;
 	}
 	else
 	{
 		align(res, sfmt);
-		ft_putstr(*res);
+		len = ft_strlen(*res);
 	}
+	return (len);
 }
 
-char	*chr_manager(t_format *sfmt)
+char	*chr_manager(t_format *sfmt, size_t *len)
 {
 	char	*res;
 
@@ -36,7 +32,6 @@ char	*chr_manager(t_format *sfmt)
 		res = ft_strnew(1);
 		res[0] = ((char *)sfmt->data)[0];
 	}
-	printer(&res, sfmt);
-	ft_str_realloc(&res, 0);
+	*len = helper(&res, sfmt);
 	return (res);
 }

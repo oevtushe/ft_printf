@@ -42,9 +42,9 @@ static void	read_str_type_data(const char *str, size_t len, char **type_arr, int
 		while (ft_isdigit(*pos))
 			--pos;
 		*ta_idx = ft_atoi(pos + 1) - 1;
-		if (*pos == '%')
+		if (*pos == '%' && !type_arr[*ta_idx])
 			type_arr[*ta_idx] = get_type(str, len);
-		else if (*pos == '*')
+		else if (*pos == '*' && !type_arr[*ta_idx])
 			type_arr[*ta_idx] = ft_strdup("d");
 	}
 }

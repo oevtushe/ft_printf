@@ -1,6 +1,6 @@
 #include "ft_printf_helpers.h"
 
-char		*octal_manager(t_format *sfmt)
+char		*octal_manager(t_format *sfmt, size_t *len)
 {
 	uintmax_t	uval;
 	char		*res;
@@ -14,5 +14,6 @@ char		*octal_manager(t_format *sfmt)
 	if (sfmt->FLAG_SHARP && res[0] != '0')
 		str_add_prefix(&res, '0');
 	align(&res, sfmt);
+	*len = ft_strlen(res);
 	return (res);
 }

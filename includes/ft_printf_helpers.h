@@ -55,9 +55,8 @@ void			decimal_flag_except(t_format *sfmt, int negative);
 char			*get_format_str(const char *str, size_t *idx);
 char			*init_types(void);
 void			*dec_ptr_modifiers(va_list ap);
-char			*pos_manager(t_format *sfmt, int len);
-void			*str_modifiers(char *type, va_list ap);
-char			*ptr_manager(t_format *sfmt);
+char			*pos_manager(t_format *sfmt, int len, size_t *ln);
+char			*ptr_manager(t_format *sfmt, size_t *len);
 void			*ptr_modifiers(va_list ap);
 
 /*
@@ -65,11 +64,10 @@ void			*ptr_modifiers(va_list ap);
 */
 
 intmax_t		gen_load_unsd(t_format *sfmt);
-char			*octal_manager(t_format *sfmt);
-char			*hex_manager(t_format *sfmt);
-char			*unsigned_decimal_manager(t_format *sfmt);
-char			*octal_manager(t_format *sfmt);
-char			*signed_decimal_manager(t_format *sfmt);
+char			*octal_manager(t_format *sfmt, size_t *len);
+char			*hex_manager(t_format *sfmt, size_t *len);
+char			*unsigned_decimal_manager(t_format *sfmt, size_t *len);
+char			*signed_decimal_manager(t_format *sfmt, size_t *len);
 void			*unsigned_decimal_modifiers(char *str, va_list ap);
 void			*signed_decimal_modifiers(char *str, va_list ap);
 void			width_and_prec(char **val, int pref, t_format *sfmt);
@@ -79,9 +77,10 @@ void			group_by_thousands(char **val);
 ** Strings
 */
 
-char			*str_manager(t_format *sfmt);
+char			*str_manager(t_format *sfmt, size_t *ln);
+void			*str_modifiers(char *type, va_list ap);
 void			*chr_modifiers(char *type, va_list ap);
-char			*chr_manager(t_format *sfmt);
+char			*chr_manager(t_format *sfmt, size_t *len);
 unsigned int	unicode_to_utf8(wchar_t wcr);
 char			*wcs_to_utf8(wchar_t *wcs);
 char			*ft_witomb(wint_t wi);

@@ -1,6 +1,6 @@
 #include "ft_printf_helpers.h"
 
-char		*hex_manager(t_format *sfmt)
+char		*hex_manager(t_format *sfmt, size_t *len)
 {
 	uintmax_t	uval;
 	char		*res;
@@ -22,5 +22,6 @@ char		*hex_manager(t_format *sfmt)
 	if (sfmt->type == T_BHEX)
 		ft_strtoupper(res);
 	align(&res, sfmt);
+	*len = ft_strlen(res);
 	return (res);
 }

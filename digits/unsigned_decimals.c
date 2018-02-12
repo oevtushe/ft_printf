@@ -1,6 +1,6 @@
 #include "ft_printf_helpers.h"
 
-char		*unsigned_decimal_manager(t_format *sfmt)
+char		*unsigned_decimal_manager(t_format *sfmt, size_t *len)
 {
 	uintmax_t	uval;
 	char		*res;
@@ -16,5 +16,6 @@ char		*unsigned_decimal_manager(t_format *sfmt)
 		group_by_thousands(&res);
 	width_and_prec(&res, 0, sfmt);
 	align(&res, sfmt);
+	*len = ft_strlen(res);
 	return (res);
 }
