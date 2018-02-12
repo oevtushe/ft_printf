@@ -12,22 +12,22 @@ void	*unsigned_decimal_modifiers(char *str, va_list ap)
 	void	*data;
 
 	data = NULL;
-	if (str[0] == M_L && str[1] == M_L)
+	if (str[0] == 'l' && str[1] == 'l')
 		data = load_llu(ap);
-	else if (str[0] == M_L || str[0] == T_LUNSIGNED)
+	else if (str[0] == 'l' || str[0] == T_LUNSIGNED)
 		data = load_lu(ap);
-	else if (str[0] == M_H)
+	else if (str[0] == 'h')
 	{
 		tmp = (int *)load_u(ap);
-		if (str[1] == M_H)
+		if (str[1] == 'h')
 			*tmp = (unsigned char)*tmp;
 		else
 			*tmp = (unsigned short)*tmp;
 		data = tmp; 
 	}
-	else if (str[0] == M_J)
+	else if (str[0] == 'j')
 		data = load_ju(ap);
-	else if (str[0] == M_Z)
+	else if (str[0] == 'z')
 		data = load_zu(ap);
 	else
 		data = load_u(ap);
