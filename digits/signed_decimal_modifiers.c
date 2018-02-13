@@ -2,14 +2,14 @@
 
 void	load_hhd(t_gdata *gdata, va_list ap)
 {
-	gdata->data.si = va_arg(ap, int);
+	gdata->data.c = va_arg(ap, int);
 	gdata->type = T_DEC;
 	gdata->modifier = M_HH;
 }
 
 void	load_hd(t_gdata *gdata, va_list ap)
 {
-	gdata->data.c = va_arg(ap, int);
+	gdata->data.si = va_arg(ap, int);
 	gdata->type = T_DEC;
 	gdata->modifier = M_H;
 }

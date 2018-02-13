@@ -37,14 +37,14 @@ void	load_zu(t_gdata *gdata, va_list ap)
 
 void	load_hu(t_gdata *gdata, va_list ap)
 {
-	gdata->data.uc = va_arg(ap, unsigned int);
+	gdata->data.usi = va_arg(ap, unsigned int);
 	gdata->type = T_UNSIGNED;
 	gdata->modifier = M_H;
 }
 
 void	load_hhu(t_gdata *gdata, va_list ap)
 {
-	gdata->data.usi = va_arg(ap, unsigned int);
+	gdata->data.uc = va_arg(ap, unsigned int);
 	gdata->type = T_UNSIGNED;
 	gdata->modifier = M_HH;
 }
@@ -60,6 +60,8 @@ t_gdata	*unsigned_decimal_modifiers(char *str, va_list ap)
 		load_lu(gdata, ap);
 	else if (str[0] == 'h' && str[1] == 'h')
 		load_hhu(gdata, ap);
+	else if (str[0] == 'h')
+		load_hu(gdata, ap);
 	else if (str[0] == 'j')
 		load_ju(gdata, ap);
 	else if (str[0] == 'z')

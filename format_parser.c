@@ -136,13 +136,18 @@ t_gdata			*get_cur_data(const char *str, size_t *idx, int *di, t_gdata **gdata)
 	return (gdata[(*di)++]);
 }
 
-void		init_err(char *str, t_format *sfmt)
+void		spec_cases(const char *str, t_format *sfmt)
 {
 	t_gdata *gdata;
 
 	gdata = (t_gdata *)ft_memalloc(sizeof(t_gdata));
-	gdata->data.pc = str;
-	gdata->type = T_UNDEF;
+	if (str[1] == '%')
+		gdata->type = T_PT;
+	else
+	{
+		gdata->data.pc = ft_strdup(str);
+		gdata->type = T_UNDEF;
+	}
 	sfmt->gdata = gdata;
 }
 
@@ -154,18 +159,18 @@ t_format	*format_parser(const char *str, int *di, t_gdata **gdata, int is_dlr)
 	idx = 1;
 	cur_format = (t_format*)ft_memalloc(sizeof(t_format));
 	init_default(cur_format);
-	if (ft_strchr(ALL_TYPES, str[ft_strlen(str) - 1]) || str[1] == '%')
+	if (ft_strchr(ALL_TYPES, str[ft_strlen(str) - 1]))
 	{
-		if (is_dlr && str[1] != '%')
+		if (is_dlr)
 			cur_format->gdata = get_cur_data(str, &idx, di, gdata);
 		init_flags(str, cur_format, &idx);
 		cur_format->width = get_width(str, di, &idx, gdata);
 		cur_format->precision = get_precision(str, di, &idx, gdata);
 		init_modifiers(str, &idx);
-		if (!is_dlr && str[1] != '%')
+		if (!is_dlr)
 			cur_format->gdata = get_cur_data(str, &idx, di, gdata);
 	}
 	else
-		init_err(ft_strdup(str), cur_format);
+		spec_cases(str, cur_format);
 	return (cur_format);
 }
