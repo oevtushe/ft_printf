@@ -8,7 +8,7 @@ char		*hex_manager(t_format *sfmt, size_t *len)
 
 	sfmt->FLAG_PLUS = 0;
 	sfmt->FLAG_SPACE = 0;
-	uval = gen_load_unsd(sfmt);
+	uval = sfmt->gdata->data.uim;
 	res = ft_uimtoabase_gen(uval, 0, 16);
 	if (sfmt->FLAG_SHARP && uval)
 	{
@@ -19,7 +19,7 @@ char		*hex_manager(t_format *sfmt, size_t *len)
 	}
 	else
 		width_and_prec(&res, 0, sfmt);
-	if (sfmt->type == T_BHEX)
+	if (sfmt->gdata->type == T_BHEX)
 		ft_strtoupper(res);
 	align(&res, sfmt);
 	*len = ft_strlen(res);

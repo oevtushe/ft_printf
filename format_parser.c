@@ -1,6 +1,6 @@
 #include "ft_printf_helpers.h"
 
-static int	outside_param(const char *str, size_t *idx, void **data, int *di)
+static int	outside_param(const char *str, size_t *idx, t_gdata **gdata, int *di)
 {
 	int val;
 
@@ -13,19 +13,15 @@ static int	outside_param(const char *str, size_t *idx, void **data, int *di)
 		if (str[*idx] == '$')
 		{
 			++(*idx);
-			val = *(int*)data[*di];
-			ft_memdel(&data[*di]);
+			val = gdata[*di]->data.i;
 		}
 	}
 	else
-	{
-		val = *(int*)data[*di];
-		ft_memdel(&data[(*di)++]);
-	}
+		val = gdata[*di]->data.i;
 	return (val);
 }
 
-static int	get_width(const char *str, int *di, size_t *idx, void **data)
+static int	get_width(const char *str, int *di, size_t *idx, t_gdata **gdata)
 {
 	size_t	width;
 
@@ -39,13 +35,13 @@ static int	get_width(const char *str, int *di, size_t *idx, void **data)
 	else if (str[(*idx)] == '*')
 	{
 		++(*idx);
-		width = outside_param(str, idx, data, di);
+		width = outside_param(str, idx, gdata, di);
 	}
 	return (width);
 }
 
 /* def val = -1 in case this doesn't collapse with explicit set of precision */
-static int	get_precision(const char *str, int *di, size_t *idx, void **data)
+static int	get_precision(const char *str, int *di, size_t *idx, t_gdata **gdata)
 {
 	int precision;
 
@@ -56,7 +52,7 @@ static int	get_precision(const char *str, int *di, size_t *idx, void **data)
 		if (str[(*idx)] == '*')
 		{
 			++(*idx);
-			precision = outside_param(str, idx, data, di);
+			precision = outside_param(str, idx, gdata, di);
 		}
 		else
 		{
@@ -68,7 +64,7 @@ static int	get_precision(const char *str, int *di, size_t *idx, void **data)
 	return (precision);
 }
 
-static void		init_modifiers(const char *str, t_format *cf, size_t *idx)
+static void		init_modifiers(const char *str, size_t *idx)
 {
 	int mdf;
 
@@ -85,7 +81,6 @@ static void		init_modifiers(const char *str, t_format *cf, size_t *idx)
 		mdf = M_J;
 	else if (str[*idx] == 'z')
 		mdf = M_Z;
-	cf->modifier = mdf;
 	if (mdf == M_HH || mdf == M_LL)
 		*idx += 2;
 	else if(mdf == M_L || mdf == M_H || mdf == M_J || mdf == M_Z)
@@ -120,7 +115,7 @@ static void		init_default(t_format *cf)
 	cf->precision = -1;
 }
 
-void		*get_cur_data(const char *str, size_t *idx, int *di, void **data)
+t_gdata			*get_cur_data(const char *str, size_t *idx, int *di, t_gdata **gdata)
 {
 	int j;
 	int ndi;
@@ -137,10 +132,20 @@ void		*get_cur_data(const char *str, size_t *idx, int *di, void **data)
 			*idx = ++j;
 		}
 	}
-	return (data[(*di)++]);
+	return (gdata[(*di)++]);
 }
 
-t_format	*format_parser(const char *str, int *di, void **data, int is_dlr)
+void		init_err(char *str, t_format *sfmt)
+{
+	t_gdata *gdata;
+
+	gdata = (t_gdata *)ft_memalloc(sizeof(t_gdata));
+	gdata->data.pc = str;
+	gdata->type = T_UNDEF;
+	sfmt->gdata = gdata;
+}
+
+t_format	*format_parser(const char *str, int *di, t_gdata **gdata, int is_dlr)
 {
 	size_t		idx;
 	t_format	*cur_format;
@@ -151,19 +156,15 @@ t_format	*format_parser(const char *str, int *di, void **data, int is_dlr)
 	if (ft_strchr(ALL_TYPES, str[ft_strlen(str) - 1]) || str[1] == '%')
 	{
 		if (is_dlr && str[1] != '%')
-			cur_format->data = get_cur_data(str, &idx, di, data);
+			cur_format->gdata = get_cur_data(str, &idx, di, gdata);
 		init_flags(str, cur_format, &idx);
-		cur_format->width = get_width(str, di, &idx, data);
-		cur_format->precision = get_precision(str, di, &idx, data);
-		init_modifiers(str, cur_format, &idx);
-		cur_format->type = str[idx];
+		cur_format->width = get_width(str, di, &idx, gdata);
+		cur_format->precision = get_precision(str, di, &idx, gdata);
+		init_modifiers(str, &idx);
 		if (!is_dlr && str[1] != '%')
-			cur_format->data = get_cur_data(str, &idx, di, data);
+			cur_format->gdata = get_cur_data(str, &idx, di, gdata);
 	}
 	else
-	{
-		cur_format->data = ft_strdup(str);
-		cur_format->type = T_UNDEF;
-	}
+		init_err(ft_strdup(str), cur_format);
 	return (cur_format);
 }

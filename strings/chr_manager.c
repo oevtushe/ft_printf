@@ -25,13 +25,13 @@ char	*chr_manager(t_format *sfmt, size_t *len)
 {
 	char	*res;
 
-	if ((sfmt->modifier == M_L || sfmt->type == T_WCHR)
+	if ((sfmt->gdata->modifier == M_L || sfmt->gdata->type == T_WCHR)
 			&& MB_CUR_MAX > 1)
-		res = ft_witomb(unicode_to_utf8(*(wint_t *)sfmt->data));
+		res = ft_witomb(unicode_to_utf8(sfmt->gdata->data.wi));
 	else
 	{
 		res = ft_strnew(1);
-		res[0] = ((char *)sfmt->data)[0];
+		res[0] = sfmt->gdata->data.c;
 	}
 	*len = helper(&res, sfmt);
 	return (res);

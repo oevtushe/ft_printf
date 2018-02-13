@@ -1,26 +1,5 @@
 #include "ft_printf_helpers.h"
 
-static  intmax_t	gen_load_decimal(t_format *sfmt)
-{
-	intmax_t val;
-
-	if (sfmt->modifier == M_LL)
-		val = *((long long int *)sfmt->data);
-	else if (sfmt->modifier == M_L)
-		val = *((long int *)sfmt->data);
-	else if (sfmt->modifier == M_H)
-		val = *((int *)sfmt->data);
-	else if (sfmt->modifier == M_HH)
-		val = *((int *)sfmt->data);
-	else if (sfmt->modifier == M_J)
-		val = *((intmax_t *)sfmt->data);
-	else if (sfmt->modifier == M_Z)
-		val = *((ssize_t *)sfmt->data);
-	else
-		val = *((int *)sfmt->data);
-	return (val);
-}
-
 void		handle_signs(t_format *sfmt, char **res, int sign)
 {
 	if (sfmt->FLAG_PLUS)
@@ -39,9 +18,9 @@ char		*signed_decimal_manager(t_format *sfmt, size_t *len)
 	char		*res;
 
 	sign = 0;
-	if (sfmt->type == T_LDEC)
-		sfmt->modifier = M_L;
-	val = gen_load_decimal(sfmt);
+	if (sfmt->gdata->type == T_LDEC)
+		sfmt->gdata->modifier = M_L;
+	val = sfmt->gdata->data.im;
 	if (val > 0 && (sfmt->FLAG_PLUS || sfmt->FLAG_SPACE))
 		sign = 1;
 	else if (val < 0)

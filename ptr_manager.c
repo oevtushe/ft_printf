@@ -6,8 +6,7 @@ char	*ptr_manager(t_format *sfmt, size_t *len)
 	char	*tmp;
 	size_t	val;
 
-	val = (size_t)sfmt->data;
-	sfmt->data = NULL;
+	val = (size_t)sfmt->gdata->data.pv;
 	res = ft_uimtoabase_gen(val, 0, 16);
 	if (res)
 	{
