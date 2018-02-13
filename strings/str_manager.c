@@ -6,12 +6,11 @@ char		*str_manager(t_format *sfmt, size_t *ln)
 	int		len;
 	char	*res;
 
-	if (sfmt->modifier == M_L || sfmt->type == T_WSTR)
-		res = wcs_to_utf8(sfmt->data);
+	if (sfmt->gdata->modifier == M_L || sfmt->gdata->type == T_WSTR)
+		res = wcs_to_utf8(sfmt->gdata->data.pwc);
 	else
-		res = ft_strdup(sfmt->data);
+		res = ft_strdup(sfmt->gdata->data.pc);
 	len = ft_strlen(res);
-	sfmt->data = NULL;
 	if (sfmt->precision >= 0 && sfmt->precision < len)
 		ft_str_realloc(&res, sfmt->precision);
 	align(&res, sfmt);

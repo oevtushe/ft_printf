@@ -8,7 +8,7 @@ char		*octal_manager(t_format *sfmt, size_t *len)
 	sfmt->FLAG_PLUS = 0;
 	sfmt->FLAG_SPACE = 0;
 	decimal_flag_except(sfmt, 0);
-	uval = gen_load_unsd(sfmt);
+	uval = sfmt->gdata->data.uim;
 	res = ft_uimtoabase_gen(uval, 0, 8);
 	width_and_prec(&res, 0, sfmt);
 	if (sfmt->FLAG_SHARP && res[0] != '0')

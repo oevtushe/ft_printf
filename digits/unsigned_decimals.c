@@ -8,9 +8,9 @@ char		*unsigned_decimal_manager(t_format *sfmt, size_t *len)
 	sfmt->FLAG_PLUS = 0;
 	sfmt->FLAG_SPACE = 0;
 	decimal_flag_except(sfmt, 0);
-	if (sfmt->type == T_LUNSIGNED)
-		sfmt->modifier = M_L;
-	uval = gen_load_unsd(sfmt);
+	if (sfmt->gdata->type == T_LUNSIGNED)
+		sfmt->gdata->modifier = M_L;
+	uval = sfmt->gdata->data.uim;
 	res = ft_uimtoa(uval);
 	if (sfmt->FLAG_SQUOTE && MB_CUR_MAX > 0)
 		group_by_thousands(&res);

@@ -63,7 +63,6 @@ DIGITS_FILES := decimal_flag_except.c \
 				 octal_manager.c \
 				 group_by_thousands.c \
 				 hex_manager.c \
-				 gen_load_unsd.c \
 				 signed_decimal_modifiers.c \
 				 unsigned_decimal_modifiers.c \
 				 width_and_prec.c

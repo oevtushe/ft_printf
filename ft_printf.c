@@ -13,13 +13,14 @@ char	*percent_manager(size_t *len)
 	return (p);
 }
 
-char	*undef_manager(t_format *sfmt, size_t *len)
+char	*undef_mngr(t_format *sfmt, size_t *fmt_len)
 {
-	char *p;
+	char *rs;
 
-	p = ft_strdup((char *)sfmt->data);
-	*len = ft_strlen(p);
-	return (p);
+	rs = sfmt->gdata->data.pc;
+	*fmt_len = ft_strlen(rs);
+	ft_memdel((void **)&(sfmt->gdata));
+	return (rs);
 }
 
 char	*mngr_usr(t_format *sfmt, int len, size_t *fmt_len)
@@ -27,26 +28,26 @@ char	*mngr_usr(t_format *sfmt, int len, size_t *fmt_len)
 	char	*res;
 
 	res = NULL;
-	if (sfmt->type == T_DEC || sfmt->type == T_DEC2 || sfmt->type == T_LDEC)
+	if (sfmt->gdata->type == T_DEC || sfmt->gdata->type == T_DEC2 || sfmt->gdata->type == T_LDEC)
 		res = signed_decimal_manager(sfmt, fmt_len);
-	else if (sfmt->type == T_UNSIGNED || sfmt->type == T_LUNSIGNED)
+	else if (sfmt->gdata->type == T_UNSIGNED || sfmt->gdata->type == T_LUNSIGNED)
 		res = unsigned_decimal_manager(sfmt, fmt_len);
-	else if (sfmt->type == T_PS)
+	else if (sfmt->gdata->type == T_PS)
 		res = pos_manager(sfmt, len, fmt_len);
-	else if (sfmt->type == T_PT)
+	else if (sfmt->gdata->type == T_PT)
 		res = percent_manager(fmt_len);
-	else if (sfmt->type == T_STR || sfmt->type == T_WSTR)
+	else if (sfmt->gdata->type == T_STR || sfmt->gdata->type == T_WSTR)
 		res = str_manager(sfmt, fmt_len);
-	else if (sfmt->type == T_CHR || sfmt->type == T_WCHR)
+	else if (sfmt->gdata->type == T_CHR || sfmt->gdata->type == T_WCHR)
 		res = chr_manager(sfmt, fmt_len);
-	else if (sfmt->type == T_PTR)
+	else if (sfmt->gdata->type == T_PTR)
 		res = ptr_manager(sfmt, fmt_len);
-	else if (sfmt->type == T_OCT)
+	else if (sfmt->gdata->type == T_OCT)
 		res = octal_manager(sfmt, fmt_len);
-	else if (sfmt->type == T_HEX || sfmt->type == T_BHEX)
+	else if (sfmt->gdata->type == T_HEX || sfmt->gdata->type == T_BHEX)
 		res = hex_manager(sfmt, fmt_len);
 	else
-		res = undef_manager(sfmt, fmt_len);
+		res = undef_mngr(sfmt, fmt_len);
 	return (res);
 }
 
@@ -87,7 +88,6 @@ char	*maker(t_list *plain, t_list *extra, size_t *len)
 	str = ft_strnew(0);
 	while (extra)
 	{
-		//str = easy_joiner(&str, (char*)plain->content, fmt);
 		tripple_connector(&str, len, plain->content, extra->content);
 		plain = plain->next;
 		extra = extra->next;
@@ -120,7 +120,7 @@ int		logic_type(const char *str)
 ** free(data) -> all arr content catched by struct
 */
 
-void	reformat_extra(t_list *extra, void **data)
+void	reformat_extra(t_list *extra, t_gdata **gdata)
 {
 	int			di;
 	t_format	*sfmt;
@@ -133,7 +133,7 @@ void	reformat_extra(t_list *extra, void **data)
 		is_dlr = logic_type((char *)extra->content);
 	while (extra)
 	{
-		sfmt = format_parser((char *)extra->content, &di, data, is_dlr);
+		sfmt = format_parser((char *)extra->content, &di, gdata, is_dlr);
 		free(extra->content);
 		extra->content = sfmt;
 		extra->content_size = sizeof(t_format);
@@ -146,17 +146,17 @@ char	*ft_format(const char *format, va_list ap, size_t *len)
 	char	*str;
 	t_list	*plain;
 	t_list	*extra;
-	void	**data;
+	t_gdata	**gdata;
 
 	plain = NULL;
 	extra = NULL;
 	split_str(format, &plain, &extra);
-	data = get_data_arr(extra, ap);
-	reformat_extra(extra, data);
+	gdata = get_data_arr(extra, ap);
+	reformat_extra(extra, gdata);
 	str = maker(plain, extra, len);
 	ft_lstdel(&plain, del_simple);
 	ft_lstdel(&extra, del_extra);
-	void_ptr_arr_del(&data);
+	void_ptr_arr_del((void ***)&gdata);
 	return (str);
 }
 

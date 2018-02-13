@@ -1,9 +1,11 @@
 #include "ft_printf_helpers.h"
 
-void	*ptr_modifiers(va_list ap)
+t_gdata	*ptr_modifiers(va_list ap)
 {
-	void *dta;
+	t_gdata *gdata;
 
-	dta = va_arg(ap, void *);
-	return (dta);
+	gdata = (t_gdata *)ft_memalloc(sizeof(t_gdata));
+	gdata->data.pv = va_arg(ap, void *);
+	gdata->type = T_PTR;
+	return (gdata);
 }
