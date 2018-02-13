@@ -1,6 +1,6 @@
 #include "ft_printf_helpers.h"
 
-void		handle_signs(t_format *sfmt, char **res, int sign)
+static void		handle_signs(t_format *sfmt, char **res, int sign)
 {
 	if (sfmt->FLAG_PLUS)
 		str_add_prefix(res, '+');
@@ -8,6 +8,28 @@ void		handle_signs(t_format *sfmt, char **res, int sign)
 		str_add_prefix(res, ' ');
 	else if (sign < 0)
 		str_add_prefix(res, '-');
+}
+
+static intmax_t		signed_modifiers(t_gdata *gdata)
+{
+	intmax_t vl;
+
+	vl = 0;
+	if (gdata->modifier == M_L)
+		vl = gdata->data.li;
+	else if (gdata->modifier == M_LL)
+		vl = gdata->data.lli;
+	else if (gdata->modifier == M_H)
+		vl = gdata->data.si;
+	else if (gdata->modifier == M_HH)
+		vl = gdata->data.c;
+	else if (gdata->modifier == M_J)
+		vl = gdata->data.im;
+	else if (gdata->modifier == M_Z)
+		vl = gdata->data.sszi;
+	else
+		vl = gdata->data.i;
+	return (vl);
 }
 
 char		*signed_decimal_manager(t_format *sfmt, size_t *len)
@@ -20,7 +42,7 @@ char		*signed_decimal_manager(t_format *sfmt, size_t *len)
 	sign = 0;
 	if (sfmt->gdata->type == T_LDEC)
 		sfmt->gdata->modifier = M_L;
-	val = sfmt->gdata->data.im;
+	val = signed_modifiers(sfmt->gdata);
 	if (val > 0 && (sfmt->FLAG_PLUS || sfmt->FLAG_SPACE))
 		sign = 1;
 	else if (val < 0)
