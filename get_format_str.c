@@ -46,21 +46,15 @@ static void	flags_rd(const char *str, size_t *idx)
 
 static void	precision_rd(const char *str, size_t *idx)
 {
-	int i;
-
-	i = *idx;
-	if (str[i] == '.')
+	if (str[*idx] == '.')
 	{
-		++i;
-		if (ft_isdigit(str[i]))
+		++(*idx);
+		if (ft_isdigit(str[*idx]))
+			while (ft_isdigit(str[*idx]))
+				++(*idx);
+		else if (str[*idx] == '*')
 		{
-			while (ft_isdigit(str[i]))
-				++i;
-			*idx = i;
-		}
-		else if (str[i] == '*')
-		{
-			*idx = ++i;
+			++(*idx);
 			data_index_rd(str, idx);
 		}
 	}

@@ -48,6 +48,7 @@ static int	get_precision(const char *str, int *di, size_t *idx, t_gdata **gdata)
 	precision = -1;
 	if (str[(*idx)] == '.')
 	{
+		precision = 0;
 		++(*idx);
 		if (str[(*idx)] == '*')
 		{
