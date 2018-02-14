@@ -81,7 +81,7 @@ static void	*get_data(char **type_arr, int idx, va_list ap)
 	if (type == T_DEC || type == T_DEC2 || type == T_LDEC)
 		gdata = signed_decimal_modifiers(type_arr[idx], ap);
 	else if (type == T_UNSIGNED || type == T_OCT || type == T_HEX ||
-				type == T_BHEX || type == T_LUNSIGNED)
+			type == T_BHEX || type == T_LUNSIGNED)
 		gdata = unsigned_decimal_modifiers(type_arr[idx], ap);
 	else if (type == T_PS)
 		gdata = pos_modifiers(ap);
@@ -91,6 +91,8 @@ static void	*get_data(char **type_arr, int idx, va_list ap)
 		gdata = chr_modifiers(type_arr[idx], ap);
 	else if (type == T_PTR)
 		gdata = ptr_modifiers(ap);
+	if (gdata)
+		gdata->type = type;
 	return (gdata);
 }
 
