@@ -5,8 +5,7 @@ char		*str_manager(t_format *sfmt, size_t *ln)
 {
 	char	*res;
 
-	if ((sfmt->gdata->modifier == M_L || sfmt->gdata->type == T_WSTR)
-			&& MB_CUR_MAX > 1)
+	if (sfmt->gdata->modifier == M_L || sfmt->gdata->type == T_WSTR)
 		res = wcs_to_utf8(sfmt->gdata->data.pwc, sfmt->precision);
 	else
 	{
