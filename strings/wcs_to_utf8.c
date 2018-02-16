@@ -24,20 +24,29 @@ char	*ft_witomb(wint_t wi)
 	return (res);
 }
 
-char		*wcs_to_utf8(wchar_t *wcs)
+char		*wcs_to_utf8(wchar_t *wcs, int len)
 {
 	char			*res;
 	char			*dp;
 	wint_t			utf;
+	int				sum_len;
+	int				cnt;
 
-	res = NULL;
-	while (*wcs)
+	res = ft_strnew(0);
+	sum_len = 0;
+	cnt = -1;
+	while ((sum_len < len || len < 0) && wcs[++cnt])
 	{
-		utf = unicode_to_utf8(*wcs);
+		utf = unicode_to_utf8(wcs[cnt]);
 		dp = ft_witomb(utf);
+		sum_len += ft_strlen(dp);
+		if (sum_len > len && len >= 0)
+		{
+			ft_strdel(&dp);
+			break ;
+		}
 		strconnect(&res, dp);
 		ft_strdel(&dp);
-		++wcs;
 	}
 	return (res);
 }

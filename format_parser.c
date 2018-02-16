@@ -17,7 +17,7 @@ static int	outside_param(const char *str, size_t *idx, t_gdata **gdata, int *di)
 		}
 	}
 	else
-		val = gdata[*di]->data.i;
+		val = gdata[(*di)++]->data.i;
 	return (val);
 }
 

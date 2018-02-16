@@ -120,7 +120,7 @@ t_gdata			*str_modifiers(char *type, va_list ap);
 t_gdata			*chr_modifiers(char *type, va_list ap);
 char			*chr_manager(t_format *sfmt, size_t *len);
 unsigned int	unicode_to_utf8(wchar_t wcr);
-char			*wcs_to_utf8(wchar_t *wcs);
+char			*wcs_to_utf8(wchar_t *wcs, int len);
 char			*ft_witomb(wint_t wi);
 
 /*
