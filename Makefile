@@ -81,7 +81,7 @@ TOOLS_SRCS := $(addprefix $(TD),$(TOOLS))
 MAIN_SRCS := ft_printf.c \
 			  format_parser.c \
 			  split_str.c \
-			  get_format_str.c \
+			  get_format_string.c \
 			  get_arr_size.c \
 			  get_data_arr.c \
 			  align.c \

@@ -1,6 +1,6 @@
 #include "ft_printf_helpers.h"
 
-static void	data_index_rd(const char *str, size_t *idx)
+static void	read_data_index(const char *str, size_t *idx)
 {
 	int i;
 
@@ -14,7 +14,7 @@ static void	data_index_rd(const char *str, size_t *idx)
 	}
 }
 
-static void	width_rd(const char *str, size_t *idx)
+static void	read_width(const char *str, size_t *idx)
 {
 	int i;
 
@@ -28,11 +28,11 @@ static void	width_rd(const char *str, size_t *idx)
 	else if (str[i] == '*')
 	{
 		*idx = ++i;
-		data_index_rd(str, idx);
+		read_data_index(str, idx);
 	}
 }
 
-static void	flags_rd(const char *str, size_t *idx)
+static void	read_flags(const char *str, size_t *idx)
 {
 	int i;
 
@@ -44,7 +44,7 @@ static void	flags_rd(const char *str, size_t *idx)
 	*idx = i;
 }
 
-static void	precision_rd(const char *str, size_t *idx)
+static void	read_precision(const char *str, size_t *idx)
 {
 	if (str[*idx] == '.')
 	{
@@ -55,12 +55,12 @@ static void	precision_rd(const char *str, size_t *idx)
 		else if (str[*idx] == '*')
 		{
 			++(*idx);
-			data_index_rd(str, idx);
+			read_data_index(str, idx);
 		}
 	}
 }
 
-static void modifiers_rd(const char *str, size_t *idx)
+static void read_modifiers(const char *str, size_t *idx)
 {
 	if (str[*idx] == 'l' && str[*idx + 1] == 'l')
 		*idx += 2;
@@ -76,18 +76,18 @@ static void modifiers_rd(const char *str, size_t *idx)
 		*idx += 1;
 }
 
-char	*get_format_str(const char *str, size_t *idx)
+char	*get_format_string(const char *str, size_t *idx)
 {
 	size_t	start;
 	char	*res;
 
 	res = NULL;
 	start = (*idx)++;
-	data_index_rd(str, idx);
-	flags_rd(str, idx);
-	width_rd(str, idx);
-	precision_rd(str, idx);
-	modifiers_rd(str, idx);
+	read_data_index(str, idx);
+	read_flags(str, idx);
+	read_width(str, idx);
+	read_precision(str, idx);
+	read_modifiers(str, idx);
 	if (str[*idx])
 		++(*idx);
 	res = ft_strsub(str, start, *idx - start);

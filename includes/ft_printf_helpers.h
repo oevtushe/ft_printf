@@ -95,7 +95,7 @@ t_format						*format_parser(const char *str, int *di, t_gdata **gdata, int is_d
 void							split_str(const char *format, t_list **plain, t_list **extra);
 void							align(char **sv, t_format *sfmt);
 void							decimal_flag_except(t_format *sfmt, int negative);
-char							*get_format_str(const char *str, size_t *idx);
+char							*get_format_string(const char *str, size_t *idx);
 char							*init_types(void);
 
 /*
