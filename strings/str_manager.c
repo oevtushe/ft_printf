@@ -5,19 +5,24 @@ char		*str_manager(t_format *sfmt, size_t *ln)
 {
 	char	*res;
 
-	if (sfmt->gdata->modifier == M_L || sfmt->gdata->type == T_WSTR)
-		res = wcs_to_utf8(sfmt->gdata->data.pwc, sfmt->precision);
+	if (sfmt->gdata->data.pc == NULL)
+		res = ft_strdup("(null)");
 	else
 	{
-		if (sfmt->precision >= 0)
-		{
-			res = ft_strnew(sfmt->precision);
-			ft_memcpy(res, sfmt->gdata->data.pc, sfmt->precision);
-		}
+		if (sfmt->gdata->modifier == M_L || sfmt->gdata->type == T_WSTR)
+			res = wcs_to_utf8(sfmt->gdata->data.pwc, sfmt->precision);
 		else
-			res = ft_strdup(sfmt->gdata->data.pc);
+		{
+			if (sfmt->precision >= 0)
+			{
+				res = ft_strnew(sfmt->precision);
+				ft_memcpy(res, sfmt->gdata->data.pc, sfmt->precision);
+			}
+			else
+				res = ft_strdup(sfmt->gdata->data.pc);
+		}
+		align(&res, sfmt);
 	}
-	align(&res, sfmt);
 	*ln = ft_strlen(res);
 	return (res);
 }
