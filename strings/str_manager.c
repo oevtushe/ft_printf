@@ -16,7 +16,7 @@ char		*str_manager(t_format *sfmt, size_t *ln)
 			ft_memcpy(res, sfmt->gdata->data.pc, sfmt->precision);
 		}
 		else
-			ft_strdup(sfmt->gdata->data.pc);
+			res = ft_strdup(sfmt->gdata->data.pc);
 	}
 	align(&res, sfmt);
 	*ln = ft_strlen(res);
