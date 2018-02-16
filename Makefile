@@ -1,60 +1,107 @@
 NAME := libftprintf.a
 
+
+
+#########################################################################################
+#																						#
+# 										 TOOLS	  	  									#
+#																						#
+#########################################################################################
+
+
+
 TD := tools/
-TF := ft_strlen.c \
-	   ft_strnew.c \
+
+# Memory Tools
+
+MT := ft_memcpy.c \
+	   ft_memdup.c \
+	   ft_memdel.c \
+	   ft_memset.c \
+	   ft_memalloc.c \
+	   ft_memjoin.c \
+	   ft_memset.c
+
+# Strings Tools
+
+ST := ft_strnew.c \
+	   ft_strcpy.c \
+	   ft_strappend.c \
+	   ft_strdel.c \
+	   ft_strjoin.c \
+	   ft_strchr.c \
+	   ft_strdup.c \
+	   ft_strlen.c \
+	   ft_strsub.c \
+	   ft_strncpy.c \
+	   ft_strtoupper.c \
+	   ft_strcat.c \
+	   ft_str_realloc.c \
 	   ft_itoa.c \
 	   ft_ltoa.c \
 	   ft_lltoa.c \
-	   ft_strcpy.c \
 	   ft_ulltoa.c \
 	   ft_uimtoa.c \
 	   ft_uimtoa_hlp.c \
-	   ft_strcat.c \
-	   ft_strjoin.c \
-	   easy_joiner.c \
-	   ft_memset.c \
-	   ft_strappend.c \
-	   ft_strdel.c \
-	   spc_string.c \
-	   ft_strtoupper.c \
-	   str_add_prefix.c \
-	   ft_lstnew.c \
-	   ft_lstlen.c \
-	   ft_lstappend.c \
-	   ft_strncpy.c \
-	   ft_lstdel.c \
-	   ft_memcpy.c \
-	   ft_memdup.c \
-	   ft_memdel.c \
-	   ft_putstr.c \
-	   ft_str_realloc.c \
-	   ft_uimtoabase_gen.c \
-	   ft_strchr.c \
 	   ft_imtoabase.c \
-	   ft_atoi.c \
-	   ft_strsub.c \
+	   str_add_prefix.c \
+	   easy_joiner.c \
 	   strconnect.c \
-	   ft_isdigit.c \
-	   ft_strdup.c \
-	   ft_lstaddelem.c \
-	   ft_memalloc.c \
-	   ft_abs.c \
-	   ft_memset.c
-TOOLS_SRCS := $(addprefix $(TD),$(TF))
+	   spc_string.c
 
-GEN_LOGIC_SRCS := ft_printf.c \
-				  format_parser.c \
-				  split_str.c \
-				  get_format_str.c \
-				  get_arr_size.c \
-				  get_data_arr.c \
-				  align.c \
-				  ptr_manager.c \
-				  ptr_modifiers.c \
-				  pos_manager.c \
-				  pos_modifiers.c \
-				  freshers.c
+# List Tools
+
+LT := ft_lstnew.c \
+	   ft_lstlen.c \
+	   ft_lstaddelem.c \
+	   ft_lstappend.c \
+	   ft_lstdel.c
+
+# Other Tools
+
+OT := ft_putstr.c \
+	   ft_uimtoabase_gen.c \
+	   ft_putstr_ln.c \
+	   ft_atoi.c \
+	   ft_isdigit.c \
+	   ft_abs.c
+TOOLS := $(MT) $(ST) $(LT) $(OT)
+TOOLS_SRCS := $(addprefix $(TD),$(TOOLS))
+
+
+
+#########################################################################################
+#																						#
+# 										 MAIN	  	  									#
+#																						#
+#########################################################################################
+
+
+
+MAIN_SRCS := ft_printf.c \
+			  format_parser.c \
+			  split_str.c \
+			  get_format_str.c \
+			  get_arr_size.c \
+			  get_data_arr.c \
+			  align.c \
+			  ptr_manager.c \
+			  ptr_modifiers.c \
+			  pos_manager.c \
+			  pos_modifiers.c \
+			  percent_manager.c \
+			  undef_manager.c \
+			  freshers.c
+
+
+
+#########################################################################################
+#																						#
+# 										DIGITS  	  									#
+#																						#
+#########################################################################################
+
+
 
 DIGITS_DIR := digits/
 DIGITS_FILES := decimal_flag_except.c \
@@ -66,7 +113,17 @@ DIGITS_FILES := decimal_flag_except.c \
 				 signed_decimal_modifiers.c \
 				 unsigned_decimal_modifiers.c \
 				 width_and_prec.c
-DIGITS_LOGIC_SRCS := $(addprefix $(DIGITS_DIR),$(DIGITS_FILES))
+DIGITS_SRCS := $(addprefix $(DIGITS_DIR),$(DIGITS_FILES))
+
+
+
+#########################################################################################
+#																						#
+# 										STRINGS  	  									#
+#																						#
+#########################################################################################
+
+
 
 STRINGS_DIR := strings/
 STRINGS_FILES := unicode_to_utf8.c \
@@ -76,38 +133,43 @@ STRINGS_FILES := unicode_to_utf8.c \
 				 chr_manager.c \
 				 chr_modifiers.c \
 				 wcs_to_utf8.c
-STRINGS_LOGIC_SRCS := $(addprefix $(STRINGS_DIR),$(STRINGS_FILES))
-
-SRCS := $(TOOLS_SRCS) $(GEN_LOGIC_SRCS) $(DIGITS_LOGIC_SRCS) $(STRINGS_LOGIC_SRCS)
-
-OBJS := $(SRCS:%.c=%.o)
-
-DEPS_DIR := includes/
-DEPS_FILES := ft_printf.h ft_printf_helpers.h ft_tools.h
-DEPS := $(addprefix $(DEPS_DIR),$(DEPS_FILES))
+STRINGS_SRCS := $(addprefix $(STRINGS_DIR),$(STRINGS_FILES))
 
 
+
+#########################################################################################
+#																						#
+# 										  MAKE  	  									#
+#																						#
+#########################################################################################
+
+
+
+SRCS := $(TOOLS_SRCS) $(MAIN_SRCS) $(DIGITS_SRCS) $(STRINGS_SRCS)
+OBJECTS := $(SRCS:%.c=%.o)
+DEPENDENCY_DIR := includes/
+DEPENDENCY_FILES := ft_printf.h ft_printf_helpers.h ft_tools.h
+DEPENDENCY := $(addprefix $(DEPENDENCY_DIR),$(DEPENDENCY_FILES))
 
 KEYS := -Wall -Werror -Wextra -g
 # delete -g
 
-
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	ar -rc $(NAME) $(OBJS)
+$(NAME): $(OBJECTS)
+	ar -rc $(NAME) $(OBJECTS)
 	ranlib $(NAME)
 
-%.o: %.c $(DEPS)
-	gcc $(KEYS) -c -o $@ $< -I./$(DEPS_DIR)
+%.o: %.c $(DEPENDENCY)
+	gcc $(KEYS) -c -o $@ $< -I./$(DEPENDENCY_DIR)
 
 link: main.o
 
 main.o: main.c $(NAME)
-	gcc $(KEYS) -c main.c -I./$(DEPS_DIR)
-	gcc $(KEYS) -o main main.o -L. -lftprintf -I./$(DEPS_DIR)
+	gcc $(KEYS) -c main.c -I./$(DEPENDENCY_DIR)
+	gcc $(KEYS) -o main main.o -L. -lftprintf -I./$(DEPENDENCY_DIR)
 clean:
-	rm -f $(OBJS)
+	rm -f $(OBJECTS)
 fclean: clean
 	rm -f $(NAME)
 re: fclean

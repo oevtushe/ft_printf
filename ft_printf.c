@@ -1,28 +1,6 @@
 #include "ft_printf.h"
 #include "ft_printf_helpers.h"
 #include <stdarg.h>
-#include <stdio.h>//
-
-char	*percent_manager(t_format *sfmt, size_t *len)
-{
-	char *p;
-
-	p = ft_strnew(1);
-	p[0] = '%';
-	*len = 1;
-	ft_memdel((void **)&(sfmt->gdata));
-	return (p);
-}
-
-char	*undef_mngr(t_format *sfmt, size_t *fmt_len)
-{
-	char *rs;
-
-	rs = sfmt->gdata->data.pc;
-	*fmt_len = ft_strlen(rs);
-	ft_memdel((void **)&(sfmt->gdata));
-	return (rs);
-}
 
 char	*mngr_usr(t_format *sfmt, int len, size_t *fmt_len)
 {
@@ -48,17 +26,7 @@ char	*mngr_usr(t_format *sfmt, int len, size_t *fmt_len)
 	else if (sfmt->gdata->type == T_HEX || sfmt->gdata->type == T_BHEX)
 		res = hex_manager(sfmt, fmt_len);
 	else
-		res = undef_mngr(sfmt, fmt_len);
-	return (res);
-}
-
-void	*ft_memjoin(void *p1, size_t sp1, void *p2, size_t sp2)
-{
-	unsigned char *res;
-
-	res = (unsigned char *)malloc(sizeof(unsigned char) * (sp1 + sp2));
-	ft_memcpy(res, p1, sp1);
-	ft_memcpy(res + sp1, p2, sp2);
+		res = undef_manager(sfmt, fmt_len);
 	return (res);
 }
 
@@ -117,10 +85,6 @@ int		logic_type(const char *str)
 	return (type);
 }
 
-/*
-** free(data) -> all arr content catched by struct
-*/
-
 void	reformat_extra(t_list *extra, t_gdata **gdata)
 {
 	int			di;
@@ -129,7 +93,7 @@ void	reformat_extra(t_list *extra, t_gdata **gdata)
 
 	di = 0;
 	is_dlr = 0;
-	if (extra && ft_strchr(ALL_TYPES, 
+	if (extra && ft_strchr(ALL_TYPES,
 				((char*)extra->content)[ft_strlen(extra->content) - 1]))
 		is_dlr = logic_type((char *)extra->content);
 	while (extra)
@@ -159,15 +123,6 @@ char	*ft_format(const char *format, va_list ap, size_t *len)
 	ft_lstdel(&extra, del_extra);
 	void_ptr_arr_del((void ***)&gdata);
 	return (str);
-}
-
-void	ft_putstr_ln(const char *str, size_t len)
-{
-	size_t i;
-
-	i = 0;
-	while (i < len)
-		write(1, &str[i++], 1);
 }
 
 int		ft_printf(const char *format, ...)
