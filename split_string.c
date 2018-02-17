@@ -6,7 +6,7 @@
 ** format list will be filled with format strings.
 */
 
-void	split_str(const char *str, t_list **plain, t_list **format)
+void	split_string(const char *str, t_list **plain, t_list **format)
 {
 	size_t		prev;
 	size_t		pos;

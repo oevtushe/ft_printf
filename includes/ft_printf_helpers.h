@@ -92,11 +92,17 @@ typedef struct					s_format
 int								get_arr_size(t_list *extra);
 t_gdata							**get_data_arr(t_list *extra, va_list ap);
 t_format						*format_parser(const char *str, int *di, t_gdata **gdata, int is_dlr);
-void							split_str(const char *format, t_list **plain, t_list **extra);
+void							split_string(const char *format, t_list **plain, t_list **extra);
 void							align(char **sv, t_format *sfmt);
 void							decimal_flag_except(t_format *sfmt, int negative);
 char							*get_format_string(const char *str, size_t *idx);
 char							*init_types(void);
+
+void							read_data_index(const char *str, size_t *idx);
+void							read_width(const char *str, size_t *idx);
+void							read_flags(const char *str, size_t *idx);
+void							read_precision(const char *str, size_t *idx);
+void							read_modifiers(const char *str, size_t *idx);
 
 /*
 ** Decimals

@@ -80,12 +80,13 @@ TOOLS_SRCS := $(addprefix $(TD),$(TOOLS))
 
 MAIN_SRCS := ft_printf.c \
 			  format_parser.c \
-			  split_str.c \
+			  split_string.c \
 			  get_format_string.c \
 			  get_arr_size.c \
 			  get_data_arr.c \
 			  align.c \
 			  ptr_manager.c \
+			  string_readers.c \
 			  ptr_modifiers.c \
 			  pos_manager.c \
 			  pos_modifiers.c \
