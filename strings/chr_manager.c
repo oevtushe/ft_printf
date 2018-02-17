@@ -25,7 +25,7 @@ char	*chr_manager(t_format *sfmt, size_t *len)
 {
 	char	*res;
 
-	if ((sfmt->gdata->modifier == M_L || sfmt->gdata->type == T_WCHR)
+	if ((sfmt->gdata->full_type->modifier == M_L || sfmt->gdata->full_type->type == T_WCHR)
 			&& MB_CUR_MAX > 1)
 		res = ft_witomb(unicode_to_utf8(sfmt->gdata->data.wi));
 	else

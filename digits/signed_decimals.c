@@ -15,17 +15,17 @@ static intmax_t		signed_modifiers(t_gdata *gdata)
 	intmax_t vl;
 
 	vl = 0;
-	if (gdata->modifier == M_L)
+	if (gdata->full_type->modifier == M_L)
 		vl = gdata->data.li;
-	else if (gdata->modifier == M_LL)
+	else if (gdata->full_type->modifier == M_LL)
 		vl = gdata->data.lli;
-	else if (gdata->modifier == M_H)
+	else if (gdata->full_type->modifier == M_H)
 		vl = gdata->data.si;
-	else if (gdata->modifier == M_HH)
+	else if (gdata->full_type->modifier == M_HH)
 		vl = gdata->data.c;
-	else if (gdata->modifier == M_J)
+	else if (gdata->full_type->modifier == M_J)
 		vl = gdata->data.im;
-	else if (gdata->modifier == M_Z)
+	else if (gdata->full_type->modifier == M_Z)
 		vl = gdata->data.sszi;
 	else
 		vl = gdata->data.i;
@@ -40,8 +40,8 @@ char		*signed_decimal_manager(t_format *sfmt, size_t *len)
 	char		*res;
 
 	sign = 0;
-	if (sfmt->gdata->type == T_LDEC)
-		sfmt->gdata->modifier = M_L;
+	if (sfmt->gdata->full_type->type == T_LDEC)
+		sfmt->gdata->full_type->modifier = M_L;
 	val = signed_modifiers(sfmt->gdata);
 	if (val > 0 && (sfmt->FLAG_PLUS || sfmt->FLAG_SPACE))
 		sign = 1;

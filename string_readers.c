@@ -62,16 +62,16 @@ void	read_precision(const char *str, size_t *idx)
 
 void read_modifiers(const char *str, size_t *idx)
 {
-	if (str[*idx] == 'l' && str[*idx + 1] == 'l')
+	if ((str[*idx] == 'l' && str[*idx + 1] == 'l') ||
+			(str[*idx] == 'h' && str[*idx + 1] == 'h'))
 		*idx += 2;
-	else if (str[*idx] == 'l')
+	else if (str[*idx] == 'z' || str[*idx] == 'j' ||
+				(str[*idx] == 'h') || (str[*idx] == 'l'))
 		*idx += 1;
-	else if (str[*idx] == 'h' && str[*idx + 1] == 'h')
-		*idx += 2;
-	else if (str[*idx] == 'h')
-		*idx += 1;
-	else if (str[*idx] == 'j')
-		*idx += 1;
-	else if (str[*idx] == 'z')
-		*idx += 1;
+}
+
+void read_type(const char *str, size_t *idx)
+{
+	if (ft_strchr(ALL_TYPES, str[*idx]))
+		(*idx)++;
 }

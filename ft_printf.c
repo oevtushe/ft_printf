@@ -7,23 +7,23 @@ char	*mngr_usr(t_format *sfmt, int len, size_t *fmt_len)
 	char	*res;
 
 	res = NULL;
-	if (sfmt->gdata->type == T_DEC || sfmt->gdata->type == T_DEC2 || sfmt->gdata->type == T_LDEC)
+	if (sfmt->gdata->full_type->type == T_DEC || sfmt->gdata->full_type->type == T_DEC2 || sfmt->gdata->full_type->type == T_LDEC)
 		res = signed_decimal_manager(sfmt, fmt_len);
-	else if (sfmt->gdata->type == T_UNSIGNED || sfmt->gdata->type == T_LUNSIGNED)
+	else if (sfmt->gdata->full_type->type == T_UNSIGNED || sfmt->gdata->full_type->type == T_LUNSIGNED)
 		res = unsigned_decimal_manager(sfmt, fmt_len);
-	else if (sfmt->gdata->type == T_PS)
+	else if (sfmt->gdata->full_type->type == T_PS)
 		res = pos_manager(sfmt, len, fmt_len);
-	else if (sfmt->gdata->type == T_PT)
+	else if (sfmt->gdata->full_type->type == T_PT)
 		res = percent_manager(sfmt, fmt_len);
-	else if (sfmt->gdata->type == T_STR || sfmt->gdata->type == T_WSTR)
+	else if (sfmt->gdata->full_type->type == T_STR || sfmt->gdata->full_type->type == T_WSTR)
 		res = str_manager(sfmt, fmt_len);
-	else if (sfmt->gdata->type == T_CHR || sfmt->gdata->type == T_WCHR)
+	else if (sfmt->gdata->full_type->type == T_CHR || sfmt->gdata->full_type->type == T_WCHR)
 		res = chr_manager(sfmt, fmt_len);
-	else if (sfmt->gdata->type == T_PTR)
+	else if (sfmt->gdata->full_type->type == T_PTR)
 		res = ptr_manager(sfmt, fmt_len);
-	else if (sfmt->gdata->type == T_OCT)
+	else if (sfmt->gdata->full_type->type == T_OCT)
 		res = octal_manager(sfmt, fmt_len);
-	else if (sfmt->gdata->type == T_HEX || sfmt->gdata->type == T_BHEX)
+	else if (sfmt->gdata->full_type->type == T_HEX || sfmt->gdata->full_type->type == T_BHEX)
 		res = hex_manager(sfmt, fmt_len);
 	else
 		res = undef_manager(sfmt, fmt_len);
@@ -71,34 +71,15 @@ char	*maker(t_list *plain, t_list *extra, size_t *len)
 	return (str);
 }
 
-int		logic_type(const char *str)
-{
-	int i;
-	int type;
-
-	i = 1;
-	type = 0;
-	while (ft_isdigit(str[i]))
-		++i;
-	if (str[i] == '$')
-		type = 1;
-	return (type);
-}
-
 void	reformat_extra(t_list *extra, t_gdata **gdata)
 {
 	int			di;
 	t_format	*sfmt;
-	int			is_dlr;
 
 	di = 0;
-	is_dlr = 0;
-	if (extra && ft_strchr(ALL_TYPES,
-				((char*)extra->content)[ft_strlen(extra->content) - 1]))
-		is_dlr = logic_type((char *)extra->content);
 	while (extra)
 	{
-		sfmt = format_parser((char *)extra->content, &di, gdata, is_dlr);
+		sfmt = format_parser((char *)extra->content, &di, gdata);
 		free(extra->content);
 		extra->content = sfmt;
 		extra->content_size = sizeof(t_format);
@@ -121,7 +102,7 @@ char	*ft_format(const char *format, va_list ap, size_t *len)
 	str = maker(plain, extra, len);
 	ft_lstdel(&plain, del_simple);
 	ft_lstdel(&extra, del_extra);
-	void_ptr_arr_del((void ***)&gdata);
+	del_gdata_arr(&gdata);
 	return (str);
 }
 

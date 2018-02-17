@@ -77,22 +77,21 @@ static void	*get_data(char **type_arr, int idx, va_list ap)
 
 	len = ft_strlen(type_arr[idx]);
 	type = type_arr[idx][len - 1];
-	gdata = NULL;
+	gdata = new_gdata();
 	if (type == T_DEC || type == T_DEC2 || type == T_LDEC)
-		gdata = signed_decimal_modifiers(type_arr[idx], ap);
+		signed_decimal_modifiers(type_arr[idx], ap, gdata);
 	else if (type == T_UNSIGNED || type == T_OCT || type == T_HEX ||
 			type == T_BHEX || type == T_LUNSIGNED)
-		gdata = unsigned_decimal_modifiers(type_arr[idx], ap);
+		unsigned_decimal_modifiers(type_arr[idx], ap, gdata);
 	else if (type == T_PS)
-		gdata = pos_modifiers(ap);
+		pos_modifiers(ap, gdata);
 	else if (type == T_STR || type == T_WSTR)
-		gdata = str_modifiers(type_arr[idx], ap);
+		str_modifiers(type_arr[idx], ap, gdata);
 	else if (type == T_CHR || type == T_WCHR)
-		gdata = chr_modifiers(type_arr[idx], ap);
+		chr_modifiers(type_arr[idx], ap, gdata);
 	else if (type == T_PTR)
-		gdata = ptr_modifiers(ap);
-	if (gdata)
-		gdata->type = type;
+		ptr_modifiers(ap, gdata);
+	gdata->full_type->type = type;
 	return (gdata);
 }
 
@@ -108,6 +107,6 @@ t_gdata		**get_data_arr(t_list *extra, va_list ap)
 	idx = -1;
 	while (type_arr[++idx])
 		gdata[idx] = get_data(type_arr, idx, ap);
-	void_ptr_arr_del((void***)&type_arr);
+	del_void_ptr_arr((void***)&type_arr);
 	return (gdata);
 }

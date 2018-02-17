@@ -86,6 +86,8 @@ MAIN_SRCS := ft_printf.c \
 			  get_data_arr.c \
 			  align.c \
 			  ptr_manager.c \
+			  new_gdata.c \
+			  logic_type.c \
 			  string_readers.c \
 			  ptr_modifiers.c \
 			  pos_manager.c \
@@ -112,6 +114,10 @@ DIGITS_FILES := decimal_flag_except.c \
 				 group_by_thousands.c \
 				 hex_manager.c \
 				 signed_decimal_modifiers.c \
+				 signed_loaders_1.c \
+				 signed_loaders_2.c \
+				 unsigned_loaders_1.c \
+				 unsigned_loaders_2.c \
 				 unsigned_decimal_modifiers.c \
 				 width_and_prec.c
 DIGITS_SRCS := $(addprefix $(DIGITS_DIR),$(DIGITS_FILES))

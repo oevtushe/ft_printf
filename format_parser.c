@@ -1,5 +1,9 @@
 #include "ft_printf_helpers.h"
 
+/*
+** function get data from @param gdata by index in @param str
+*/
+
 static int	outside_param(const char *str, size_t *idx, t_gdata **gdata, int *di)
 {
 	int val;
@@ -21,6 +25,10 @@ static int	outside_param(const char *str, size_t *idx, t_gdata **gdata, int *di)
 	return (val);
 }
 
+/*
+** function read width from @param str or from @param gdata if '$' present
+*/
+
 static int	get_width(const char *str, int *di, size_t *idx, t_gdata **gdata)
 {
 	size_t	width;
@@ -40,7 +48,11 @@ static int	get_width(const char *str, int *di, size_t *idx, t_gdata **gdata)
 	return (width);
 }
 
-/* def val = -1 in case this doesn't collapse with explicit set of precision */
+/*
+** function read precision from @param str or from @param gdata if '$' present
+** def val = -1 in case this value doesn't collapse with none of explicit set
+*/
+
 static int	get_precision(const char *str, int *di, size_t *idx, t_gdata **gdata)
 {
 	int precision;
@@ -110,11 +122,11 @@ static void		init_flags(const char *str, t_format *cf, size_t *idx)
 	}
 }
 
-static void		init_default(t_format *cf)
-{
-	cf->width = -1;
-	cf->precision = -1;
-}
+/*
+** function return data from @param gdata arr by index readed from @param str
+** in case of '$' appearence
+** or by index @param di
+*/
 
 t_gdata			*get_cur_data(const char *str, size_t *idx, int *di, t_gdata **gdata)
 {
@@ -136,39 +148,48 @@ t_gdata			*get_cur_data(const char *str, size_t *idx, int *di, t_gdata **gdata)
 	return (gdata[(*di)++]);
 }
 
-void		spec_cases(const char *str, t_format *sfmt)
+/*
+** In case of wrong format string
+** function return copy of that one
+*/
+
+static void		spec_cases(const char *str, t_format *sfmt)
 {
 	t_gdata *gdata;
 
 	gdata = (t_gdata *)ft_memalloc(sizeof(t_gdata));
+	gdata->full_type = (t_full_type *)ft_memalloc(sizeof(t_full_type));
 	if (str[1] == '%')
-		gdata->type = T_PT;
+		gdata->full_type->type = T_PT;
 	else
 	{
 		gdata->data.pc = ft_strdup(str);
-		gdata->type = T_UNDEF;
+		gdata->full_type->type = T_UNDEF;
+		gdata->full_type->modifier = M_DEFAULT;
 	}
 	sfmt->gdata = gdata;
 }
 
-t_format	*format_parser(const char *str, int *di, t_gdata **gdata, int is_dlr)
+/*
+** format_parser initialise t_format structure by data
+** explicit given in @param str or load it from @param gdata
+** by index given in the string.
+*/
+
+t_format		*format_parser(const char *str, int *di, t_gdata **gdata)
 {
 	size_t		idx;
 	t_format	*cur_format;
 
 	idx = 1;
 	cur_format = (t_format*)ft_memalloc(sizeof(t_format));
-	init_default(cur_format);
 	if (ft_strchr(ALL_TYPES, str[ft_strlen(str) - 1]))
 	{
-		if (is_dlr)
-			cur_format->gdata = get_cur_data(str, &idx, di, gdata);
+		cur_format->gdata = get_cur_data(str, &idx, di, gdata);
 		init_flags(str, cur_format, &idx);
 		cur_format->width = get_width(str, di, &idx, gdata);
 		cur_format->precision = get_precision(str, di, &idx, gdata);
 		init_modifiers(str, &idx);
-		if (!is_dlr)
-			cur_format->gdata = get_cur_data(str, &idx, di, gdata);
 	}
 	else
 		spec_cases(str, cur_format);

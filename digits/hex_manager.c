@@ -19,7 +19,7 @@ char		*hex_manager(t_format *sfmt, size_t *len)
 	}
 	else
 		width_and_prec(&res, 0, sfmt);
-	if (sfmt->gdata->type == T_BHEX)
+	if (sfmt->gdata->full_type->type == T_BHEX)
 		ft_strtoupper(res);
 	align(&res, sfmt);
 	*len = ft_strlen(res);

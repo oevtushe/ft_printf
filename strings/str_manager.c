@@ -9,7 +9,7 @@ char		*str_manager(t_format *sfmt, size_t *ln)
 		res = ft_strdup("(null)");
 	else
 	{
-		if (sfmt->gdata->modifier == M_L || sfmt->gdata->type == T_WSTR)
+		if (sfmt->gdata->full_type->modifier == M_L || sfmt->gdata->full_type->type == T_WSTR)
 			res = wcs_to_utf8(sfmt->gdata->data.pwc, sfmt->precision);
 		else
 		{

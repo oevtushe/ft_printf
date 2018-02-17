@@ -14,7 +14,23 @@ void	del_extra(void *data, size_t size)
 		free(data);
 }
 
-void	void_ptr_arr_del(void ***dta)
+void	del_gdata_arr(t_gdata ***arr)
+{
+	int		i;
+	t_gdata	*tmp;
+
+	i = 0;
+	tmp = (*arr)[i];
+	while (tmp)
+	{
+		free(tmp->full_type);
+		free(tmp);
+		tmp = (*arr)[++i];
+	}
+	free(*arr);
+}
+
+void	del_void_ptr_arr(void ***dta)
 {
 	int		i;
 	void	*tmp;

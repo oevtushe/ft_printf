@@ -10,35 +10,8 @@
 
 #define ALL_TYPES "sSpdDioOuUxXcCn"
 
-typedef struct					s_gdata
+typedef struct					s_full_type
 {
-	union
-	{
-		short int				si;
-		unsigned short int		usi;
-
-		int						i;
-		long int				li;
-		long long int			lli;
-		ssize_t					sszi;
-		size_t					szi;
-		intmax_t				im;
-
-		unsigned int			ui;
-		unsigned long int		uli;
-		unsigned long long int	ulli;
-		uintmax_t				uim;
-
-		char					c;
-		unsigned char			uc;
-		wchar_t					wc;
-		wint_t					wi;
-		char					*pc;
-		wchar_t					*pwc;
-
-		void					*pv;
-
-	} 							data;
 	enum
 	{
 		T_UNDEF,
@@ -68,6 +41,38 @@ typedef struct					s_gdata
 		M_J,
 		M_Z
 	}							modifier;
+}								t_full_type;
+
+typedef struct					s_gdata
+{
+	union
+	{
+		short int				si;
+		unsigned short int		usi;
+
+		int						i;
+		long int				li;
+		long long int			lli;
+		ssize_t					sszi;
+		size_t					szi;
+		intmax_t				im;
+
+		unsigned int			ui;
+		unsigned long int		uli;
+		unsigned long long int	ulli;
+		uintmax_t				uim;
+
+		char					c;
+		unsigned char			uc;
+		wchar_t					wc;
+		wint_t					wi;
+		char					*pc;
+		wchar_t					*pwc;
+
+		void					*pv;
+
+	} 							data;
+	t_full_type					*full_type;
 }								t_gdata;
 
 typedef struct					s_format
@@ -89,9 +94,10 @@ typedef struct					s_format
 ** Main logic
 */
 
+t_gdata							*new_gdata(void);
 int								get_arr_size(t_list *extra);
 t_gdata							**get_data_arr(t_list *extra, va_list ap);
-t_format						*format_parser(const char *str, int *di, t_gdata **gdata, int is_dlr);
+t_format						*format_parser(const char *str, int *di, t_gdata **gdata);
 void							split_string(const char *format, t_list **plain, t_list **extra);
 void							align(char **sv, t_format *sfmt);
 void							decimal_flag_except(t_format *sfmt, int negative);
@@ -103,6 +109,7 @@ void							read_width(const char *str, size_t *idx);
 void							read_flags(const char *str, size_t *idx);
 void							read_precision(const char *str, size_t *idx);
 void							read_modifiers(const char *str, size_t *idx);
+void							read_type(const char *str, size_t *idx);
 
 /*
 ** Decimals
@@ -112,10 +119,25 @@ char							*octal_manager(t_format *sfmt, size_t *len);
 char							*hex_manager(t_format *sfmt, size_t *len);
 char							*unsigned_decimal_manager(t_format *sfmt, size_t *len);
 char							*signed_decimal_manager(t_format *sfmt, size_t *len);
-t_gdata							*unsigned_decimal_modifiers(char *str, va_list ap);
-t_gdata							*signed_decimal_modifiers(char *str, va_list ap);
+void							unsigned_decimal_modifiers(char *str, va_list ap, t_gdata *gdata);
+void							signed_decimal_modifiers(char *str, va_list ap, t_gdata *gdata);
 void							width_and_prec(char **val, int pref, t_format *sfmt);
 void							group_by_thousands(char **val);
+
+void							load_hhd(t_gdata *gdata, va_list ap);
+void							load_hd(t_gdata *gdata, va_list ap);
+void							load_d(t_gdata *gdata, va_list ap);
+void							load_zd(t_gdata *gdata, va_list ap);
+void							load_jd(t_gdata *gdata, va_list ap);
+void							load_ld(t_gdata *gdata, va_list ap);
+void							load_lld(t_gdata *gdata, va_list ap);
+void							load_hu(t_gdata *gdata, va_list ap);
+void							load_hhu(t_gdata *gdata, va_list ap);
+void							load_llu(t_gdata *gdata, va_list ap);
+void							load_lu(t_gdata *gdata, va_list ap);
+void							load_u(t_gdata *gdata, va_list ap);
+void							load_ju(t_gdata *gdata, va_list ap);
+void							load_zu(t_gdata *gdata, va_list ap);
 
 /*
 ** Strings
@@ -123,8 +145,8 @@ void							group_by_thousands(char **val);
 
 char							*str_manager(t_format *sfmt, size_t *ln);
 char							*chr_manager(t_format *sfmt, size_t *len);
-t_gdata							*str_modifiers(char *type, va_list ap);
-t_gdata							*chr_modifiers(char *type, va_list ap);
+void							str_modifiers(char *type, va_list ap, t_gdata *gdata);
+void							chr_modifiers(char *type, va_list ap, t_gdata *gdata);
 unsigned int					unicode_to_utf8(wchar_t wcr);
 char							*wcs_to_utf8(wchar_t *wcs, int len);
 char							*ft_witomb(wint_t wi);
@@ -133,10 +155,10 @@ char							*ft_witomb(wint_t wi);
 ** Other managers
 */
 
-t_gdata							*pos_modifiers(va_list ap);
+void							pos_modifiers(va_list ap, t_gdata *gdata);
 char							*pos_manager(t_format *sfmt, int len, size_t *ln);
 char							*ptr_manager(t_format *sfmt, size_t *len);
-t_gdata							*ptr_modifiers(va_list ap);
+void							ptr_modifiers(va_list ap, t_gdata *gdata);
 char							*percent_manager(t_format *sfmt, size_t *len);
 char							*undef_manager(t_format *sfmt, size_t *fmt_len);
 
@@ -147,6 +169,7 @@ char							*undef_manager(t_format *sfmt, size_t *fmt_len);
 
 void							del_simple(void *data, size_t size);
 void							del_extra(void *data, size_t size);
-void							void_ptr_arr_del(void ***dta);
+void							del_void_ptr_arr(void ***dta);
+void							del_gdata_arr(t_gdata ***arr);
 
 #endif
