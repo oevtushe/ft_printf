@@ -1,9 +1,8 @@
 #include "ft_printf.h"
 
-int main(void)
+int	main(void)
 {
-	char str[] = "here we go";
-
-	ft_printf("%s", str);
+	ft_printf("%U\n", 4294);
+	printf("%U\n", 4294);
 	return (0);
 }

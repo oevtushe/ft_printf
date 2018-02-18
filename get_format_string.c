@@ -12,6 +12,16 @@
 
 #include "ft_printf_helpers.h"
 
+void read_type(const char *str, size_t *idx)
+{
+	if (ft_strchr(ALL_TYPES, str[*idx]))
+		(*idx)++;
+}
+
+/*
+** Castilla for %%
+*/
+
 char	*get_format_string(const char *str, size_t *idx)
 {
 	size_t		start;
@@ -24,7 +34,8 @@ char	*get_format_string(const char *str, size_t *idx)
 	read_width(str, idx);
 	read_precision(str, idx);
 	read_modifiers(str, idx);
-	read_type(str, idx);
+	if (str[*idx])
+		++(*idx);
 	res = ft_strsub(str, start, *idx - start);
 	return (res);
 }

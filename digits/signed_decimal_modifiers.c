@@ -12,20 +12,20 @@
 
 #include "ft_printf_helpers.h"
 
-void	signed_decimal_modifiers(char *str, va_list ap, t_gdata *gdata)
+void	signed_decimal_modifiers(t_full_type *full_type, va_list ap, t_gdata *gdata)
 {
-	if (str[0] == 'l' && str[1] == 'l')
-		load_lld(gdata, ap);
-	else if (str[0] == 'l' || str[0] == T_LDEC)
-		load_ld(gdata, ap);
-	else if (str[0] == 'h' && str[1] == 'h')
-		load_hhd(gdata, ap);
-	else if (str[0] == 'h')
-		load_hd(gdata, ap);
-	else if (str[0] == 'j')
-		load_jd(gdata, ap);
-	else if (str[0] == 'z')
-		load_zd(gdata, ap);
+	if (full_type->modifier == M_LL)
+		gdata->data.lli = va_arg(ap, long long int);
+	else if (full_type->modifier == M_L || full_type->type == T_LDEC)
+		gdata->data.li = va_arg(ap, long int);
+	else if (full_type->modifier == M_HH)
+		gdata->data.c = va_arg(ap, int);
+	else if (full_type->modifier == M_H)
+		gdata->data.si = va_arg(ap, int);
+	else if (full_type->modifier == M_J)
+		gdata->data.im = va_arg(ap, intmax_t);
+	else if (full_type->modifier == M_Z)
+		gdata->data.sszi = va_arg(ap, ssize_t);
 	else
-		load_d(gdata, ap);
+		gdata->data.i = va_arg(ap, int);
 }

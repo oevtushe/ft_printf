@@ -12,20 +12,20 @@
 
 #include "ft_printf_helpers.h"
 
-void	unsigned_decimal_modifiers(char *str, va_list ap, t_gdata *gdata)
+void	unsigned_decimal_modifiers(t_full_type *full_type, va_list ap, t_gdata *gdata)
 {
-	if (str[0] == 'l' && str[1] == 'l')
-		load_llu(gdata, ap);
-	else if (str[0] == 'l' || str[0] == T_LUNSIGNED)
-		load_lu(gdata, ap);
-	else if (str[0] == 'h' && str[1] == 'h')
-		load_hhu(gdata, ap);
-	else if (str[0] == 'h')
-		load_hu(gdata, ap);
-	else if (str[0] == 'j')
-		load_ju(gdata, ap);
-	else if (str[0] == 'z')
-		load_zu(gdata, ap);
+	if (full_type->modifier == M_LL)
+		gdata->data.ulli = va_arg(ap, unsigned long long int);
+	else if (full_type->modifier == M_L || full_type->type == T_LUNSIGNED)
+		gdata->data.uli = va_arg(ap, unsigned long int);
+	else if (full_type->modifier == M_HH)
+		gdata->data.uc = va_arg(ap, unsigned int);
+	else if (full_type->modifier == M_H)
+		gdata->data.usi = va_arg(ap, unsigned int);
+	else if (full_type->modifier == M_J)
+		gdata->data.uim = va_arg(ap, uintmax_t);
+	else if (full_type->modifier == M_Z)
+		gdata->data.szi = va_arg(ap, size_t);
 	else
-		load_u(gdata, ap);
+		gdata->data.ui = va_arg(ap, unsigned int);
 }

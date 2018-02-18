@@ -81,9 +81,3 @@ void read_modifiers(const char *str, size_t *idx)
 				(str[*idx] == 'h') || (str[*idx] == 'l'))
 		*idx += 1;
 }
-
-void read_type(const char *str, size_t *idx)
-{
-	if (ft_strchr(ALL_TYPES, str[*idx]))
-		(*idx)++;
-}

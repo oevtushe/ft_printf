@@ -51,6 +51,7 @@ void			*ft_memalloc(size_t size);
 void			*ft_memdup(void *data, size_t size);
 void			*ft_memdel(void **data);
 void			*ft_memjoin(void *p1, size_t sp1, void *p2, size_t sp2);
+void			ft_memconnect(void **p1, size_t sp1, void *p2, size_t sp2);
 
 /*
 ** Lists

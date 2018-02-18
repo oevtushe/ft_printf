@@ -30,6 +30,7 @@ MT := ft_memcpy.c \
 	   ft_memdup.c \
 	   ft_memdel.c \
 	   ft_memset.c \
+	   ft_memconnect.c \
 	   ft_memalloc.c \
 	   ft_memjoin.c \
 	   ft_memset.c
@@ -98,7 +99,9 @@ MAIN_SRCS := ft_printf.c \
 			  get_data_arr.c \
 			  align.c \
 			  ptr_manager.c \
+			  ft_format.c \
 			  new_gdata.c \
+			  get_manager_dispatcher.c \
 			  string_readers.c \
 			  ptr_modifiers.c \
 			  pos_manager.c \
@@ -161,25 +164,32 @@ STRINGS_SRCS := $(addprefix $(STRINGS_DIR),$(STRINGS_FILES))
 #																						#
 #########################################################################################
 
-
+COLOR_RED := \033[32;1;31m
+COLOR_GREEN := \033[32;1;40m
+COLOR_VIOLET := \033[35;1;40m
+END_COLOR := \033[0m
 
 SRCS := $(TOOLS_SRCS) $(MAIN_SRCS) $(DIGITS_SRCS) $(STRINGS_SRCS)
+
 OBJECTS := $(SRCS:%.c=%.o)
+
 DEPENDENCY_DIR := includes/
-DEPENDENCY_FILES := ft_printf.h ft_printf_helpers.h ft_tools.h
+DEPENDENCY_FILES := ft_printf.h ft_printf_helpers.h ft_tools.h ft_structures.h
 DEPENDENCY := $(addprefix $(DEPENDENCY_DIR),$(DEPENDENCY_FILES))
 
-KEYS := -Wall -Werror -Wextra -g
-# delete -g
+KEYS := -Wall -Werror -Wextra
 
 all: $(NAME)
 
 $(NAME): $(OBJECTS)
-	ar -rc $(NAME) $(OBJECTS)
-	ranlib $(NAME)
+	@echo "$(COLOR_GREEN)Making lib ...$(END_COLOR)"
+	@ar -rc $(NAME) $(OBJECTS)
+	@echo "$(COLOR_RED)Indexation ...$(END_COLOR)"
+	@ranlib $(NAME)
 
 %.o: %.c $(DEPENDENCY)
-	gcc $(KEYS) -c -o $@ $< -I./$(DEPENDENCY_DIR)
+	@echo "$(COLOR_VIOLET)Compiling obj: $@$(END_COLOR)"
+	@gcc $(KEYS) -c -o $@ $< -I./$(DEPENDENCY_DIR)
 
 link: main.o
 
@@ -187,10 +197,13 @@ main.o: main.c $(NAME)
 	gcc $(KEYS) -c main.c -I./$(DEPENDENCY_DIR)
 	gcc $(KEYS) -o main main.o -L. -lftprintf -I./$(DEPENDENCY_DIR)
 clean:
-	rm -f $(OBJECTS)
+	@echo "$(COLOR_RED)Deleting obj files ...$(END_COLOR)"
+	@rm -f $(OBJECTS)
 fclean: clean
-	rm -f $(NAME)
+	@echo "$(COLOR_RED)Deleting $(NAME) ...$(END_COLOR)"
+	@rm -f $(NAME)
 re: fclean
-	make
+	@echo "$(COLOR_RED)Deleting $(NAME) ...$(END_COLOR)"
+	@make
 
 .PHONY: clean fclean re all link

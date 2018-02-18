@@ -14,25 +14,61 @@
 
 /*
 ** Min len of format string is 2, no bug here
+** full_type->type = str[len - 1] - is valid because we already
+** checked type validness in get_type_arr
+** Here type 'D' and type 'ld' has differences
 */
 
-static char	*get_type(const char *str, size_t len)
+static void			normalize_full_type(t_full_type *full_type)
 {
-	char *type;
-
-	type = NULL;
-	if ((str[len - 2] == 'l' && str[len - 3] == 'l') || 
-			(str[len - 2] == 'h' && str[len - 3] == 'h'))
-		type = ft_strsub(str, len - 3, 3);
-	else if (str[len - 2] == 'l' || str[len - 2] == 'h' ||
-				str[len - 2] == 'z' || str[len - 2] == 'j')
-		type = ft_strsub(str, len - 2, 2);
-	else
-		type = ft_strsub(str, len - 1, 1);
-	return (type);
+	if (full_type->type == T_DEC2)
+		full_type->type = T_DEC;
+	else if (full_type->type == T_LDEC)
+	{
+		full_type->type = T_DEC;
+		full_type->modifier = M_L;
+	}
+	else if (full_type->type == T_LUNSIGNED)
+	{
+		full_type->type = T_UNSIGNED;
+		full_type->modifier = M_L;
+	}
+	else if (full_type->type == T_WCHR)
+	{
+		full_type->type = T_CHR;
+		full_type->modifier = M_L;
+	}
+	else if (full_type->type == T_WSTR)
+	{
+		full_type->type = T_STR;
+		full_type->modifier = M_L;
+	}
 }
 
-static void	read_str_type_data(const char *str, size_t len, char **type_arr, int *ta_idx)
+static t_full_type *get_type(const char *str, size_t len)
+{
+	t_full_type *full_type;
+
+	full_type = (t_full_type *)ft_memalloc(sizeof(t_full_type));
+	if (str[len - 2] == 'l' && str[len - 3] == 'l')
+		full_type->modifier = M_LL;
+	else if (str[len - 2] == 'h' && str[len - 3] == 'h')
+		full_type->modifier = M_HH;
+	else if (str[len - 2] == 'l')
+		full_type->modifier = M_L;
+	else if (str[len - 2] == 'h')
+		full_type->modifier = M_H;
+	else if(str[len - 2] == 'z')
+		full_type->modifier = M_Z;
+	else if (str[len - 2] == 'j')
+		full_type->modifier = M_J;
+	else
+		full_type->modifier = M_DEFAULT;
+	full_type->type = str[len - 1];
+	return (full_type);
+}
+
+static void	read_str_type_data(const char *str, size_t len, t_full_type **type_arr, int *ta_idx)
 {
 	int		i;
 	char	*pos;
@@ -43,7 +79,7 @@ static void	read_str_type_data(const char *str, size_t len, char **type_arr, int
 		while ((pos = ft_strchr(&str[i], '*')))
 		{
 			i = pos - str + 1;
-			type_arr[(*ta_idx)++] = ft_strdup("d");
+			type_arr[(*ta_idx)++] = new_full_type(T_DEC, M_DEFAULT);
 		}
 		type_arr[(*ta_idx)++] = get_type(str, len);
 		return ;
@@ -57,19 +93,23 @@ static void	read_str_type_data(const char *str, size_t len, char **type_arr, int
 		if (*pos == '%' && !type_arr[*ta_idx])
 			type_arr[*ta_idx] = get_type(str, len);
 		else if (*pos == '*' && !type_arr[*ta_idx])
-			type_arr[*ta_idx] = ft_strdup("d");
+			type_arr[*ta_idx] = new_full_type(T_DEC, M_DEFAULT);
 	}
 }
 
-static char	**get_type_arr(t_list *extra, int arr_sz)
+/*
+** Here we check if type is valid, if doesn't then we ignore it
+*/
+
+static t_full_type	**get_type_arr(t_list *extra, int arr_sz)
 {
 	size_t	len;
 	char	*str;
-	char	**type_arr;
+	t_full_type	**type_arr;
 	int		ta_idx;
 
 	ta_idx = 0;
-	type_arr = (char **)ft_memalloc(sizeof(char *) * (arr_sz + 1));
+	type_arr = (t_full_type **)ft_memalloc(sizeof(t_full_type *) * (arr_sz + 1));
 	while (extra)
 	{
 		str = (char *)extra->content;
@@ -81,36 +121,32 @@ static char	**get_type_arr(t_list *extra, int arr_sz)
 	return (type_arr);
 }
 
-static void	*get_data(char **type_arr, int idx, va_list ap)
+static void	*get_data(t_full_type *cur_type, va_list ap)
 {
 	t_gdata	*gdata;
-	size_t	len;
-	char	type;
 
-	len = ft_strlen(type_arr[idx]);
-	type = type_arr[idx][len - 1];
 	gdata = new_gdata();
-	if (type == T_DEC || type == T_DEC2 || type == T_LDEC)
-		signed_decimal_modifiers(type_arr[idx], ap, gdata);
-	else if (type == T_UNSIGNED || type == T_OCT || type == T_HEX ||
-			type == T_BHEX || type == T_LUNSIGNED)
-		unsigned_decimal_modifiers(type_arr[idx], ap, gdata);
-	else if (type == T_PS)
-		pos_modifiers(ap, gdata);
-	else if (type == T_STR || type == T_WSTR)
-		str_modifiers(type_arr[idx], ap, gdata);
-	else if (type == T_CHR || type == T_WCHR)
-		chr_modifiers(type_arr[idx], ap, gdata);
-	else if (type == T_PTR)
-		ptr_modifiers(ap, gdata);
-	gdata->full_type->type = type;
+	gdata->full_type = cur_type;
+	if (cur_type->type == T_DEC || cur_type->type == T_DEC2 || cur_type->type == T_LDEC)
+		signed_decimal_modifiers(cur_type, ap, gdata);
+	else if (cur_type->type == T_UNSIGNED || cur_type->type == T_OCT || cur_type->type == T_HEX ||
+			cur_type->type == T_BHEX || cur_type->type == T_LUNSIGNED)
+		unsigned_decimal_modifiers(cur_type, ap, gdata);
+	else if (cur_type->type == T_PS)
+		gdata->data.pv = va_arg(ap, void *);
+	else if (cur_type->type == T_STR || cur_type->type == T_WSTR)
+		str_modifiers(cur_type, ap, gdata);
+	else if (cur_type->type == T_CHR || cur_type->type == T_WCHR)
+		chr_modifiers(cur_type, ap, gdata);
+	else if (cur_type->type == T_PTR)
+		gdata->data.pv = va_arg(ap, void *);
 	return (gdata);
 }
 
 t_gdata		**get_data_arr(t_list *extra, va_list ap)
 {
 	t_gdata	**gdata;
-	char	**type_arr;
+	t_full_type	**type_arr;
 	int		idx;
 
 	idx = get_arr_size(extra);
@@ -118,7 +154,7 @@ t_gdata		**get_data_arr(t_list *extra, va_list ap)
 	type_arr = get_type_arr(extra, idx);
 	idx = -1;
 	while (type_arr[++idx])
-		gdata[idx] = get_data(type_arr, idx, ap);
-	del_void_ptr_arr((void***)&type_arr);
+		gdata[idx] = get_data(type_arr[idx], ap);
+	free(type_arr);
 	return (gdata);
 }
