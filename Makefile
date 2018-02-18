@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: oevtushe <marvin@42.fr>                    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2018/02/18 12:47:27 by oevtushe          #+#    #+#              #
+#    Updated: 2018/02/18 12:47:29 by oevtushe         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME := libftprintf.a
 
 
@@ -87,7 +99,6 @@ MAIN_SRCS := ft_printf.c \
 			  align.c \
 			  ptr_manager.c \
 			  new_gdata.c \
-			  logic_type.c \
 			  string_readers.c \
 			  ptr_modifiers.c \
 			  pos_manager.c \

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   signed_decimal_modifiers.c                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: oevtushe <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/02/18 12:49:49 by oevtushe          #+#    #+#             */
+/*   Updated: 2018/02/18 12:49:50 by oevtushe         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf_helpers.h"
 
 void	signed_decimal_modifiers(char *str, va_list ap, t_gdata *gdata)
