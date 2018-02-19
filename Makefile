@@ -106,7 +106,6 @@ MAIN_SRCS := ft_printf.c \
 			  new_full_type.c \
 			  get_manager_dispatcher.c \
 			  string_readers.c \
-			  pos_manager.c \
 			  percent_manager.c \
 			  undef_manager.c \
 			  print_memory.c \
