@@ -12,24 +12,19 @@
 
 #include "ft_printf_helpers.h"
 
-static char	*mngr_usr(t_format *sfmt, t_mng_dpc **dispatcher, int len, size_t *fmt_len)
+static char	*mngr_usr(t_format *sfmt, t_mng_dpc **dispatcher, size_t *fmt_len)
 {
-	int			i;
-	char		*res;
+	int i;
+	char *res;
 
 	i = -1;
 	res = NULL;
-	if (sfmt->gdata->full_type->type == T_PS)
-		res = pos_manager(sfmt, len, fmt_len);
-	else
+	while (++i < DISPATCHER_SIZE)
 	{
-		while (++i < DISPATCHER_SIZE)
+		if (dispatcher[i]->type == sfmt->gdata->full_type->type)
 		{
-			if (dispatcher[i]->type == sfmt->gdata->full_type->type)
-			{
-				res = dispatcher[i]->manager(sfmt, fmt_len);
-				break;
-			}
+			res = dispatcher[i]->manager(sfmt, fmt_len);
+			break;
 		}
 	}
 	return (res);
@@ -46,7 +41,7 @@ static char	*maker(t_list *plain, t_list *extra, size_t *len)
 	dispatcher = get_manager_dispatcher();
 	while (extra)
 	{
-		extra_str = mngr_usr(extra->content, dispatcher, *len, &extra_len);
+		extra_str = mngr_usr(extra->content, dispatcher, &extra_len);
 		ft_memconnect((void**)&str, *len, plain->content, ft_strlen(plain->content));
 		*len += ft_strlen(plain->content);
 		ft_memconnect((void**)&str, *len, extra_str, extra_len);
