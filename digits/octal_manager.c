@@ -25,6 +25,8 @@ char		*octal_manager(t_format *sfmt, size_t *len)
 	width_and_prec(&res, 0, sfmt);
 	if (sfmt->FLAG_SHARP && res[0] != '0')
 		str_add_prefix(&res, '0');
+	if (sfmt->gdata->full_type->type == T_BOCT)
+		ft_strtoupper(res);
 	align(&res, sfmt);
 	*len = ft_strlen(res);
 	return (res);

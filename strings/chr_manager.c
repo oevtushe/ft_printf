@@ -21,7 +21,10 @@ static size_t	helper(char **res, t_format *sfmt)
 		align(res, sfmt);
 		len = ft_strlen(*res) + 1;
 		if (sfmt->FLAG_MINUS)
+		{
 			(*res)[0] = 0;
+			len--;
+		}
 		else if (len > 1)
 			(*res)[len-- - 2] = 0;
 	}
@@ -33,6 +36,7 @@ static size_t	helper(char **res, t_format *sfmt)
 	return (len);
 }
 
+void	print_memory(void *data, size_t size);
 char	*chr_manager(t_format *sfmt, size_t *len)
 {
 	char	*res;

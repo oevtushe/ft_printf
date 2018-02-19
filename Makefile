@@ -174,7 +174,7 @@ DEPENDENCY_DIR := includes/
 DEPENDENCY_FILES := ft_printf.h ft_printf_helpers.h ft_tools.h ft_structures.h
 DEPENDENCY := $(addprefix $(DEPENDENCY_DIR),$(DEPENDENCY_FILES))
 
-KEYS := -Wall -Werror -Wextra -g
+KEYS :=  -Wall -Werror -Wextra -g
 # delete -g
 
 all: $(NAME)
@@ -188,6 +188,12 @@ $(NAME): $(OBJECTS)
 %.o: %.c $(DEPENDENCY)
 	@echo "$(COLOR_VIOLET)Compiling obj: $@$(END_COLOR)"
 	@gcc $(KEYS) -c -o $@ $< -I./$(DEPENDENCY_DIR)
+
+link_extra: printf_main.o
+
+printf_main.o: printf_main.c $(NAME)
+	gcc $(KEYS) -c printf_main.c -I./$(DEPENDENCY_DIR)
+	gcc $(KEYS) -o printf_main printf_main.o -L. -lftprintf -I./$(DEPENDENCY_DIR)
 
 link: main.o
 

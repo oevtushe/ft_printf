@@ -55,7 +55,7 @@ char		*signed_decimal_manager(t_format *sfmt, size_t *len)
 	if (sfmt->gdata->full_type->type == T_LDEC)
 		sfmt->gdata->full_type->modifier = M_L;
 	val = signed_modifiers(sfmt->gdata);
-	if (val > 0 && (sfmt->FLAG_PLUS || sfmt->FLAG_SPACE))
+	if (val >= 0 && (sfmt->FLAG_PLUS || sfmt->FLAG_SPACE))
 		sign = 1;
 	else if (val < 0)
 		sign = -1;

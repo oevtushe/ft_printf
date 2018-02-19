@@ -12,13 +12,23 @@
 
 #include "ft_printf_helpers.h"
 
-/* sfmt->precision >= 0 like in man (str may not have term. zero) */
-char		*str_manager(t_format *sfmt, size_t *ln)
+static char 		*str_null(t_format *sfmt, size_t *ln)
 {
-	char	*res;
+	char *res;
+
+	sfmt->gdata->data.pc = ft_strdup("(null)");
+	res = str_manager(sfmt, ln);
+	ft_strdel(&sfmt->gdata->data.pc);
+	*ln = ft_strlen(res);
+	return (res);
+}
+
+char				*str_manager(t_format *sfmt, size_t *ln)
+{
+	char *res;
 
 	if (sfmt->gdata->data.pc == NULL)
-		res = ft_strdup("(null)");
+		res = str_null(sfmt, ln);
 	else
 	{
 		if (sfmt->gdata->full_type->modifier == M_L || sfmt->gdata->full_type->type == T_WSTR)
@@ -34,7 +44,7 @@ char		*str_manager(t_format *sfmt, size_t *ln)
 				res = ft_strdup(sfmt->gdata->data.pc);
 		}
 		align(&res, sfmt);
+		*ln = ft_strlen(res);
 	}
-	*ln = ft_strlen(res);
 	return (res);
 }

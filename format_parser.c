@@ -196,6 +196,20 @@ int				logic_type(const char *str)
 	return (type);
 }
 
+void			normalize_width(t_format *sfmt)
+{
+	unsigned int width;
+
+	if (sfmt->width < 0)
+	{
+		width = sfmt->width * -1;
+		sfmt->FLAG_MINUS = 1;
+	}
+	else
+		width = sfmt->width;
+	sfmt->width = width;
+}
+
 /*
 ** format_parser initialise t_format structure by data
 ** explicit given in @param str or load it from @param gdata
@@ -224,5 +238,6 @@ t_format		*format_parser(const char *str, int *di, t_gdata **gdata)
 	}
 	else
 		spec_cases(str, cur_format);
+	normalize_width(cur_format);
 	return (cur_format);
 }
