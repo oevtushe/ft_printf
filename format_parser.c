@@ -183,6 +183,20 @@ static void		spec_cases(const char *str, t_format *sfmt)
 }
 
 /*
+** For '*'
+*/
+
+int				logic_type(const char *str)
+{
+	int type;
+
+	if (ft_strchr(str, '$'))
+		type = 1;
+	type = 0;
+	return (type);
+}
+
+/*
 ** format_parser initialise t_format structure by data
 ** explicit given in @param str or load it from @param gdata
 ** by index given in the string.
@@ -190,6 +204,7 @@ static void		spec_cases(const char *str, t_format *sfmt)
 
 t_format		*format_parser(const char *str, int *di, t_gdata **gdata)
 {
+	int			lt;
 	size_t		idx;
 	t_format	*cur_format;
 
@@ -197,10 +212,14 @@ t_format		*format_parser(const char *str, int *di, t_gdata **gdata)
 	cur_format = (t_format*)ft_memalloc(sizeof(t_format));
 	if (ft_strchr(ALL_TYPES, str[ft_strlen(str) - 1]))
 	{
-		cur_format->gdata = get_cur_data(str, &idx, di, gdata);
+		lt = logic_type(str);
+		if (lt)
+			cur_format->gdata = get_cur_data(str, &idx, di, gdata);
 		init_flags(str, cur_format, &idx);
 		cur_format->width = get_width(str, di, &idx, gdata);
 		cur_format->precision = get_precision(str, di, &idx, gdata);
+		if (!lt)
+			cur_format->gdata = get_cur_data(str, &idx, di, gdata);
 		init_modifiers(str, &idx);
 	}
 	else
