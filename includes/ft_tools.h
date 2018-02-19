@@ -3,6 +3,7 @@
 
 # include <string.h>
 # include <inttypes.h>
+# include <wchar.h>
 # include <limits.h>
 # include <unistd.h>
 

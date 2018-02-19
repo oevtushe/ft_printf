@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include <wchar.h>
+#include "ft_printf_helpers.h"
+#include <stdio.h>
 
 static int			bit_cnt(wchar_t val)
 {
@@ -31,7 +33,7 @@ static wint_t	get_tail(wint_t val, unsigned int bp)
 	wint_t			tmp;
 	wint_t			res;
 
-	bi = sizeof(wint_t) * 8;
+	bi = sizeof(int) * 8;
 	res = 0;
 	tmp = val;
 	if (bp > 0)
@@ -53,8 +55,8 @@ static wint_t	get_tail(wint_t val, unsigned int bp)
 ** 0xE08080   -> 1110xxxx 10xxxxxx 10xxxxxx
 ** 0xF0808080 -> 11110xxx 10xxxxxx 10xxxxxx 10xxxxxx
 */
-
-wint_t			unicode_to_utf8(wint_t val)
+void			print_memory(void *data, size_t size);
+wint_t	unicode_to_utf8(wint_t val)
 {
 	wint_t		b1;
 	wint_t		b2;

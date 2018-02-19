@@ -19,32 +19,6 @@
 ** Here type 'D' and type 'ld' has differences
 */
 
-static void			normalize_full_type(t_full_type *full_type)
-{
-	if (full_type->type == T_DEC2)
-		full_type->type = T_DEC;
-	else if (full_type->type == T_LDEC)
-	{
-		full_type->type = T_DEC;
-		full_type->modifier = M_L;
-	}
-	else if (full_type->type == T_LUNSIGNED)
-	{
-		full_type->type = T_UNSIGNED;
-		full_type->modifier = M_L;
-	}
-	else if (full_type->type == T_WCHR)
-	{
-		full_type->type = T_CHR;
-		full_type->modifier = M_L;
-	}
-	else if (full_type->type == T_WSTR)
-	{
-		full_type->type = T_STR;
-		full_type->modifier = M_L;
-	}
-}
-
 static t_full_type *get_type(const char *str, size_t len)
 {
 	t_full_type *full_type;
@@ -65,6 +39,7 @@ static t_full_type *get_type(const char *str, size_t len)
 	else
 		full_type->modifier = M_DEFAULT;
 	full_type->type = str[len - 1];
+	normalize_full_type(full_type);
 	return (full_type);
 }
 
@@ -125,18 +100,18 @@ static void	*get_data(t_full_type *cur_type, va_list ap)
 {
 	t_gdata	*gdata;
 
-	gdata = new_gdata();
+	gdata = (t_gdata *)ft_memalloc(sizeof(t_gdata));
 	gdata->full_type = cur_type;
-	if (cur_type->type == T_DEC || cur_type->type == T_DEC2 || cur_type->type == T_LDEC)
+	if (cur_type->type == T_DEC)
 		signed_decimal_modifiers(cur_type, ap, gdata);
 	else if (cur_type->type == T_UNSIGNED || cur_type->type == T_OCT || cur_type->type == T_HEX ||
 			cur_type->type == T_BHEX || cur_type->type == T_LUNSIGNED)
 		unsigned_decimal_modifiers(cur_type, ap, gdata);
 	else if (cur_type->type == T_PS)
 		gdata->data.pv = va_arg(ap, void *);
-	else if (cur_type->type == T_STR || cur_type->type == T_WSTR)
+	else if (cur_type->type == T_STR)
 		str_modifiers(cur_type, ap, gdata);
-	else if (cur_type->type == T_CHR || cur_type->type == T_WCHR)
+	else if (cur_type->type == T_CHR)
 		chr_modifiers(cur_type, ap, gdata);
 	else if (cur_type->type == T_PTR)
 		gdata->data.pv = va_arg(ap, void *);

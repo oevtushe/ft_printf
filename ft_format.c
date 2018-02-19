@@ -25,7 +25,6 @@ static char	*mngr_usr(t_format *sfmt, t_mng_dpc **dispatcher, int len, size_t *f
 	{
 		while (++i < DISPATCHER_SIZE)
 		{
-			printf("%c\n", sfmt->gdata->full_type->type);
 			if (dispatcher[i]->type == sfmt->gdata->full_type->type)
 			{
 				res = dispatcher[i]->manager(sfmt, fmt_len);

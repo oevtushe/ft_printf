@@ -99,15 +99,17 @@ MAIN_SRCS := ft_printf.c \
 			  get_data_arr.c \
 			  align.c \
 			  ptr_manager.c \
+			  normalize_full_type.c \
 			  ft_format.c \
 			  new_gdata.c \
+			  free_gdata.c \
+			  new_full_type.c \
 			  get_manager_dispatcher.c \
 			  string_readers.c \
-			  ptr_modifiers.c \
 			  pos_manager.c \
-			  pos_modifiers.c \
 			  percent_manager.c \
 			  undef_manager.c \
+			  print_memory.c \
 			  freshers.c
 
 
@@ -128,10 +130,6 @@ DIGITS_FILES := decimal_flag_except.c \
 				 group_by_thousands.c \
 				 hex_manager.c \
 				 signed_decimal_modifiers.c \
-				 signed_loaders_1.c \
-				 signed_loaders_2.c \
-				 unsigned_loaders_1.c \
-				 unsigned_loaders_2.c \
 				 unsigned_decimal_modifiers.c \
 				 width_and_prec.c
 DIGITS_SRCS := $(addprefix $(DIGITS_DIR),$(DIGITS_FILES))
@@ -177,7 +175,8 @@ DEPENDENCY_DIR := includes/
 DEPENDENCY_FILES := ft_printf.h ft_printf_helpers.h ft_tools.h ft_structures.h
 DEPENDENCY := $(addprefix $(DEPENDENCY_DIR),$(DEPENDENCY_FILES))
 
-KEYS := -Wall -Werror -Wextra
+KEYS := -Wall -Werror -Wextra -g
+# delete -g
 
 all: $(NAME)
 

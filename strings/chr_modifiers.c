@@ -15,7 +15,7 @@
 void	chr_modifiers(t_full_type *full_type, va_list ap, t_gdata *gdata)
 {
 	if (full_type->modifier == M_L || full_type->type == T_WCHR)
-		gdata->data = va_arg(ap, wint_t);
+		gdata->data.wi = va_arg(ap, wint_t);
 	else
-		gdata->data = va_arg(ap, int);
+		gdata->data.c = va_arg(ap, int);
 }

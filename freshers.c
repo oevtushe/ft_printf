@@ -23,7 +23,9 @@ void	del_extra(void *data, size_t size)
 {
 	++size;
 	if (data)
+	{
 		free(data);
+	}
 }
 
 void	del_gdata_arr(t_gdata ***arr)
@@ -35,8 +37,7 @@ void	del_gdata_arr(t_gdata ***arr)
 	tmp = (*arr)[i];
 	while (tmp)
 	{
-		free(tmp->full_type);
-		free(tmp);
+		free_gdata(&tmp);
 		tmp = (*arr)[++i];
 	}
 	free(*arr);

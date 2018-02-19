@@ -19,6 +19,6 @@ char	*percent_manager(t_format *sfmt, size_t *len)
 	p = ft_strnew(1);
 	p[0] = '%';
 	*len = 1;
-	ft_memdel((void **)&(sfmt->gdata));
+	free_gdata(&sfmt->gdata);
 	return (p);
 }

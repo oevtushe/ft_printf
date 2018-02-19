@@ -1,8 +1,12 @@
 #include "ft_printf.h"
+#include <locale.h>
 
 int	main(void)
 {
-	ft_printf("%U\n", 4294);
-	printf("%U\n", 4294);
+	setlocale(LC_ALL, "");
+	ft_printf("%lc\n", L'л');
+	printf("%lc\n", L'л');
+	//printf("%");
+	//system("leaks main");
 	return (0);
 }
