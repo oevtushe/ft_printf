@@ -14,22 +14,17 @@
 
 static char	*mngr_usr(t_format *sfmt, t_mng_dpc **dispatcher, int len, size_t *fmt_len)
 {
-	int			i;
-	char		*res;
+	int i;
+	char *res;
 
 	i = -1;
 	res = NULL;
-	if (sfmt->gdata->full_type->type == T_PS)
-		res = pos_manager(sfmt, len, fmt_len);
-	else
+	while (++i < DISPATCHER_SIZE)
 	{
-		while (++i < DISPATCHER_SIZE)
+		if (dispatcher[i]->type == sfmt->gdata->full_type->type)
 		{
-			if (dispatcher[i]->type == sfmt->gdata->full_type->type)
-			{
-				res = dispatcher[i]->manager(sfmt, fmt_len);
-				break;
-			}
+			res = dispatcher[i]->manager(sfmt, fmt_len);
+			break;
 		}
 	}
 	return (res);

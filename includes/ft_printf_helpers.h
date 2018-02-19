@@ -7,7 +7,7 @@
 # include <stdarg.h>
 # include <unistd.h>
 
-# define ALL_TYPES "sSpdDioOuUxXcCn"
+# define ALL_TYPES "sSpdDioOuUxXcC"
 
 /*
 ** Main logic
@@ -80,7 +80,6 @@ char							*ft_witomb(wint_t wi);
 */
 
 void							pos_modifiers(va_list ap, t_gdata *gdata);
-char							*pos_manager(t_format *sfmt, int len, size_t *ln);
 char							*ptr_manager(t_format *sfmt, size_t *len);
 char							*percent_manager(t_format *sfmt, size_t *len);
 char							*undef_manager(t_format *sfmt, size_t *fmt_len);
