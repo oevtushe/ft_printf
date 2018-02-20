@@ -13,12 +13,15 @@
 #include "ft_printf_helpers.h"
 
 /*
-** find_format find valid format string in @param str
-** begin from @param start.
+** Find valid format string in @param str
+** start from @param start.
 **
-** @return format string if founded, also @param start and @param end
-** initialized to start and end of format string respectively.
-** @return NULL if no more format string in str.
+** @param	str		string format is searching in.
+** @param	start	index in string format is searching from.
+** @param	end		index to end of format string.
+** @return			format string if found, also @param start and @param end
+** 					initialized to start and end of format string respectively.
+** @return	NULL	if no more valid format string in @param str.
 */
 
 static char	*find_format(const char *str, size_t *start, size_t *end)
@@ -34,6 +37,12 @@ static char	*find_format(const char *str, size_t *start, size_t *end)
 		pos = tmp - str;
 		if ((res = get_format_string(str, &pos)))
 		{
+			if (!validate_mixed_index(str))
+			{
+				*end = ft_strlen(str);
+				ft_strdel(&res);
+				break ;
+			}
 			*start = tmp - str;
 			*end = pos;
 			break ;
@@ -44,9 +53,12 @@ static char	*find_format(const char *str, size_t *start, size_t *end)
 }
 
 /*
-** split_str fill plain and format lists.
-** plain list will be filled with simple text.
-** format list will be filled with format strings.
+** Fill @param plain and @param format lists.
+** Invalid format strings will be interpretated as
+** simple text.
+**
+** @param	plain	list with simple text.
+** @param	extra	list with format strings.
 */
 
 void	split_string(const char *str, t_list **plain, t_list **format)
@@ -55,10 +67,12 @@ void	split_string(const char *str, t_list **plain, t_list **format)
 	size_t		end;
 	size_t		prev;
 	char		*tmp;
+	int			lt;
 
 	start = 0;
 	end = 0;
 	prev = 0;
+	lt = -1;
 	while ((tmp = find_format(str, &start, &end)))
 	{
 		ft_lstaddelem(format, (void**)(&tmp), ft_strlen(tmp) + 1);

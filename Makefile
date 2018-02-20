@@ -114,6 +114,7 @@ MAIN_SRCS := ft_printf.c \
 			  outside_param.c \
 			  outside_param.c \
 			  is_type.c \
+			  validate_mixed_index.c \
 			  freshers.c
 
 
