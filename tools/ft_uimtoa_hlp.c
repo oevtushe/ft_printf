@@ -40,7 +40,7 @@ static void		ft_itoa_help(uintmax_t n, char *str, int *idx)
 	str[(*idx)++] = (n % 10) + '0';
 }
 
-char		*ft_uimtoa_hlp(const uintmax_t n, int sign)
+char			*ft_uimtoa_hlp(const uintmax_t n, int sign)
 {
 	char					*res;
 	int						idx;

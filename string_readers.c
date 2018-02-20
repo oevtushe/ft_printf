@@ -6,24 +6,30 @@
 /*   By: oevtushe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/18 12:48:59 by oevtushe          #+#    #+#             */
-/*   Updated: 2018/02/18 12:49:00 by oevtushe         ###   ########.fr       */
+/*   Updated: 2018/02/19 19:41:19 by oevtushe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_helpers.h"
 
-void	read_data_index(const char *str, size_t *idx)
+int		read_data_index(const char *str, size_t *idx)
 {
-	int i;
+	int		i;
+	int		val;
 
 	i = *idx;
+	val = -1;
 	if (ft_isdigit(str[i]))
 	{
 		while (ft_isdigit(str[i]))
 			++i;
 		if (str[i] == '$')
+		{
+			val = ft_atoi(&str[*idx]);
 			*idx = ++i;
+		}
 	}
+	return (val);
 }
 
 void	read_width(const char *str, size_t *idx)
@@ -49,7 +55,7 @@ void	read_flags(const char *str, size_t *idx)
 	int i;
 
 	i = *idx;
-	while (str[i] == '+' || str[i] == '-' 
+	while (str[i] == '+' || str[i] == '-'
 			|| str[i] == ' ' || str[i] == '0' ||
 				str[i] == '#' || str[i] == '\'')
 		++i;
@@ -72,7 +78,7 @@ void	read_precision(const char *str, size_t *idx)
 	}
 }
 
-void read_modifiers(const char *str, size_t *idx)
+void	read_modifiers(const char *str, size_t *idx)
 {
 	if ((str[*idx] == 'l' && str[*idx + 1] == 'l') ||
 			(str[*idx] == 'h' && str[*idx + 1] == 'h'))

@@ -6,17 +6,17 @@
 /*   By: oevtushe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/18 12:50:26 by oevtushe          #+#    #+#             */
-/*   Updated: 2018/02/18 12:50:28 by oevtushe         ###   ########.fr       */
+/*   Updated: 2018/02/19 19:42:43 by oevtushe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_helpers.h"
 
-static void		handle_signs(t_format *sfmt, char **res, int sign)
+static void			handle_signs(t_format *sfmt, char **res, int sign)
 {
-	if (sfmt->FLAG_PLUS)
+	if (sfmt->flag_plus)
 		str_add_prefix(res, '+');
-	else if (sfmt->FLAG_SPACE)
+	else if (sfmt->flag_space)
 		str_add_prefix(res, ' ');
 	else if (sign < 0)
 		str_add_prefix(res, '-');
@@ -44,7 +44,7 @@ static intmax_t		signed_modifiers(t_gdata *gdata)
 	return (vl);
 }
 
-char		*signed_decimal_manager(t_format *sfmt, size_t *len)
+char				*signed_decimal_manager(t_format *sfmt, size_t *len)
 {
 	int			sign;
 	intmax_t	val;
@@ -55,14 +55,14 @@ char		*signed_decimal_manager(t_format *sfmt, size_t *len)
 	if (sfmt->gdata->full_type->type == T_LDEC)
 		sfmt->gdata->full_type->modifier = M_L;
 	val = signed_modifiers(sfmt->gdata);
-	if (val >= 0 && (sfmt->FLAG_PLUS || sfmt->FLAG_SPACE))
+	if (val >= 0 && (sfmt->flag_plus || sfmt->flag_space))
 		sign = 1;
 	else if (val < 0)
 		sign = -1;
 	decimal_flag_except(sfmt, (sign < 0));
 	uval = (sign < 0) ? (val * -1L) : val;
 	res = ft_uimtoa(uval);
-	if (sfmt->FLAG_SQUOTE && MB_CUR_MAX > 1)
+	if (sfmt->flag_squote && MB_CUR_MAX > 1)
 		group_by_thousands(&res);
 	width_and_prec(&res, ft_abs(sign), sfmt);
 	handle_signs(sfmt, &res, sign);

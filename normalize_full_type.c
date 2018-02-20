@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   normalize_full_type.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: oevtushe <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/02/19 19:37:31 by oevtushe          #+#    #+#             */
+/*   Updated: 2018/02/19 19:37:39 by oevtushe         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf_helpers.h"
 
 /*
 ** After this function no differences between type 'D' and type "ld"
 */
 
-void			normalize_full_type(t_full_type *full_type)
+void	normalize_full_type(t_ftype *full_type)
 {
 	if (full_type->type == T_DEC2)
 		full_type->type = T_DEC;

@@ -39,7 +39,7 @@ static void	ft_itoa_hlp(uintmax_t val, unsigned int base, char *res, int *idx)
 	}
 }
 
-char	*ft_uimtoabase_gen(uintmax_t val, int sign, unsigned int base)
+char		*ft_uimtoabase_gen(uintmax_t val, int sign, unsigned int base)
 {
 	char	*res;
 	int		idx;

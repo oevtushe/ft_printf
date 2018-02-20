@@ -102,13 +102,18 @@ MAIN_SRCS := ft_printf.c \
 			  normalize_full_type.c \
 			  ft_format.c \
 			  new_gdata.c \
-			  free_gdata.c \
 			  new_full_type.c \
 			  get_manager_dispatcher.c \
 			  string_readers.c \
 			  percent_manager.c \
 			  undef_manager.c \
-			  print_memory.c \
+			  logic_type.c \
+			  normalize_width.c \
+			  spec_cases.c \
+			  get_cur_data.c \
+			  outside_param.c \
+			  outside_param.c \
+			  is_type.c \
 			  freshers.c
 
 

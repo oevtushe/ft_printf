@@ -6,11 +6,11 @@
 /*   By: oevtushe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/18 12:42:00 by oevtushe          #+#    #+#             */
-/*   Updated: 2018/02/18 12:42:02 by oevtushe         ###   ########.fr       */
+/*   Updated: 2018/02/19 19:49:08 by oevtushe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int			ft_abs(int val)
 {
-	return ((val > 0 ) ? val : -val);
+	return ((val > 0) ? val : -val);
 }

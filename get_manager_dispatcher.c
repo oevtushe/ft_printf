@@ -6,13 +6,13 @@
 /*   By: oevtushe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/18 15:48:58 by oevtushe          #+#    #+#             */
-/*   Updated: 2018/02/18 15:49:00 by oevtushe         ###   ########.fr       */
+/*   Updated: 2018/02/19 19:35:37 by oevtushe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_helpers.h"
 
-t_mng_dpc *new_dpc(t_type type, char *(*manager)(t_format *sfmt, size_t *len))
+t_mng_dpc	*new_dpc(t_type type, char *(*manager)(t_format *sfmt, size_t *len))
 {
 	t_mng_dpc	*dpc;
 
@@ -22,11 +22,12 @@ t_mng_dpc *new_dpc(t_type type, char *(*manager)(t_format *sfmt, size_t *len))
 	return (dpc);
 }
 
-t_mng_dpc **get_manager_dispatcher(void)
+t_mng_dpc	**get_manager_dispatcher(void)
 {
 	t_mng_dpc **dispatcher;
 
-	dispatcher = (t_mng_dpc **)ft_memalloc(sizeof(t_mng_dpc *) * (DISPATCHER_SIZE + 1));
+	dispatcher = (t_mng_dpc **)ft_memalloc(sizeof(t_mng_dpc *) *
+			(DISPATCHER_SIZE + 1));
 	dispatcher[0] = new_dpc(T_DEC, signed_decimal_manager);
 	dispatcher[1] = new_dpc(T_UNSIGNED, unsigned_decimal_manager);
 	dispatcher[2] = new_dpc(T_PT, percent_manager);

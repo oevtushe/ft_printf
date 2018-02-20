@@ -6,7 +6,7 @@
 /*   By: oevtushe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/18 12:47:53 by oevtushe          #+#    #+#             */
-/*   Updated: 2018/02/18 12:47:56 by oevtushe         ###   ########.fr       */
+/*   Updated: 2018/02/19 19:17:28 by oevtushe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,10 @@ void	del_void_ptr_arr(void ***dta)
 		tmp = (*dta)[++i];
 	}
 	free(*dta);
+}
+
+void	free_gdata(t_gdata **gdata)
+{
+	ft_memdel((void **)&((*gdata)->full_type));
+	ft_memdel((void **)gdata);
 }

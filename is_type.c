@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lltoa.c                                         :+:      :+:    :+:   */
+/*   is_type.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oevtushe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/18 12:42:25 by oevtushe          #+#    #+#             */
-/*   Updated: 2018/02/19 19:48:55 by oevtushe         ###   ########.fr       */
+/*   Created: 2018/02/20 16:07:26 by oevtushe          #+#    #+#             */
+/*   Updated: 2018/02/20 16:07:28 by oevtushe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_tools.h"
+#include "ft_printf_helpers.h"
 
-char			*ft_lltoa(const long long int n)
+int		is_type(char c)
 {
-	int						sign;
-	unsigned long long int	nn;
+	int valid;
 
-	sign = 1;
-	if (n < 0)
-	{
-		sign = -1;
-		nn = n * -1LL;
-	}
-	else
-		nn = n;
-	return (ft_uimtoa_hlp(nn, sign));
+	valid = 0;
+	if (c == T_OCT || c == T_BOCT || c == T_CHR || c == T_WCHR ||
+		c == T_DEC || c == T_DEC2 || c == T_LDEC || c == T_HEX ||
+		c == T_BHEX || c == T_PT || c == T_PTR || c == T_STR ||
+		c == T_WSTR || c == T_UNSIGNED || c == T_LUNSIGNED ||
+		c == T_UNDEF)
+		valid = 1;
+	return (valid);
 }

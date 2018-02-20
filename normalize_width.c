@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lltoa.c                                         :+:      :+:    :+:   */
+/*   normalize_width.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oevtushe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/18 12:42:25 by oevtushe          #+#    #+#             */
-/*   Updated: 2018/02/19 19:48:55 by oevtushe         ###   ########.fr       */
+/*   Created: 2018/02/19 19:37:59 by oevtushe          #+#    #+#             */
+/*   Updated: 2018/02/19 19:38:08 by oevtushe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_tools.h"
+#include "ft_printf_helpers.h"
 
-char			*ft_lltoa(const long long int n)
+void	normalize_width(t_format *sfmt)
 {
-	int						sign;
-	unsigned long long int	nn;
+	unsigned int	width;
 
-	sign = 1;
-	if (n < 0)
+	if (sfmt->width < 0)
 	{
-		sign = -1;
-		nn = n * -1LL;
+		width = sfmt->width * -1;
+		sfmt->flag_minus = 1;
 	}
 	else
-		nn = n;
-	return (ft_uimtoa_hlp(nn, sign));
+		width = sfmt->width;
+	sfmt->width = width;
 }

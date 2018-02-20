@@ -24,6 +24,6 @@ void	width_and_prec(char **val, int prefix, t_format *sfmt)
 		ft_strdel(val);
 		*val = ft_strnew(0);
 	}
-	else if (sfmt->width > len && sfmt->FLAG_ZERO)
+	else if (sfmt->width > len && sfmt->flag_zero)
 		spc_string(val, sfmt->width - prefix, '0', 0);
 }

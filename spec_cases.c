@@ -1,37 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_witomb.c                                        :+:      :+:    :+:   */
+/*   spec_cases.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oevtushe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/18 12:39:49 by oevtushe          #+#    #+#             */
-/*   Updated: 2018/02/19 19:45:13 by oevtushe         ###   ########.fr       */
+/*   Created: 2018/02/19 19:39:16 by oevtushe          #+#    #+#             */
+/*   Updated: 2018/02/19 19:39:23 by oevtushe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_helpers.h"
 
-char	*ft_witomb(wint_t wi)
-{
-	size_t			len;
-	size_t			i;
-	size_t			res_idx;
-	char			*res;
-	unsigned char	*cst;
+/*
+** In case of wrong format string
+** function return copy of that one
+*/
 
-	len = sizeof(wint_t);
-	i = len;
-	res_idx = 0;
-	cst = (unsigned char *)&wi;
-	res = ft_strnew(len);
-	if (res)
+void	spec_cases(const char *str, t_format *sfmt)
+{
+	t_gdata	*gdata;
+
+	gdata = (t_gdata *)ft_memalloc(sizeof(t_gdata));
+	gdata->full_type = (t_ftype *)ft_memalloc(sizeof(t_ftype));
+	if (str[1] == '%')
+		gdata->full_type->type = T_PT;
+	else
 	{
-		while (i--)
-			if (cst[i])
-				res[res_idx++] = cst[i];
-		if (res_idx < len)
-			ft_str_realloc(&res, res_idx);
+		gdata->data.pc = ft_strdup(str);
+		gdata->full_type->type = T_UNDEF;
+		gdata->full_type->modifier = M_DEFAULT;
 	}
-	return (res);
+	sfmt->gdata = gdata;
 }

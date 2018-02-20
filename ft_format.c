@@ -6,7 +6,7 @@
 /*   By: oevtushe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/18 17:08:03 by oevtushe          #+#    #+#             */
-/*   Updated: 2018/02/18 17:08:05 by oevtushe         ###   ########.fr       */
+/*   Updated: 2018/02/19 19:21:09 by oevtushe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static char	*mngr_usr(t_format *sfmt, t_mng_dpc **dispatcher, size_t *fmt_len)
 {
-	int i;
-	char *res;
+	int		i;
+	char	*res;
 
 	i = -1;
 	res = NULL;
@@ -24,36 +24,36 @@ static char	*mngr_usr(t_format *sfmt, t_mng_dpc **dispatcher, size_t *fmt_len)
 		if (dispatcher[i]->type == sfmt->gdata->full_type->type)
 		{
 			res = dispatcher[i]->manager(sfmt, fmt_len);
-			break;
+			break ;
 		}
 	}
 	return (res);
 }
 
-static char	*maker(t_list *plain, t_list *extra, size_t *len)
+static char	*maker(t_list *pl, t_list *ex, size_t *len)
 {
-	char	*str;
-	char	*extra_str;
-	size_t	extra_len;
-	t_mng_dpc 	**dispatcher;
+	char		*str;
+	char		*extra_str;
+	size_t		extra_len;
+	t_mng_dpc	**dispatcher;
 
 	str = ft_strnew(0);
 	dispatcher = get_manager_dispatcher();
-	while (extra)
+	while (ex)
 	{
-		extra_str = mngr_usr(extra->content, dispatcher, &extra_len);
-		ft_memconnect((void**)&str, *len, plain->content, ft_strlen(plain->content));
-		*len += ft_strlen(plain->content);
+		extra_str = mngr_usr(ex->content, dispatcher, &extra_len);
+		ft_memconnect((void**)&str, *len, pl->content, ft_strlen(pl->content));
+		*len += ft_strlen(pl->content);
 		ft_memconnect((void**)&str, *len, extra_str, extra_len);
 		*len += extra_len;
-		plain = plain->next;
-		extra = extra->next;
+		pl = pl->next;
+		ex = ex->next;
 		ft_memdel((void **)&extra_str);
 	}
-	if (plain)
+	if (pl)
 	{
-		ft_memconnect((void**)&str, *len, plain->content, ft_strlen(plain->content));
-		*len += ft_strlen(plain->content);
+		ft_memconnect((void**)&str, *len, pl->content, ft_strlen(pl->content));
+		*len += ft_strlen(pl->content);
 	}
 	del_void_ptr_arr((void***)&dispatcher);
 	return (str);
@@ -75,7 +75,7 @@ static void	reformat_extra(t_list *extra, t_gdata **gdata)
 	}
 }
 
-char	*ft_format(const char *format, va_list ap, size_t *len)
+char		*ft_format(const char *format, va_list ap, size_t *len)
 {
 	char	*str;
 	t_list	*plain;

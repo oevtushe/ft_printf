@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lltoa.c                                         :+:      :+:    :+:   */
+/*   logic_type.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oevtushe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/18 12:42:25 by oevtushe          #+#    #+#             */
-/*   Updated: 2018/02/19 19:48:55 by oevtushe         ###   ########.fr       */
+/*   Created: 2018/02/19 19:36:00 by oevtushe          #+#    #+#             */
+/*   Updated: 2018/02/19 19:36:07 by oevtushe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_tools.h"
+#include "ft_printf_helpers.h"
 
-char			*ft_lltoa(const long long int n)
+/*
+** For '*'
+*/
+
+int	logic_type(const char *str)
 {
-	int						sign;
-	unsigned long long int	nn;
+	int type;
 
-	sign = 1;
-	if (n < 0)
-	{
-		sign = -1;
-		nn = n * -1LL;
-	}
-	else
-		nn = n;
-	return (ft_uimtoa_hlp(nn, sign));
+	if (ft_strchr(str, '$'))
+		type = 1;
+	type = 0;
+	return (type);
 }

@@ -1,29 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lltoa.c                                         :+:      :+:    :+:   */
+/*   outside_param.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oevtushe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/18 12:42:25 by oevtushe          #+#    #+#             */
-/*   Updated: 2018/02/19 19:48:55 by oevtushe         ###   ########.fr       */
+/*   Created: 2018/02/19 19:38:26 by oevtushe          #+#    #+#             */
+/*   Updated: 2018/02/19 19:38:35 by oevtushe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_tools.h"
+#include "ft_printf_helpers.h"
 
-char			*ft_lltoa(const long long int n)
+/*
+** function get data from @param gdata by index in @param str
+*/
+
+int	outside_param(const char *str, size_t *idx, t_gdata **gdata, int *di)
 {
-	int						sign;
-	unsigned long long int	nn;
+	int	val;
 
-	sign = 1;
-	if (n < 0)
+	val = -1;
+	if (ft_isdigit(str[*idx]))
 	{
-		sign = -1;
-		nn = n * -1LL;
+		*di = ft_atoi(&str[*idx]) - 1;
+		while (ft_isdigit(str[*idx]))
+			++(*idx);
+		if (str[*idx] == '$')
+		{
+			++(*idx);
+			val = gdata[*di]->data.i;
+		}
 	}
 	else
-		nn = n;
-	return (ft_uimtoa_hlp(nn, sign));
+		val = gdata[(*di)++]->data.i;
+	return (val);
 }

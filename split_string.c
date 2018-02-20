@@ -6,33 +6,66 @@
 /*   By: oevtushe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/18 12:48:55 by oevtushe          #+#    #+#             */
-/*   Updated: 2018/02/18 12:48:56 by oevtushe         ###   ########.fr       */
+/*   Updated: 2018/02/19 19:39:44 by oevtushe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_helpers.h"
 
 /*
-** split_str fills plain and format lists.
+** find_format find valid format string in @param str
+** begin from @param start.
+**
+** @return format string if founded, also @param start and @param end
+** initialized to start and end of format string respectively.
+** @return NULL if no more format string in str.
+*/
+
+static char	*find_format(const char *str, size_t *start, size_t *end)
+{
+	char	*tmp;
+	char	*res;
+	size_t	pos;
+
+	res = NULL;
+	pos = *start;
+	while ((tmp = ft_strchr(&str[pos], '%')))
+	{
+		pos = tmp - str;
+		if ((res = get_format_string(str, &pos)))
+		{
+			*start = tmp - str;
+			*end = pos;
+			break ;
+		}
+		++pos;
+	}
+	return (res);
+}
+
+/*
+** split_str fill plain and format lists.
 ** plain list will be filled with simple text.
 ** format list will be filled with format strings.
 */
 
 void	split_string(const char *str, t_list **plain, t_list **format)
 {
+	size_t		start;
+	size_t		end;
 	size_t		prev;
-	size_t		pos;
 	char		*tmp;
 
+	start = 0;
+	end = 0;
 	prev = 0;
-	while ((tmp = ft_strchr(&(str[prev]), '%')))
+	while ((tmp = find_format(str, &start, &end)))
 	{
-		pos = tmp - str;
-		tmp = ft_strsub(str, prev, pos - prev);
-		ft_lstaddelem(plain, (void**)(&tmp), ft_strlen(tmp) + 1);
-		tmp = get_format_string(str, &pos);
 		ft_lstaddelem(format, (void**)(&tmp), ft_strlen(tmp) + 1);
-		prev = pos;
+		tmp = ft_strsub(str, prev, start - prev);
+		ft_lstaddelem(plain, (void**)(&tmp), ft_strlen(tmp) + 1);
+		prev = end;
+		start = end;
 	}
 	if (prev != ft_strlen(str))
 	{

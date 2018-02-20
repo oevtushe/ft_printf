@@ -6,7 +6,7 @@
 /*   By: oevtushe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/18 12:49:39 by oevtushe          #+#    #+#             */
-/*   Updated: 2018/02/18 12:49:41 by oevtushe         ###   ########.fr       */
+/*   Updated: 2018/02/19 19:42:06 by oevtushe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ char		*hex_manager(t_format *sfmt, size_t *len)
 	char		*res;
 	char		*tmp;
 
-	sfmt->FLAG_PLUS = 0;
-	sfmt->FLAG_SPACE = 0;
+	sfmt->flag_plus = 0;
+	sfmt->flag_space = 0;
 	uval = sfmt->gdata->data.uim;
 	res = ft_uimtoabase_gen(uval, 0, 16);
-	if (sfmt->FLAG_SHARP && uval)
+	if (sfmt->flag_sharp && uval)
 	{
 		width_and_prec(&res, 2, sfmt);
 		tmp = res;

@@ -16,8 +16,8 @@
 char							*ft_format(const char *format, va_list ap, size_t *len);
 t_gdata							*new_gdata(void);
 void							free_gdata(t_gdata **gdata);
-void							normalize_full_type(t_full_type *full_type);
-t_full_type						*new_full_type(t_type type, t_modifier modifier);
+void							normalize_full_type(t_ftype *full_type);
+t_ftype							*new_full_type(t_type type, t_modifier modifier);
 int								get_arr_size(t_list *extra);
 t_gdata							**get_data_arr(t_list *extra, va_list ap);
 t_format						*format_parser(const char *str, int *di, t_gdata **gdata);
@@ -27,8 +27,13 @@ void							decimal_flag_except(t_format *sfmt, int negative);
 char							*get_format_string(const char *str, size_t *idx);
 char							*init_types(void);
 t_mng_dpc						**get_manager_dispatcher(void);
+void							normalize_width(t_format *sfmt);
+int								logic_type(const char *str);
+void							spec_cases(const char *str, t_format *sfmt);
+t_gdata							*get_cur_data(const char *str, size_t *idx, int *di, t_gdata **gdata);
+int								outside_param(const char *str, size_t *idx, t_gdata **gdata, int *di);
 
-void							read_data_index(const char *str, size_t *idx);
+int								is_type(char c);
 void							read_width(const char *str, size_t *idx);
 void							read_flags(const char *str, size_t *idx);
 void							read_precision(const char *str, size_t *idx);
@@ -43,8 +48,8 @@ char							*octal_manager(t_format *sfmt, size_t *len);
 char							*hex_manager(t_format *sfmt, size_t *len);
 char							*unsigned_decimal_manager(t_format *sfmt, size_t *len);
 char							*signed_decimal_manager(t_format *sfmt, size_t *len);
-void							unsigned_decimal_modifiers(t_full_type *full_type, va_list ap, t_gdata *gdata);
-void							signed_decimal_modifiers(t_full_type *full_type, va_list ap, t_gdata *gdata);
+void							unsigned_decimal_modifiers(t_ftype *full_type, va_list ap, t_gdata *gdata);
+void							signed_decimal_modifiers(t_ftype *full_type, va_list ap, t_gdata *gdata);
 void							width_and_prec(char **val, int pref, t_format *sfmt);
 void							group_by_thousands(char **val);
 
@@ -69,11 +74,12 @@ void							load_zu(t_gdata *gdata, va_list ap);
 
 char							*str_manager(t_format *sfmt, size_t *ln);
 char							*chr_manager(t_format *sfmt, size_t *len);
-void							str_modifiers(t_full_type *full_type, va_list ap, t_gdata *gdata);
-void							chr_modifiers(t_full_type *full_type, va_list ap, t_gdata *gdata);
+void							str_modifiers(t_ftype *full_type, va_list ap, t_gdata *gdata);
+void							chr_modifiers(t_ftype *full_type, va_list ap, t_gdata *gdata);
 wint_t							unicode_to_utf8(wint_t wcr);
 char							*wcs_to_utf8(wchar_t *wcs, int len);
 char							*ft_witomb(wint_t wi);
+int								read_data_index(const char *str, size_t *idx);
 
 /*
 ** Other managers

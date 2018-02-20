@@ -6,7 +6,7 @@
 /*   By: oevtushe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/18 12:38:58 by oevtushe          #+#    #+#             */
-/*   Updated: 2018/02/18 12:39:03 by oevtushe         ###   ########.fr       */
+/*   Updated: 2018/02/19 19:44:43 by oevtushe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static size_t	helper(char **res, t_format *sfmt)
 	{
 		align(res, sfmt);
 		len = ft_strlen(*res) + 1;
-		if (sfmt->FLAG_MINUS)
+		if (sfmt->flag_minus)
 		{
 			(*res)[0] = 0;
 			len--;
@@ -36,12 +36,12 @@ static size_t	helper(char **res, t_format *sfmt)
 	return (len);
 }
 
-void	print_memory(void *data, size_t size);
-char	*chr_manager(t_format *sfmt, size_t *len)
+char			*chr_manager(t_format *sfmt, size_t *len)
 {
 	char	*res;
 
-	if ((sfmt->gdata->full_type->modifier == M_L || sfmt->gdata->full_type->type == T_WCHR)
+	if ((sfmt->gdata->full_type->modifier == M_L
+				|| sfmt->gdata->full_type->type == T_WCHR)
 			&& MB_CUR_MAX > 1)
 		res = ft_witomb(unicode_to_utf8(sfmt->gdata->data.wi));
 	else

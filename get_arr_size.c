@@ -12,40 +12,20 @@
 
 #include "ft_printf_helpers.h"
 
-static int	get_idx(const char *str, int *i)
-{
-	int j;
-	int	val;
-
-	j = *i;
-	val = 0;
-	if (ft_isdigit(str[*i]))
-	{
-		val = ft_atoi(&str[*i]);
-		while (ft_isdigit(str[j]))
-			++j;
-		if (str[j] == '$')
-			*i = j;
-		else
-			val = 0;
-	}
-	return (val);
-}
-
 static int	get_max_idx_dl(const char *str)
 {
-	int		i;
+	size_t	i;
 	int		cur_max;
 	int		tmp;
 	char	*pos;
 
 	i = 1;
-	cur_max = get_idx(str, &i);
+	cur_max = read_data_index(str, &i);
 	while ((pos = ft_strchr(&str[i], '*')))
 	{
 		i = pos - str;
 		++i;
-		tmp = get_idx(str, &i);
+		tmp = read_data_index(str, &i);
 		cur_max = (tmp > cur_max) ? tmp : cur_max;
 	}
 	return (cur_max);
@@ -78,7 +58,7 @@ int			get_arr_size(t_list *extra)
 	while (extra)
 	{
 		cur = (char*)extra->content;
-		if (ft_strchr(ALL_TYPES, cur[ft_strlen(cur) - 1]))
+		if (cur[1] != '%')
 		{
 			tmp = get_max_idx_dl(cur);
 			if (!tmp)

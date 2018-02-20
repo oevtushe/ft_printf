@@ -12,7 +12,7 @@
 
 #include "ft_printf_helpers.h"
 
-void	signed_decimal_modifiers(t_full_type *full_type, va_list ap, t_gdata *gdata)
+void	signed_decimal_modifiers(t_ftype *full_type, va_list ap, t_gdata *gdata)
 {
 	if (full_type->modifier == M_LL)
 		gdata->data.lli = va_arg(ap, long long int);

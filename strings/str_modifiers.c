@@ -12,7 +12,7 @@
 
 #include "ft_printf_helpers.h"
 
-void	str_modifiers(t_full_type *full_type, va_list ap, t_gdata *gdata)
+void	str_modifiers(t_ftype *full_type, va_list ap, t_gdata *gdata)
 {
 	if (full_type->modifier == M_L || full_type->type == T_WSTR)
 		gdata->data.pwc = va_arg(ap, wchar_t *);

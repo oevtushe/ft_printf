@@ -6,7 +6,7 @@
 /*   By: oevtushe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/18 12:42:43 by oevtushe          #+#    #+#             */
-/*   Updated: 2018/02/18 12:42:44 by oevtushe         ###   ########.fr       */
+/*   Updated: 2018/02/19 19:48:28 by oevtushe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 char			*ft_ltoa(const long int n)
 {
-	int sign;
-	unsigned long int nn;
+	int					sign;
+	unsigned long int	nn;
 
 	sign = 1;
 	if (n < 0)

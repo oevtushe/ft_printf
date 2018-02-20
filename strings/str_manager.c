@@ -6,13 +6,13 @@
 /*   By: oevtushe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/18 12:40:13 by oevtushe          #+#    #+#             */
-/*   Updated: 2018/02/18 12:40:17 by oevtushe         ###   ########.fr       */
+/*   Updated: 2018/02/19 19:46:21 by oevtushe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_helpers.h"
 
-static char 		*str_null(t_format *sfmt, size_t *ln)
+static char			*str_null(t_format *sfmt, size_t *ln)
 {
 	char *res;
 
@@ -31,7 +31,8 @@ char				*str_manager(t_format *sfmt, size_t *ln)
 		res = str_null(sfmt, ln);
 	else
 	{
-		if (sfmt->gdata->full_type->modifier == M_L || sfmt->gdata->full_type->type == T_WSTR)
+		if (sfmt->gdata->full_type->modifier == M_L
+				|| sfmt->gdata->full_type->type == T_WSTR)
 			res = wcs_to_utf8(sfmt->gdata->data.pwc, sfmt->precision);
 		else
 		{

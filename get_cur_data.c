@@ -1,21 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   chr_modifiers.c                                    :+:      :+:    :+:   */
+/*   get_cur_data.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oevtushe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/18 12:39:31 by oevtushe          #+#    #+#             */
-/*   Updated: 2018/02/18 12:39:33 by oevtushe         ###   ########.fr       */
+/*   Created: 2018/02/19 19:21:57 by oevtushe          #+#    #+#             */
+/*   Updated: 2018/02/19 19:22:42 by oevtushe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_helpers.h"
 
-void	chr_modifiers(t_ftype *full_type, va_list ap, t_gdata *gdata)
+/*
+** function return data from @param gdata arr by index readed from @param str
+** in case of '$' appearence
+** or by index @param di
+*/
+
+t_gdata		*get_cur_data(const char *str, size_t *idx, int *di, t_gdata **gd)
 {
-	if (full_type->modifier == M_L || full_type->type == T_WCHR)
-		gdata->data.wi = va_arg(ap, wint_t);
-	else
-		gdata->data.c = va_arg(ap, int);
+	int j;
+	int ndi;
+
+	j = *idx;
+	if (ft_isdigit(str[j]))
+	{
+		ndi = ft_atoi(&str[j]) - 1;
+		while (ft_isdigit(str[j]))
+			++j;
+		if (str[j] == '$')
+		{
+			*di = ndi;
+			*idx = ++j;
+		}
+	}
+	return (gd[(*di)++]);
 }

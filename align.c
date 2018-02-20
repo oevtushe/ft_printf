@@ -21,7 +21,7 @@ void	align(char **sv, t_format *sfmt)
 	if (res)
 	{
 		len = ft_strlen(res);
-		if (sfmt->width > len && sfmt->FLAG_MINUS)
+		if (sfmt->width > len && sfmt->flag_minus)
 			spc_string(&res, sfmt->width, ' ', '-');
 		else if (sfmt->width > len)
 			spc_string(&res, sfmt->width, ' ', 0);
