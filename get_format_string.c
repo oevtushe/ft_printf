@@ -13,10 +13,13 @@
 #include "ft_printf_helpers.h"
 
 /*
-** get_format_string validates format string beginning
+** Validate format string beginning
 ** at @param idx in @param str.
-** @return format string if is valid.
-** @return NULL if format string not valid.
+** 
+** @param	str		string to validate
+** @param	idx		position on @param str
+** @return			valid format string.
+** @return	NULL	if format string is not valid.
 */
 
 char	*get_format_string(const char *str, size_t *idx)
