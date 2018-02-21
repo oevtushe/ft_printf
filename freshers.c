@@ -16,7 +16,7 @@ void	del_simple(void *data, size_t size)
 {
 	++size;
 	if (data)
-		free(data);
+		ft_memdel(&data);
 }
 
 void	del_extra(void *data, size_t size)
