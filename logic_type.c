@@ -22,6 +22,7 @@ int	logic_type(const char *str)
 
 	if (ft_strchr(str, '$'))
 		type = 1;
-	type = 0;
+	else
+		type = 0;
 	return (type);
 }
