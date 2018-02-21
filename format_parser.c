@@ -125,7 +125,7 @@ t_format	*format_parser(const char *str, int *di, t_gdata **gdata)
 	cur_format = (t_format*)ft_memalloc(sizeof(t_format));
 	if (ft_strchr(ALL_TYPES, str[ft_strlen(str) - 1]))
 	{
-		lt = logic_type(str);
+		lt = (ft_strchr(str, '$')) ? 1 : 0;
 		if (lt)
 			cur_format->gdata = get_cur_data(str, &idx, di, gdata);
 		init_flags(str, cur_format, &idx);
