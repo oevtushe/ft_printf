@@ -18,7 +18,7 @@ t_gdata							*new_gdata(void);
 void							free_gdata(t_gdata **gdata);
 void							normalize_full_type(t_ftype *full_type);
 t_ftype							*new_full_type(t_type type, t_modifier modifier);
-int								get_arr_size(t_list *extra);
+int								get_arr_size(t_list *extra, int lt);
 t_gdata							**get_data_arr(t_list *extra, va_list ap);
 t_format						*format_parser(const char *str, int *di, t_gdata **gdata);
 void							split_string(const char *format, t_list **plain, t_list **extra);

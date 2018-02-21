@@ -12,7 +12,15 @@
 
 #include "ft_printf_helpers.h"
 
-static int	get_max_idx_dl(const char *str)
+/*
+** Get max index inside @param str.
+**
+** @param	str		string index is searching in.
+** @return			max index founded in @param str.
+** @return	-1		if str doesn't contain any indexes.
+*/
+
+static int	get_str_max_idx(const char *str)
 {
 	size_t	i;
 	int		cur_max;
@@ -31,7 +39,14 @@ static int	get_max_idx_dl(const char *str)
 	return (cur_max);
 }
 
-static int	get_max_idx_smp(const char *str)
+/*
+** Count how much data @param str need.
+**
+** @param	str		string to count in.
+** @return			count of data @param str need.
+*/
+
+static int	count_idx(const char *str)
 {
 	char	*pos;
 	int		idx;
@@ -47,29 +62,73 @@ static int	get_max_idx_smp(const char *str)
 	return (idx);
 }
 
-int			get_arr_size(t_list *extra)
-{
-	char	*cur;
-	int		tmp;
-	int		max;
+/*
+** Count how much data @param extra list need in case
+** of dollar logic.
+**
+** @param	extra	list to count in.
+** @return			count of data @param extra need.
+*/
 
-	tmp = 0;
+static int	get_arr_size_dl(t_list *extra)
+{
+	int		max;
+	int		tmp;
+	char	*cur;
+
 	max = 0;
 	while (extra)
 	{
-		cur = (char*)extra->content;
+		cur = extra->content;
 		if (cur[1] != '%')
 		{
-			tmp = get_max_idx_dl(cur);
-			if (tmp == -1)
-			{
-				tmp = get_max_idx_smp(cur);
-				max += tmp;
-			}
-			else
-				max = (tmp > max) ? tmp : max;
+			tmp = get_str_max_idx(cur);
+			max = (tmp > max) ? tmp : max;
+			extra = extra->next;
 		}
+	}
+	return (max);
+}
+
+/*
+** Count how much data @param extra list need in case
+** of simple logic.
+**
+** @param	extra	list to count in.
+** @return			count of data @param extra need.
+*/
+
+static int	get_arr_size_smp(t_list *extra)
+{
+	int		max;
+	char	*cur;
+
+	max = 0;
+	while (extra)
+	{
+		cur = extra->content;
+		if (cur[1] != '%')
+			max += count_idx(cur);
 		extra = extra->next;
 	}
+	return (max);
+}
+
+/*
+** Calculates data arr size.
+**
+** @param	extra	list with format strings data arr
+** 					size is calculateing from.
+** @param	lt		logic type (dollar -> "%1$d"/simple -> "%d")
+*/
+
+int			get_arr_size(t_list *extra, int lt)
+{
+	int		max;
+
+	if (lt)
+		max = get_arr_size_dl(extra);
+	else
+		max = get_arr_size_smp(extra);
 	return (max);
 }
