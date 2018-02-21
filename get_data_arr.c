@@ -13,10 +13,15 @@
 #include "ft_printf_helpers.h"
 
 /*
-** Min len of format string is 2, no bug here
+** Function reads type from @param str.
+**
+** Min len of format string is 2, no bug here.
 ** full_type->type = str[len - 1] - is valid because we already
-** checked type validness in get_type_arr
+** checked type validness.
 ** Here type 'D' and type 'ld' has differences
+**
+** @param	str		string to read type from.
+** @param	len		len of @param str.
 */
 
 static t_ftype		*get_type(const char *str, size_t len)
@@ -43,13 +48,24 @@ static t_ftype		*get_type(const char *str, size_t len)
 	return (full_type);
 }
 
-static void			read_strtd(char *str, size_t len, t_ftype **ta, int *ti)
+/*
+** Function defines and writes type in specified index into @param ta.
+** If two format string has refferences to one index in arr - first has
+** preference.
+**
+** @param	str		format string type is readed from.
+** @param	len		length of @params str.
+** @param	ta		pointer to type array.
+** @param	ti		index to @param ta array.
+*/
+
+static void			read_strtd_smp(char *str, size_t len, t_ftype **ta, int *ti)
 {
 	int		i;
 	char	*pos;
 
 	i = 0;
-	if (!ft_strchr(&str[i], '$'))
+	if (str[1] != '%')
 	{
 		while ((pos = ft_strchr(&str[i], '*')))
 		{
@@ -57,8 +73,15 @@ static void			read_strtd(char *str, size_t len, t_ftype **ta, int *ti)
 			ta[(*ti)++] = new_full_type(T_DEC, M_DEFAULT);
 		}
 		ta[(*ti)++] = get_type(str, len);
-		return ;
 	}
+}
+
+static void			read_strtd_dl(char *str, size_t len, t_ftype **ta, int *ti)
+{
+	int		i;
+	char	*pos;
+
+	i = 0;
 	while ((pos = ft_strchr(&str[i], '$')))
 	{
 		i = pos-- - str + 1;
@@ -73,30 +96,49 @@ static void			read_strtd(char *str, size_t len, t_ftype **ta, int *ti)
 }
 
 /*
-** Here we check if type is valid, if doesn't then we ignore it
+** Function create t_ftype arr based on @param extra list.
+**
+** @param	extra	list base on arr is creating.
+** @param	arr_sz	size of arr.
+**
+** @return			array of types.
 */
 
-static t_ftype		**get_type_arr(t_list *extra, int arr_sz)
+static t_ftype		**get_type_arr(t_list *extra, int arr_sz, int lt)
 {
+	int			ti;
 	size_t		len;
 	char		*str;
 	t_ftype		**type_arr;
-	int			ta_idx;
+	void		(*read_strtd)(char*, size_t, t_ftype**, int*);
 
-	ta_idx = 0;
+	ti = 0;
 	type_arr = (t_ftype **)ft_memalloc(sizeof(t_ftype *) * (arr_sz + 1));
+	if (lt)
+		read_strtd = read_strtd_dl;
+	else
+		read_strtd = read_strtd_smp;
 	while (extra)
 	{
 		str = (char *)extra->content;
 		len = ft_strlen(str);
-		if (ft_strchr(ALL_TYPES, str[len - 1]))
-			read_strtd(str, len, type_arr, &ta_idx);
+		if (str[1] != '%')
+			read_strtd(str, len, type_arr, &ti);
 		extra = extra->next;
 	}
 	return (type_arr);
 }
 
-static void			*get_data(t_ftype *cur_type, va_list ap)
+/*
+** Function read data from @param ap accordingly to @param cur_type.
+**
+** @param	ap			va_list to read data from.
+** @param	cur_type	type to read from @param ap.
+**
+** @return				gdata readed from @param ap.
+*/
+
+static t_gdata		*get_data(t_ftype *cur_type, va_list ap)
 {
 	t_gdata	*gdata;
 
@@ -104,10 +146,10 @@ static void			*get_data(t_ftype *cur_type, va_list ap)
 	gdata->full_type = cur_type;
 	if (cur_type->type == T_DEC)
 		signed_decimal_modifiers(cur_type, ap, gdata);
-	else if (cur_type->type == T_UNSIGNED || cur_type->type == T_OCT
-			|| cur_type->type == T_HEX ||
-			cur_type->type == T_BHEX || cur_type->type == T_LUNSIGNED
-			|| cur_type->type == T_BOCT)
+	else if (cur_type->type == T_UNSIGNED || cur_type->type == T_OCT ||
+			cur_type->type == T_HEX ||
+			cur_type->type == T_BHEX ||
+			cur_type->type == T_BOCT)
 		unsigned_decimal_modifiers(cur_type, ap, gdata);
 	else if (cur_type->type == T_STR)
 		str_modifiers(cur_type, ap, gdata);
@@ -118,15 +160,29 @@ static void			*get_data(t_ftype *cur_type, va_list ap)
 	return (gdata);
 }
 
+/*
+** Function create data arr based on types in format
+** strings in @param extra.
+** Type array data is cached by data array, so we don't
+** need to free them here.
+**
+** @param	extra	list with format strings.
+** @param	ap		va_list from which data is readed.
+**
+** @return			array of data.
+*/
+
 t_gdata				**get_data_arr(t_list *extra, va_list ap)
 {
 	t_gdata		**gdata;
 	t_ftype		**type_arr;
 	int			idx;
+	int			lt;
 
-	idx = get_arr_size(extra);
+	lt = logic_type(extra);
+	idx = get_arr_size(extra, lt);
 	gdata = (t_gdata **)ft_memalloc(sizeof(t_gdata *) * (idx + 1));
-	type_arr = get_type_arr(extra, idx);
+	type_arr = get_type_arr(extra, idx, lt);
 	idx = -1;
 	while (type_arr[++idx])
 		gdata[idx] = get_data(type_arr[idx], ap);
