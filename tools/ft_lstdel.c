@@ -24,7 +24,7 @@ void	ft_lstdel(t_list **alst, void (*del)(void*, size_t))
 			tmp = *alst;
 			*alst = (*alst)->next;
 			del(tmp->content, tmp->content_size);
-			free(tmp);
+			ft_memdel((void**)&tmp);
 		}
 	}
 }
