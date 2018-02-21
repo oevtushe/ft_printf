@@ -12,6 +12,16 @@
 
 #include "ft_printf_helpers.h"
 
+/*
+** Read data (width/precision/data) index from @param str
+**
+** @param	str		string to read from.
+** @param	idx		index at @param str where data index
+**					starting from.
+** @return			data index.
+** @return	-1		if there no data index.
+*/
+
 int		read_data_index(const char *str, size_t *idx)
 {
 	int		i;

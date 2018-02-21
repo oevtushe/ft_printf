@@ -48,6 +48,7 @@ static char	*find_format(const char *str, size_t *start, size_t *end)
 
 /*
 ** Fill @param plain and @param format lists.
+**
 ** Invalid format strings will be interpretated as
 ** simple text.
 **
