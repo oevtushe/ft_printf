@@ -63,8 +63,8 @@ void		validate_lists(const char *format, t_list **plain, t_list **extra)
 		if (str[1] != '%')
 		{
 			if (lt == -1)
-				lt = logic_type(str);
-			if (!validate_mixed_index(str) || lt != logic_type(str))
+				lt = ft_strchr(str, '$') ? 1 : 0;
+			if (!validate_mixed_index(str) || lt != (ft_strchr(str, '$') ? 1 : 0))
 			{
 				error = 1;
 				break;
