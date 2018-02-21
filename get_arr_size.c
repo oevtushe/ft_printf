@@ -61,7 +61,7 @@ int			get_arr_size(t_list *extra)
 		if (cur[1] != '%')
 		{
 			tmp = get_max_idx_dl(cur);
-			if (!tmp)
+			if (tmp == -1)
 			{
 				tmp = get_max_idx_smp(cur);
 				max += tmp;
