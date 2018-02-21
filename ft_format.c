@@ -85,7 +85,6 @@ char		*ft_format(const char *format, va_list ap, size_t *len)
 	plain = NULL;
 	extra = NULL;
 	split_string(format, &plain, &extra);
-	validate_lists(format, &plain, &extra);
 	gdata = get_data_arr(extra, ap);
 	reformat_extra(extra, gdata);
 	str = maker(plain, extra, len);
