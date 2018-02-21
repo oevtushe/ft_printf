@@ -32,7 +32,7 @@ int								logic_type(const char *str);
 void							spec_cases(const char *str, t_format *sfmt);
 t_gdata							*get_cur_data(const char *str, size_t *idx, int *di, t_gdata **gdata);
 int								outside_param(const char *str, size_t *idx, t_gdata **gdata, int *di);
-int								validate_mixed_index(const char *str);
+void							validate_lists(const char *format, t_list **plain, t_list **extra);
 
 int								is_type(char c);
 void							read_width(const char *str, size_t *idx);
