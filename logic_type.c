@@ -16,13 +16,22 @@
 ** For '*'
 */
 
-int	logic_type(const char *str)
+int	logic_type(t_list *extra)
 {
-	int type;
+	int		type;
+	char	*str;
 
-	if (ft_strchr(str, '$'))
-		type = 1;
-	else
-		type = 0;
+	type = 0;
+	while (extra)
+	{
+		str = extra->content;
+		if (str[1] != '%')
+		{
+			if (ft_strchr(str, '$'))
+				type = 1;
+			break ;
+		}
+		extra = extra->next;
+	}
 	return (type);
 }
