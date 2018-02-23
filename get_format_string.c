@@ -23,6 +23,7 @@
 ** 
 ** @param	str		string to validate
 ** @param	idx		position on @param str
+**
 ** @return			valid format string.
 ** @return	NULL	if format string is not valid.
 */
@@ -47,7 +48,5 @@ char	*get_format_string(const char *str, size_t *idx)
 		res = ft_strsub(str, start, res_idx - start);
 		*idx = res_idx;
 	}
-	else
-		res = NULL;
 	return (res);
 }
