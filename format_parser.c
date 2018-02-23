@@ -143,7 +143,7 @@ t_format	*format_parser(const char *str, int *di, t_gdata **gdata, int lt)
 
 	idx = 1;
 	cur_format = (t_format*)ft_memalloc(sizeof(t_format));
-	if (str[1] != '%')
+	if (str[ft_strlen(str) - 1] != T_PT)
 	{
 		if (lt)
 			cur_format->gdata = get_cur_data(str, &idx, di, gdata);
@@ -155,7 +155,7 @@ t_format	*format_parser(const char *str, int *di, t_gdata **gdata, int lt)
 		init_modifiers(str, &idx);
 	}
 	else
-		percent_handler(cur_format);
+		percent_handler(str, cur_format);
 	normalize_width(cur_format);
 	return (cur_format);
 }

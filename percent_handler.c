@@ -17,12 +17,19 @@
 ** function return copy of that one
 */
 
-void	percent_handler(t_format *sfmt)
+void	percent_handler(const char *str, t_format *sfmt)
 {
 	t_gdata	*gdata;
 
 	gdata = (t_gdata *)ft_memalloc(sizeof(t_gdata));
 	gdata->full_type = (t_ftype *)ft_memalloc(sizeof(t_ftype));
-	gdata->full_type->type = T_PT;
+	if (str[1] == '%')
+		gdata->full_type->type = T_PT;
+	else
+	{
+		gdata->full_type->type = T_UNDEF;
+		gdata->full_type->modifier = M_DEFAULT;
+		gdata->data.pc = ft_strdup(str);
+	}
 	sfmt->gdata = gdata;
 }
