@@ -172,14 +172,12 @@ static t_gdata		*get_data(t_ftype *cur_type, va_list ap)
 ** @return			array of data.
 */
 
-t_gdata				**get_data_arr(t_list *extra, va_list ap)
+t_gdata				**get_data_arr(t_list *extra, va_list ap, int lt)
 {
 	t_gdata		**gdata;
 	t_ftype		**type_arr;
 	int			idx;
-	int			lt;
 
-	lt = logic_type(extra);
 	idx = get_arr_size(extra, lt);
 	gdata = (t_gdata **)ft_memalloc(sizeof(t_gdata *) * (idx + 1));
 	type_arr = get_type_arr(extra, idx, lt);

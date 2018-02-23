@@ -12,6 +12,13 @@
 
 #include "ft_printf_helpers.h"
 
+/*
+** Function handle cases when precision was
+** initialized from data array and has negative value.
+**
+** @param	sfmt	format to be normalized.
+*/
+
 void	normalize_width(t_format *sfmt)
 {
 	unsigned int	width;

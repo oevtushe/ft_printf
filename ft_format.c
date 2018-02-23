@@ -59,7 +59,7 @@ static char	*maker(t_list *pl, t_list *ex, size_t *len)
 	return (str);
 }
 
-static void	reformat_extra(t_list *extra, t_gdata **gdata)
+static void	reformat_extra(t_list *extra, t_gdata **gdata, int lt)
 {
 	int			di;
 	t_format	*sfmt;
@@ -67,7 +67,7 @@ static void	reformat_extra(t_list *extra, t_gdata **gdata)
 	di = 0;
 	while (extra)
 	{
-		sfmt = format_parser((char *)extra->content, &di, gdata);
+		sfmt = format_parser((char *)extra->content, &di, gdata, lt);
 		free(extra->content);
 		extra->content = sfmt;
 		extra->content_size = sizeof(t_format);
@@ -77,6 +77,7 @@ static void	reformat_extra(t_list *extra, t_gdata **gdata)
 
 char		*ft_format(const char *format, va_list ap, size_t *len)
 {
+	int		lt;
 	char	*str;
 	t_list	*plain;
 	t_list	*extra;
@@ -85,8 +86,9 @@ char		*ft_format(const char *format, va_list ap, size_t *len)
 	plain = NULL;
 	extra = NULL;
 	split_string(format, &plain, &extra);
-	gdata = get_data_arr(extra, ap);
-	reformat_extra(extra, gdata);
+	lt = logic_type(extra);
+	gdata = get_data_arr(extra, ap, lt);
+	reformat_extra(extra, gdata, lt);
 	str = maker(plain, extra, len);
 	ft_lstdel(&plain, del_simple);
 	ft_lstdel(&extra, del_extra);
