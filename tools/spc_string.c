@@ -12,7 +12,13 @@
 
 #include "ft_tools.h"
 
-void	spc_string(char **str, size_t new_len, char filler, char side)
+/*
+** Recreates string @param str with @param new_len length.
+** Oldlength - newlength characters from side specified in @param side
+** (where -1 means left, 1 right) will be filled with @param filler character.
+*/
+
+void	spc_string(char **str, size_t new_len, char filler, int side)
 {
 	size_t	tjlen;
 	char	*res;
@@ -23,7 +29,7 @@ void	spc_string(char **str, size_t new_len, char filler, char side)
 	if (to_join)
 	{
 		ft_memset(to_join, filler, tjlen);
-		if (side == '-')
+		if (side == 1)
 			res = ft_strjoin(*str, to_join);
 		else
 			res = ft_strjoin(to_join, *str);

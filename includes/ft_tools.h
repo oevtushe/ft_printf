@@ -18,7 +18,7 @@ typedef struct	s_list
 ** Strings
 */
 
-void			spc_string(char **str, size_t new_len, char filler, char side);
+void			spc_string(char **str, size_t new_len, char filler, int side);
 char			*easy_joiner(char *str, char *fst, char *scd);
 void			str_add_prefix(char **str, char c);
 void			ft_strappend(char **str, char c);

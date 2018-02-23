@@ -22,9 +22,9 @@ void	align(char **sv, t_format *sfmt)
 	{
 		len = ft_strlen(res);
 		if (sfmt->width > len && sfmt->flag_minus)
-			spc_string(&res, sfmt->width, ' ', '-');
+			spc_string(&res, sfmt->width, ' ', 1);
 		else if (sfmt->width > len)
-			spc_string(&res, sfmt->width, ' ', 0);
+			spc_string(&res, sfmt->width, ' ', -1);
 		ft_strdel(sv);
 		*sv = res;
 	}
