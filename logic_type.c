@@ -25,7 +25,7 @@ int	logic_type(t_list *extra)
 	while (extra)
 	{
 		str = extra->content;
-		if (str[1] != '%')
+		if (str[ft_strlen(str) - 1] != '%')
 		{
 			if (ft_strchr(str, '$'))
 				type = 1;

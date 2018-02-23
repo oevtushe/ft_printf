@@ -80,7 +80,7 @@ static int	get_arr_size_dl(t_list *extra)
 	while (extra)
 	{
 		cur = extra->content;
-		if (cur[1] != '%')
+		if (cur[ft_strlen(cur) - 1])
 		{
 			tmp = get_str_max_idx(cur);
 			max = (tmp > max) ? tmp : max;
@@ -107,7 +107,7 @@ static int	get_arr_size_smp(t_list *extra)
 	while (extra)
 	{
 		cur = extra->content;
-		if (cur[1] != '%')
+		if (cur[ft_strlen(cur) - 1])
 			max += count_idx(cur);
 		extra = extra->next;
 	}

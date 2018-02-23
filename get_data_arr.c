@@ -65,7 +65,7 @@ static void			read_strtd_smp(char *str, size_t len, t_ftype **ta, int *ti)
 	char	*pos;
 
 	i = 0;
-	if (str[1] != '%')
+	if (str[len - 1] != '%')
 	{
 		while ((pos = ft_strchr(&str[i], '*')))
 		{
@@ -122,7 +122,7 @@ static t_ftype		**get_type_arr(t_list *extra, int arr_sz, int lt)
 	{
 		str = (char *)extra->content;
 		len = ft_strlen(str);
-		if (str[1] != '%')
+		if (str[len - 1] != '%')
 			read_strtd(str, len, type_arr, &ti);
 		extra = extra->next;
 	}
