@@ -136,7 +136,7 @@ static void	init_flags(const char *str, t_format *cf, size_t *idx)
 ** @return			initialized t_format object.
 */
 
-t_format	*format_parser(const char *str, int *di, t_gdata **gdata, int lt)
+t_format	*format_parser(const char *str, int *di, t_gdata **gdata)
 {
 	size_t		idx;
 	t_format	*cur_format;
