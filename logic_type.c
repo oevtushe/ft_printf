@@ -13,7 +13,7 @@
 #include "ft_printf_helpers.h"
 
 /*
-** For '*'
+** Function checks type of logic for specifying index on data array.
 */
 
 int	logic_type(t_list *extra)
