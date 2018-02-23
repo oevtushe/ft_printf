@@ -59,6 +59,16 @@ static char	*maker(t_list *pl, t_list *ex, size_t *len)
 	return (str);
 }
 
+/*
+** Function changes content of @param extra list from format strings
+** to t_format objects.
+**
+** @param	extra	list to be changed.
+** @param	gdata	array of data based on va_list and information in
+**					format string.
+** @param	lt		logic type (dollar or simple).
+*/
+
 static void	reformat_extra(t_list *extra, t_gdata **gdata, int lt)
 {
 	int			di;
@@ -74,6 +84,18 @@ static void	reformat_extra(t_list *extra, t_gdata **gdata, int lt)
 		extra = extra->next;
 	}
 }
+
+/*
+** Function makes string based on format specified in @param format
+** and data in va_list @param ap.
+**
+** @param	format	format string.
+** @param	ap		list of data.
+** @param	len		length of result string.
+**
+** @return			string or char array based on format in @param format
+**					and data in @param ap.
+*/
 
 char		*ft_format(const char *format, va_list ap, size_t *len)
 {
