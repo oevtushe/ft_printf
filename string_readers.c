@@ -19,7 +19,7 @@
 ** @param	idx		index at @param str where data index
 **					starting from.
 ** @return			data index.
-** @return	-1		if there no data index.
+** @return	-1		if there no data index, or data index is to small.
 */
 
 int		read_data_index(const char *str, size_t *idx)
@@ -36,7 +36,8 @@ int		read_data_index(const char *str, size_t *idx)
 		if (str[i] == '$')
 		{
 			val = ft_atoi(&str[*idx]);
-			*idx = ++i;
+			if (val > 0)
+				*idx = ++i;
 		}
 	}
 	return (val);
