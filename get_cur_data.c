@@ -13,9 +13,8 @@
 #include "ft_printf_helpers.h"
 
 /*
-** function return data from @param gdata arr by index readed from @param str
-** in case of '$' appearence
-** or by index @param di
+** function returns data from @param gdata arr by index readed from @param str
+** in case of '$' appearence or by index @param di.
 */
 
 t_gdata		*get_cur_data(const char *str, size_t *idx, int *di, t_gdata **gd)
