@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   spec_cases.c                                       :+:      :+:    :+:   */
+/*   percent_handler.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oevtushe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/19 19:39:16 by oevtushe          #+#    #+#             */
-/*   Updated: 2018/02/19 19:39:23 by oevtushe         ###   ########.fr       */
+/*   Created: 2018/02/23 15:15:56 by oevtushe          #+#    #+#             */
+/*   Updated: 2018/02/23 15:15:59 by oevtushe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,12 @@
 ** function return copy of that one
 */
 
-void	spec_cases(const char *str, t_format *sfmt)
+void	percent_handler(t_format *sfmt)
 {
 	t_gdata	*gdata;
 
 	gdata = (t_gdata *)ft_memalloc(sizeof(t_gdata));
 	gdata->full_type = (t_ftype *)ft_memalloc(sizeof(t_ftype));
-	if (str[1] == '%')
-		gdata->full_type->type = T_PT;
-	else
-	{
-		gdata->data.pc = ft_strdup(str);
-		gdata->full_type->type = T_UNDEF;
-		gdata->full_type->modifier = M_DEFAULT;
-	}
+	gdata->full_type->type = T_PT;
 	sfmt->gdata = gdata;
 }

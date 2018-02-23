@@ -7,8 +7,6 @@
 # include <stdarg.h>
 # include <unistd.h>
 
-# define ALL_TYPES "sSpdDioOuUxXcC"
-
 /*
 ** Main logic
 */
@@ -29,7 +27,7 @@ char							*init_types(void);
 t_mng_dpc						**get_manager_dispatcher(void);
 void							normalize_width(t_format *sfmt);
 int								logic_type(t_list *extra);
-void							spec_cases(const char *str, t_format *sfmt);
+void							percent_handler(t_format *sfmt);
 t_gdata							*get_cur_data(const char *str, size_t *idx, int *di, t_gdata **gdata);
 int								outside_param(const char *str, size_t *idx, t_gdata **gdata, int *di);
 void							validate_lists(const char *format, t_list **plain, t_list **extra);

@@ -109,7 +109,7 @@ MAIN_SRCS := ft_printf.c \
 			  undef_manager.c \
 			  logic_type.c \
 			  normalize_width.c \
-			  spec_cases.c \
+			  percent_handler.c \
 			  get_cur_data.c \
 			  outside_param.c \
 			  outside_param.c \

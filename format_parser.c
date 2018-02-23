@@ -13,7 +13,14 @@
 #include "ft_printf_helpers.h"
 
 /*
-** function read width from @param str or from @param gdata if '$' present
+** Function read width from @param str or from @param gdata if '$' present.
+**
+** @param	str		string data to be readed from.
+** @param	di		order index in the data array @param gdata.
+** @param	idx		index in str to start reading from.
+** @param	gdata	data array.
+**
+** @return			width based on @param str information.
 */
 
 static int	get_width(const char *str, int *di, size_t *idx, t_gdata **gdata)
@@ -36,8 +43,15 @@ static int	get_width(const char *str, int *di, size_t *idx, t_gdata **gdata)
 }
 
 /*
-** function read precision from @param str or from @param gdata if '$' present
-** def val = -1 in case this value doesn't collapse with none of explicit set
+** Function read precision from @param str or from @param gdata. If '$' present
+** def val = -1 in case this value doesn't collapse with none of explicit set.
+**
+** @param	str		string data to be readed from.
+** @param	di		order index in the data array @param gdata.
+** @param	idx		index in str to start reading from.
+** @param	gdata	data array.
+**
+** @return			precision based on @param str information.
 */
 
 static int	get_precision(const char *str, int *di, size_t *idx, t_gdata **gdata)
@@ -110,22 +124,27 @@ static void	init_flags(const char *str, t_format *cf, size_t *idx)
 }
 
 /*
-** format_parser initialise t_format structure by data
+** Function initialise t_format structure by data
 ** explicit given in @param str or load it from @param gdata
 ** by index given in the string.
+**
+** @param	str		format string.
+** @param	di		order index in case of simple logic.
+** @param	gdata	data array based on va_list.
+** @param	lt		logic type (dollar or simple).
+**
+** @return			initialized t_format object.
 */
 
-t_format	*format_parser(const char *str, int *di, t_gdata **gdata)
+t_format	*format_parser(const char *str, int *di, t_gdata **gdata, int lt)
 {
-	int			lt;
 	size_t		idx;
 	t_format	*cur_format;
 
 	idx = 1;
 	cur_format = (t_format*)ft_memalloc(sizeof(t_format));
-	if (ft_strchr(ALL_TYPES, str[ft_strlen(str) - 1]))
+	if (str[1] != '%')
 	{
-		lt = (ft_strchr(str, '$')) ? 1 : 0;
 		if (lt)
 			cur_format->gdata = get_cur_data(str, &idx, di, gdata);
 		init_flags(str, cur_format, &idx);
@@ -136,7 +155,7 @@ t_format	*format_parser(const char *str, int *di, t_gdata **gdata)
 		init_modifiers(str, &idx);
 	}
 	else
-		spec_cases(str, cur_format);
+		percent_handler(cur_format);
 	normalize_width(cur_format);
 	return (cur_format);
 }
