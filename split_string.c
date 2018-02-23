@@ -53,7 +53,7 @@ static char	*find_format(const char *str, size_t *start, size_t *end)
 ** simple text.
 **
 ** @param	plain	list with simple text.
-** @param	extra	list with format strings.
+** @param	extra	list with validated format strings.
 */
 
 void		split_string(const char *str, t_list **plain, t_list **format)
