@@ -16,7 +16,7 @@
 # include <inttypes.h>
 # include <wchar.h>
 
-# define DISPATCHER_SIZE 11
+# define DISPATCHER_SIZE 10
 
 typedef enum					e_type
 {
@@ -33,7 +33,7 @@ typedef enum					e_type
 	T_WSTR = 'S',
 	T_PTR = 'p',
 	T_OCT = 'o',
-	T_BOCT = 'O',
+	T_LOCT = 'O',
 	T_HEX = 'x',
 	T_BHEX = 'X'
 }								t_type;

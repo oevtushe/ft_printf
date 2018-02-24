@@ -149,7 +149,7 @@ static t_gdata		*get_data(t_ftype *cur_type, va_list ap)
 	else if (cur_type->type == T_UNSIGNED || cur_type->type == T_OCT ||
 			cur_type->type == T_HEX ||
 			cur_type->type == T_BHEX ||
-			cur_type->type == T_BOCT)
+			cur_type->type == T_LOCT)
 		unsigned_decimal_modifiers(cur_type, ap, gdata);
 	else if (cur_type->type == T_STR)
 		str_modifiers(cur_type, ap, gdata);

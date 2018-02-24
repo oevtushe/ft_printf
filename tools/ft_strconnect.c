@@ -1,34 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   str_add_prefix.c                                   :+:      :+:    :+:   */
+/*   ft_strconnect.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oevtushe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/18 12:46:18 by oevtushe          #+#    #+#             */
-/*   Updated: 2018/02/18 12:46:19 by oevtushe         ###   ########.fr       */
+/*   Created: 2018/02/24 14:35:32 by oevtushe          #+#    #+#             */
+/*   Updated: 2018/02/24 14:35:35 by oevtushe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_tools.h"
 #include <stdlib.h>
 
-void		str_add_prefix(char **str, char c)
-{
-	char	*tmp;
-	char	*res;
+/*
+** Connetct @param str2 to @param str1.
+**
+** @param	str1	string connect to.
+** @param	str2	string be connected to.
+*/
 
-	res = ft_strnew(1);
-	if (res)
+void		ft_strconnect(char **str1, const char *str2, int side)
+{
+	char *res;
+
+	res = NULL;
+	if (str1 && *str1 && str2)
 	{
-		res[0] = c;
-		tmp = res;
-		res = ft_strjoin(res, *str);
+		if (side > 0)
+			res = ft_strjoin(*str1, str2);
+		else if (side < 0)
+			res = ft_strjoin(str2, *str1);
 		if (res)
 		{
-			ft_strdel(str);
-			*str = res;
+			ft_strdel(str1);
+			*str1 = res;
 		}
-		free(tmp);
 	}
 }

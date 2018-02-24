@@ -33,7 +33,7 @@ char		*wcs_to_utf8(wchar_t *wcs, int len)
 			ft_strdel(&dp);
 			break ;
 		}
-		strconnect(&res, dp);
+		ft_strconnect(&res, dp, 1);
 		ft_strdel(&dp);
 	}
 	return (res);

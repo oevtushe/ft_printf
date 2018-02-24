@@ -12,6 +12,14 @@
 
 #include "ft_printf_helpers.h"
 
+/*
+** Converts utf8 code @param wi to multibyte string.
+**
+** @param	wi	utf8 code to be converted.
+**
+** @return		multibyte string based on @param wi code.
+*/
+
 char	*ft_witomb(wint_t wi)
 {
 	size_t			len;

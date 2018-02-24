@@ -13,18 +13,36 @@
 #include <wchar.h>
 #include "ft_printf_helpers.h"
 
+/*
+** Counts bit count in @param val.
+** If value is negative - ignore it.
+**
+** @param	val		value to count bits in.
+*/
+
 static int			bit_cnt(wchar_t val)
 {
 	int		cnt;
 
 	cnt = 0;
-	while (val)
+	while (val && val > 0)
 	{
 		++cnt;
 		val >>= 1;
 	}
 	return (cnt);
 }
+
+/*
+** Makes a tail of utf8 byte sequence.
+** For example tail of 4 byte sequence in utf8 is
+** 00xxxxxx 00xxxxxx 00xxxxxx, of 2 byte seq. is
+** 00xxxxxx and so on., where x -> tail elements.
+**
+** @param	val		value to get tail of.
+** @param	bp		tail length. For example in
+**					4 byte seq. bp equals 3, etc.
+*/
 
 static unsigned int	get_tail(wint_t val, unsigned int bp)
 {
@@ -50,9 +68,15 @@ static unsigned int	get_tail(wint_t val, unsigned int bp)
 }
 
 /*
-** 0xC080 	  -> 110xxxxx 10xxxxxx
-** 0xE08080   -> 1110xxxx 10xxxxxx 10xxxxxx
-** 0xF0808080 -> 11110xxx 10xxxxxx 10xxxxxx 10xxxxxx
+** Convert wint_t value to utf8 byte sequence.
+**
+** Masks:
+**	   0xC080 	  -> 110xxxxx 10xxxxxx
+**	   0xE08080   -> 1110xxxx 10xxxxxx 10xxxxxx
+**	   0xF0808080 -> 11110xxx 10xxxxxx 10xxxxxx 10xxxxxx
+**
+** @param	val		value to be converted.
+** @return			utf8 byte sequence.
 */
 
 wint_t				unicode_to_utf8(wint_t val)

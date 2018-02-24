@@ -17,17 +17,13 @@ char		*octal_manager(t_format *sfmt, size_t *len)
 	uintmax_t	uval;
 	char		*res;
 
-	sfmt->flag_plus = 0;
-	sfmt->flag_space = 0;
-	decimal_flag_except(sfmt, 0);
+	digits_flag_except(sfmt, 1);
 	uval = sfmt->gdata->data.uim;
 	res = ft_uimtoabase_gen(uval, 0, 8);
-	width_and_prec(&res, 0, sfmt);
+	zeroes_handling(&res, 0, sfmt);
 	if (sfmt->flag_sharp && res[0] != '0')
-		str_add_prefix(&res, '0');
-	if (sfmt->gdata->full_type->type == T_BOCT)
-		ft_strtoupper(res);
-	align(&res, sfmt);
+		ft_strconnect(&res, "0", -1);
+	spaces_handling(&res, sfmt);
 	*len = ft_strlen(res);
 	return (res);
 }

@@ -35,10 +35,9 @@ t_mng_dpc	**get_manager_dispatcher(void)
 	dispatcher[4] = new_dpc(T_CHR, chr_manager);
 	dispatcher[5] = new_dpc(T_PTR, ptr_manager);
 	dispatcher[6] = new_dpc(T_OCT, octal_manager);
-	dispatcher[7] = new_dpc(T_BOCT, octal_manager);
-	dispatcher[8] = new_dpc(T_HEX, hex_manager);
-	dispatcher[9] = new_dpc(T_BHEX, hex_manager);
-	dispatcher[10] = new_dpc(T_UNDEF, undef_manager);
-	dispatcher[11] = NULL;
+	dispatcher[7] = new_dpc(T_HEX, hex_manager);
+	dispatcher[8] = new_dpc(T_BHEX, hex_manager);
+	dispatcher[9] = new_dpc(T_UNDEF, undef_manager);
+	dispatcher[10] = NULL;
 	return (dispatcher);
 }

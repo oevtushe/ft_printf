@@ -18,12 +18,11 @@ typedef struct	s_list
 ** Strings
 */
 
-void			spc_string(char **str, size_t new_len, char filler, int side);
+void			ft_strcntllr(char **str, size_t new_len, char filler, int side);
 char			*easy_joiner(char *str, char *fst, char *scd);
-void			str_add_prefix(char **str, char c);
+void			ft_strconnect(char **str1, const char *str2, int side);
 void			ft_strappend(char **str, char c);
 void			ft_str_realloc(char **str, size_t new_len);
-void			strconnect(char **s1, char *s2);
 void			ft_strtoupper(char *str);
 char			*ft_strcpy(char *dst, const char *src);
 char			*ft_strdup(const char *s1);

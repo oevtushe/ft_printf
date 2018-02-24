@@ -1,7 +1,8 @@
 #include <stdlib.h>
+#include <stdio.h>
 
 int		main(void)
 {
-	printf("%08%");
+	printf("%% %1$d", 4);
 	return (0);
 }

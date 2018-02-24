@@ -17,7 +17,7 @@ int		is_type(char c)
 	int valid;
 
 	valid = 0;
-	if (c == T_OCT || c == T_BOCT || c == T_CHR || c == T_WCHR ||
+	if (c == T_OCT || c == T_LOCT || c == T_CHR || c == T_WCHR ||
 		c == T_DEC || c == T_DEC2 || c == T_LDEC || c == T_HEX ||
 		c == T_BHEX || c == T_PT || c == T_PTR || c == T_STR ||
 		c == T_WSTR || c == T_UNSIGNED || c == T_LUNSIGNED ||

@@ -44,7 +44,7 @@ char				*str_manager(t_format *sfmt, size_t *ln)
 			else
 				res = ft_strdup(sfmt->gdata->data.pc);
 		}
-		align(&res, sfmt);
+		spaces_handling(&res, sfmt);
 		*ln = ft_strlen(res);
 	}
 	return (res);

@@ -15,14 +15,14 @@
 static void			handle_signs(t_format *sfmt, char **res, int sign)
 {
 	if (sfmt->flag_plus)
-		str_add_prefix(res, '+');
+		ft_strconnect(res, "+", -1);
 	else if (sfmt->flag_space)
-		str_add_prefix(res, ' ');
+		ft_strconnect(res, " ", -1);
 	else if (sign < 0)
-		str_add_prefix(res, '-');
+		ft_strconnect(res, "-", -1);
 }
 
-static intmax_t		signed_modifiers(t_gdata *gdata)
+static intmax_t		gdata_load(t_gdata *gdata)
 {
 	intmax_t vl;
 
@@ -52,19 +52,19 @@ char				*signed_decimal_manager(t_format *sfmt, size_t *len)
 	char		*res;
 
 	sign = 0;
-	val = signed_modifiers(sfmt->gdata);
+	val = gdata_load(sfmt->gdata);
 	if (val >= 0 && (sfmt->flag_plus || sfmt->flag_space))
 		sign = 1;
 	else if (val < 0)
 		sign = -1;
-	decimal_flag_except(sfmt, (sign < 0));
+	digits_flag_except(sfmt, (sign < 0));
 	uval = (sign < 0) ? (val * -1LL) : val;
 	res = ft_uimtoabase_gen(uval, 0, 10);
 	if (sfmt->flag_squote && MB_CUR_MAX > 1)
 		group_by_thousands(&res);
-	width_and_prec(&res, ft_abs(sign), sfmt);
+	zeroes_handling(&res, ft_abs(sign), sfmt);
 	handle_signs(sfmt, &res, sign);
-	align(&res, sfmt);
+	spaces_handling(&res, sfmt);
 	*len = ft_strlen(res);
 	return (res);
 }

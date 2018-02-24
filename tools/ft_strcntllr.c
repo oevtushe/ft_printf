@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   spc_string.c                                       :+:      :+:    :+:   */
+/*   ft_strcntllr.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oevtushe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/18 12:46:14 by oevtushe          #+#    #+#             */
-/*   Updated: 2018/02/18 12:46:15 by oevtushe         ###   ########.fr       */
+/*   Created: 2018/02/24 16:27:28 by oevtushe          #+#    #+#             */
+/*   Updated: 2018/02/24 16:27:30 by oevtushe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,31 @@
 ** (where -1 means left, 1 right) will be filled with @param filler character.
 */
 
-void	spc_string(char **str, size_t new_len, char filler, int side)
+void	ft_strcntllr(char **str, size_t new_len, char filler, int side)
 {
 	size_t	tjlen;
+	size_t	old_len;
 	char	*res;
 	char	*to_join;
 
-	tjlen = new_len - ft_strlen(*str);
-	to_join = ft_strnew(tjlen);
-	if (to_join)
+	old_len = ft_strlen(*str);
+	if (new_len > old_len)
 	{
-		ft_memset(to_join, filler, tjlen);
-		if (side == 1)
-			res = ft_strjoin(*str, to_join);
-		else
-			res = ft_strjoin(to_join, *str);
-		ft_strdel(str);
-		ft_strdel(&to_join);
-		*str = res;
+		tjlen = new_len - old_len;
+		to_join = ft_strnew(tjlen);
+		if (to_join)
+		{
+			ft_memset(to_join, filler, tjlen);
+			if (side == 1)
+				res = ft_strjoin(*str, to_join);
+			else
+				res = ft_strjoin(to_join, *str);
+			if (res)
+			{
+				ft_strdel(str);
+				ft_strdel(&to_join);
+				*str = res;
+			}
+		}
 	}
 }

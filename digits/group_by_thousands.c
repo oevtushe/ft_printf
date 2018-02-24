@@ -12,6 +12,12 @@
 
 #include "ft_printf_helpers.h"
 
+/*
+** Splits value given in @param val into groups of thousands.
+**
+** @param	val		integer value given in the string.
+*/
+
 void	group_by_thousands(char **val)
 {
 	size_t	old_len;

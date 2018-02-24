@@ -18,7 +18,7 @@ static size_t	helper(char **res, t_format *sfmt)
 
 	if ((*res)[0] == '\0')
 	{
-		align(res, sfmt);
+		spaces_handling(res, sfmt);
 		len = ft_strlen(*res) + 1;
 		if (sfmt->flag_minus)
 		{
@@ -26,11 +26,11 @@ static size_t	helper(char **res, t_format *sfmt)
 			len--;
 		}
 		else if (len > 1)
-			(*res)[len-- - 2] = 0;
+			(*res)[--len - 1] = 0;
 	}
 	else
 	{
-		align(res, sfmt);
+		spaces_handling(res, sfmt);
 		len = ft_strlen(*res);
 	}
 	return (len);
@@ -40,9 +40,7 @@ char			*chr_manager(t_format *sfmt, size_t *len)
 {
 	char	*res;
 
-	if ((sfmt->gdata->full_type->modifier == M_L
-				|| sfmt->gdata->full_type->type == T_WCHR)
-			&& MB_CUR_MAX > 1)
+	if (sfmt->gdata->full_type->modifier == M_L && MB_CUR_MAX > 1)
 		res = ft_witomb(unicode_to_utf8(sfmt->gdata->data.wi));
 	else
 	{

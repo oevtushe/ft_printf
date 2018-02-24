@@ -16,7 +16,6 @@ char		*hex_manager(t_format *sfmt, size_t *len)
 {
 	uintmax_t	uval;
 	char		*res;
-	char		*tmp;
 
 	sfmt->flag_plus = 0;
 	sfmt->flag_space = 0;
@@ -24,16 +23,15 @@ char		*hex_manager(t_format *sfmt, size_t *len)
 	res = ft_uimtoabase_gen(uval, 0, 16);
 	if (sfmt->flag_sharp && uval)
 	{
-		width_and_prec(&res, 2, sfmt);
-		tmp = res;
-		res = ft_strjoin("0x", res);
-		ft_strdel(&tmp);
+		zeroes_handling(&res, 2, sfmt);
+		if (sfmt->gdata->full_type->type == T_BHEX)
+			ft_strconnect(&res, "0X", -1);
+		else
+			ft_strconnect(&res, "0x", -1);
 	}
 	else
-		width_and_prec(&res, 0, sfmt);
-	if (sfmt->gdata->full_type->type == T_BHEX)
-		ft_strtoupper(res);
-	align(&res, sfmt);
+		zeroes_handling(&res, 0, sfmt);
+	spaces_handling(&res, sfmt);
 	*len = ft_strlen(res);
 	return (res);
 }

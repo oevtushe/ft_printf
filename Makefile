@@ -57,10 +57,9 @@ ST := ft_strnew.c \
 	   ft_uimtoa.c \
 	   ft_uimtoa_hlp.c \
 	   ft_imtoabase.c \
-	   str_add_prefix.c \
+	   ft_strconnect.c \
 	   easy_joiner.c \
-	   strconnect.c \
-	   spc_string.c
+	   ft_strcntllr.c
 
 # List Tools
 
@@ -97,7 +96,7 @@ MAIN_SRCS := ft_printf.c \
 			  get_format_string.c \
 			  get_arr_size.c \
 			  get_data_arr.c \
-			  align.c \
+			  spaces_handling.c \
 			  ptr_manager.c \
 			  normalize_full_type.c \
 			  ft_format.c \
@@ -128,7 +127,7 @@ MAIN_SRCS := ft_printf.c \
 
 
 DIGITS_DIR := digits/
-DIGITS_FILES := decimal_flag_except.c \
+DIGITS_FILES := digits_flag_except.c \
 				 signed_decimals.c \
 				 unsigned_decimals.c \
 				 octal_manager.c \
@@ -136,7 +135,7 @@ DIGITS_FILES := decimal_flag_except.c \
 				 hex_manager.c \
 				 signed_decimal_modifiers.c \
 				 unsigned_decimal_modifiers.c \
-				 width_and_prec.c
+				 zeroes_handling.c
 DIGITS_SRCS := $(addprefix $(DIGITS_DIR),$(DIGITS_FILES))
 
 

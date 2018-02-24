@@ -22,10 +22,10 @@ char	*ptr_manager(t_format *sfmt, size_t *len)
 	res = ft_uimtoabase_gen(val, 0, 16);
 	if (res)
 	{
-		width_and_prec(&res, 0, sfmt);
+		zeroes_handling(&res, 0, sfmt);
 		tmp = res;
 		res = ft_strjoin("0x", res);
-		align(&res, sfmt);
+		spaces_handling(&res, sfmt);
 		ft_strdel(&tmp);
 	}
 	*len = ft_strlen(res);
