@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unicode_to_utf8.c                                  :+:      :+:    :+:   */
+/*   ft_utu8.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oevtushe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/18 12:40:50 by oevtushe          #+#    #+#             */
-/*   Updated: 2018/02/19 19:47:23 by oevtushe         ###   ########.fr       */
+/*   Created: 2018/02/24 20:53:24 by oevtushe          #+#    #+#             */
+/*   Updated: 2018/02/24 20:53:26 by oevtushe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static unsigned int	get_tail(wint_t val, unsigned int bp)
 ** @return			utf8 byte sequence.
 */
 
-wint_t				unicode_to_utf8(wint_t val)
+wint_t				ft_utu8(wint_t val)
 {
 	wint_t		res;
 	int			bc;

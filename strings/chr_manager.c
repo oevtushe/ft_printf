@@ -41,7 +41,7 @@ char			*chr_manager(t_format *sfmt, size_t *len)
 	char	*res;
 
 	if (sfmt->gdata->full_type->modifier == M_L && MB_CUR_MAX > 1)
-		res = ft_witomb(unicode_to_utf8(sfmt->gdata->data.wi));
+		res = ft_witomb(ft_utu8(sfmt->gdata->data.wi));
 	else
 	{
 		res = ft_strnew(1);

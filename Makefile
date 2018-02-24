@@ -149,7 +149,7 @@ DIGITS_SRCS := $(addprefix $(DIGITS_DIR),$(DIGITS_FILES))
 
 
 STRINGS_DIR := strings/
-STRINGS_FILES := unicode_to_utf8.c \
+STRINGS_FILES := ft_utu8.c \
 				 str_manager.c \
 				 str_modifiers.c \
 				 ft_witomb.c \
