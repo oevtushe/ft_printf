@@ -154,8 +154,7 @@ STRINGS_FILES := ft_utu8.c \
 				 str_modifiers.c \
 				 ft_witomb.c \
 				 chr_manager.c \
-				 chr_modifiers.c \
-				 wcs_to_utf8.c
+				 chr_modifiers.c
 STRINGS_SRCS := $(addprefix $(STRINGS_DIR),$(STRINGS_FILES))
 
 

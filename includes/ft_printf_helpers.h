@@ -75,7 +75,6 @@ char							*str_manager(t_format *sfmt, size_t *ln);
 char							*chr_manager(t_format *sfmt, size_t *len);
 void							str_modifiers(t_ftype *full_type, va_list ap, t_gdata *gdata);
 void							chr_modifiers(t_ftype *full_type, va_list ap, t_gdata *gdata);
-char							*wcs_to_utf8(wchar_t *wcs, int len);
 wint_t							ft_utu8(wint_t wcr);
 char							*ft_witomb(wint_t wi);
 int								read_data_index(const char *str, size_t *idx);

@@ -12,6 +12,33 @@
 
 #include "ft_printf_helpers.h"
 
+static char			*wcs_to_utf8(wchar_t *wcs, int len)
+{
+	char			*res;
+	char			*dp;
+	wint_t			utf;
+	int				sum_len;
+	int				cnt;
+
+	res = ft_strnew(0);
+	sum_len = 0;
+	cnt = -1;
+	while ((sum_len < len || len < 0) && wcs[++cnt])
+	{
+		utf = ft_utu8(wcs[cnt]);
+		dp = ft_witomb(utf);
+		sum_len += ft_strlen(dp);
+		if (sum_len > len && len >= 0)
+		{
+			ft_strdel(&dp);
+			break ;
+		}
+		ft_strconnect(&res, dp, 1);
+		ft_strdel(&dp);
+	}
+	return (res);
+}
+
 static char			*str_null(t_format *sfmt, size_t *ln)
 {
 	char *res;
@@ -31,8 +58,7 @@ char				*str_manager(t_format *sfmt, size_t *ln)
 		res = str_null(sfmt, ln);
 	else
 	{
-		if (sfmt->gdata->full_type->modifier == M_L
-				|| sfmt->gdata->full_type->type == T_WSTR)
+		if (sfmt->gdata->full_type->modifier == M_L)
 			res = wcs_to_utf8(sfmt->gdata->data.pwc, sfmt->precision);
 		else
 		{
