@@ -14,7 +14,7 @@
 
 void	str_modifiers(t_ftype *full_type, va_list ap, t_gdata *gdata)
 {
-	if (full_type->modifier == M_L || full_type->type == T_WSTR)
+	if (full_type->modifier == M_L)
 		gdata->data.pwc = va_arg(ap, wchar_t *);
 	else
 		gdata->data.pc = va_arg(ap, char *);
