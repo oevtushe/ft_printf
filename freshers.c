@@ -19,13 +19,20 @@ void	del_simple(void *data, size_t size)
 		ft_memdel(&data);
 }
 
+/*
+** Frees only pointer to content. In our case it's a pointer to t_gdata object
+** which is already freed by del_gdata_arr. So this function does nothing,
+** but is mandatory for ft_lstdel.
+**
+** @param	data	data to be freed.
+** @param	size	size of data.
+*/
+
 void	del_extra(void *data, size_t size)
 {
 	++size;
 	if (data)
-	{
-		free(data);
-	}
+		ft_memdel(&data);
 }
 
 void	del_gdata_arr(t_gdata ***arr)
@@ -40,7 +47,7 @@ void	del_gdata_arr(t_gdata ***arr)
 		free_gdata(&tmp);
 		tmp = (*arr)[++i];
 	}
-	free(*arr);
+	ft_memdel((void **)arr);
 }
 
 void	del_void_ptr_arr(void ***dta)
@@ -52,10 +59,10 @@ void	del_void_ptr_arr(void ***dta)
 	tmp = (*dta)[i];
 	while (tmp)
 	{
-		free(tmp);
+		ft_memdel(&tmp);
 		tmp = (*dta)[++i];
 	}
-	free(*dta);
+	ft_memdel((void **)dta);
 }
 
 void	free_gdata(t_gdata **gdata)
