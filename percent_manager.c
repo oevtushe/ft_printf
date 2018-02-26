@@ -14,11 +14,14 @@
 
 char	*percent_manager(t_format *sfmt, size_t *len)
 {
-	char *p;
+	char *res;
 
-	p = ft_strnew(1);
-	p[0] = '%';
-	*len = 1;
+	res = ft_strdup("%");
+	sfmt->precision = -1;
+	digits_flag_except(sfmt, 1);
+	zeroes_handling(&res, 0, sfmt);
+	spaces_handling(&res, sfmt);
 	free_gdata(&sfmt->gdata);
-	return (p);
+	*len = ft_strlen(res);
+	return (res);
 }
