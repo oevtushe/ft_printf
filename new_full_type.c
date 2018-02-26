@@ -17,7 +17,10 @@ t_ftype	*new_full_type(t_type type, t_modifier modifier)
 	t_ftype	*full_type;
 
 	full_type = (t_ftype *)ft_memalloc(sizeof(t_ftype));
-	full_type->type = type;
-	full_type->modifier = modifier;
+	if (full_type)
+	{
+		full_type->type = type;
+		full_type->modifier = modifier;
+	}
 	return (full_type);
 }
