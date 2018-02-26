@@ -39,40 +39,30 @@ MT := ft_memcpy.c \
 
 ST := ft_strnew.c \
 	   ft_strcpy.c \
-	   ft_strappend.c \
 	   ft_strdel.c \
 	   ft_strjoin.c \
 	   ft_strchr.c \
 	   ft_strdup.c \
+	   ft_strtoupper.c \
 	   ft_strlen.c \
 	   ft_strsub.c \
 	   ft_strncpy.c \
-	   ft_strtoupper.c \
 	   ft_strcat.c \
 	   ft_str_realloc.c \
-	   ft_itoa.c \
-	   ft_ltoa.c \
-	   ft_lltoa.c \
-	   ft_ulltoa.c \
-	   ft_uimtoa.c \
-	   ft_uimtoa_hlp.c \
 	   ft_imtoabase.c \
 	   ft_strconnect.c \
-	   easy_joiner.c \
 	   ft_strcntllr.c
 
 # List Tools
 
 LT := ft_lstnew.c \
-	   ft_lstlen.c \
 	   ft_lstaddelem.c \
 	   ft_lstappend.c \
 	   ft_lstdel.c
 
 # Other Tools
 
-OT := ft_putstr.c \
-	   ft_uimtoabase_gen.c \
+OT := ft_uimtoabase_gen.c \
 	   ft_putstr_ln.c \
 	   ft_atoi.c \
 	   ft_spsign.c \
@@ -107,10 +97,8 @@ MAIN_SRCS := ft_printf.c \
 			  get_manager_dispatcher.c \
 			  string_readers.c \
 			  percent_manager.c \
-			  undef_manager.c \
 			  logic_type.c \
 			  normalize_width.c \
-			  percent_handler.c \
 			  get_cur_data.c \
 			  outside_param.c \
 			  outside_param.c \
@@ -183,7 +171,7 @@ DEPENDENCY_DIR := includes/
 DEPENDENCY_FILES := ft_printf.h ft_printf_helpers.h ft_tools.h ft_structures.h
 DEPENDENCY := $(addprefix $(DEPENDENCY_DIR),$(DEPENDENCY_FILES))
 
-KEYS :=  -Wall -Werror -Wextra -g
+KEYS :=  -Wall -Werror -Wextra
 # delete -g
 
 all: $(NAME)
