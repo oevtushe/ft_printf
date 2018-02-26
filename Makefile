@@ -75,6 +75,7 @@ OT := ft_putstr.c \
 	   ft_uimtoabase_gen.c \
 	   ft_putstr_ln.c \
 	   ft_atoi.c \
+	   ft_spsign.c \
 	   ft_isdigit.c \
 	   ft_abs.c
 TOOLS := $(MT) $(ST) $(LT) $(OT)

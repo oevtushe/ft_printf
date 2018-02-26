@@ -71,5 +71,6 @@ int				ft_abs(int val);
 int				ft_isdigit(int c);
 int				ft_atoi(const char *str);
 void			ft_putstr_ln(const char *str, size_t len);
+void			ft_spsign(intmax_t val, uintmax_t *uval, int *sign);
 
 #endif
