@@ -17,7 +17,7 @@
 ** For cases like "%3$.*d"
 */
 
-static int	validate_mixed_index(const char *str)
+static int	vldmi(const char *str)
 {
 	char	*pos;
 
@@ -60,14 +60,14 @@ void		validate_lists(const char *format, t_list **plain, t_list **extra)
 	while (tmp)
 	{
 		str = tmp->content;
-		if (str[1] != '%')
+		if (str[ft_strlen(str) - 1] != '%')
 		{
 			if (lt == -1)
 				lt = ft_strchr(str, '$') ? 1 : 0;
-			if (!validate_mixed_index(str) || lt != (ft_strchr(str, '$') ? 1 : 0))
+			if (!vldmi(str) || lt != (ft_strchr(str, '$') ? 1 : 0))
 			{
 				error = 1;
-				break;
+				break ;
 			}
 		}
 		tmp = tmp->next;
