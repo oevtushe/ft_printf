@@ -18,30 +18,19 @@ static void			handle_signs(t_format *sfmt, char **res, int sign)
 		ft_strconnect(res, "+", -1);
 	else if (sfmt->flag_space)
 		ft_strconnect(res, " ", -1);
-	else if (sign < 0)
+	else if (sign > 0)
 		ft_strconnect(res, "-", -1);
 }
 
-static intmax_t		gdata_load(t_gdata *gdata)
+static int			get_dec_prefix(t_format *sfmt, int sign)
 {
-	intmax_t vl;
+	int	prefix;
 
-	vl = 0;
-	if (gdata->full_type->modifier == M_L)
-		vl = gdata->data.li;
-	else if (gdata->full_type->modifier == M_LL)
-		vl = gdata->data.lli;
-	else if (gdata->full_type->modifier == M_H)
-		vl = gdata->data.si;
-	else if (gdata->full_type->modifier == M_HH)
-		vl = gdata->data.c;
-	else if (gdata->full_type->modifier == M_J)
-		vl = gdata->data.im;
-	else if (gdata->full_type->modifier == M_Z)
-		vl = gdata->data.sszi;
-	else
-		vl = gdata->data.i;
-	return (vl);
+	prefix = 0;
+	if ((sign == 0 && (sfmt->flag_plus || sfmt->flag_space)) ||
+			sign)
+		prefix = 1;
+	return (prefix);
 }
 
 char				*signed_decimal_manager(t_format *sfmt, size_t *len)
@@ -50,19 +39,17 @@ char				*signed_decimal_manager(t_format *sfmt, size_t *len)
 	intmax_t	val;
 	uintmax_t	uval;
 	char		*res;
+	int			prefix;
 
 	sign = 0;
-	val = gdata_load(sfmt->gdata);
-	if (val >= 0 && (sfmt->flag_plus || sfmt->flag_space))
-		sign = 1;
-	else if (val < 0)
-		sign = -1;
-	digits_flag_except(sfmt, (sign < 0));
-	uval = (sign < 0) ? (val * -1LL) : val;
+	val = signed_gdata_load(sfmt->gdata);
+	ft_spsign(val, &uval, &sign);
+	prefix = get_dec_prefix(sfmt, sign);
+	digits_flag_except(sfmt, sign);
 	res = ft_uimtoabase_gen(uval, 0, 10);
 	if (sfmt->flag_squote && MB_CUR_MAX > 1)
 		group_by_thousands(&res);
-	zeroes_handling(&res, ft_abs(sign), sfmt);
+	zeroes_handling(&res, prefix, sfmt);
 	handle_signs(sfmt, &res, sign);
 	spaces_handling(&res, sfmt);
 	*len = ft_strlen(res);
