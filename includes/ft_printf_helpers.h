@@ -52,6 +52,7 @@ void							unsigned_decimal_modifiers(t_ftype *full_type, va_list ap, t_gdata *g
 void							signed_decimal_modifiers(t_ftype *full_type, va_list ap, t_gdata *gdata);
 void							zeroes_handling(char **val, int pref, t_format *sfmt);
 void							group_by_thousands(char **val);
+void		ft_group_by(char **val, int cnt);
 
 void							load_hhd(t_gdata *gdata, va_list ap);
 void							load_hd(t_gdata *gdata, va_list ap);
