@@ -39,6 +39,17 @@ static void	ft_itoa_hlp(uintmax_t val, unsigned int base, char *res, int *idx)
 	}
 }
 
+/*
+** Generic number converter. Converts as signed as unsigned number to
+** specified base and write result in a string.
+**
+** @param	val		unsigned part of value to be converted.
+** @param	sign	sign of the value.
+** @param	base	base convert to.
+**
+** @return			string with value in specified base.
+*/
+
 char		*ft_uimtoabase_gen(uintmax_t val, int sign, unsigned int base)
 {
 	char	*res;

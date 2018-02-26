@@ -13,8 +13,14 @@
 #include "ft_tools.h"
 
 /*
-** If ft_strnew cant't allocate new string
-** previous data in str stay untouched.
+** Reallocates string with a new size.
+** If new size is biggest than previous one, rest of reallocated string will
+** be filled by zeroes.
+** If new size is smaller than previous, string will be truncated.
+** If allocation fails nothing to be done with string.
+**
+** @param	str		pointer to string to be reallocated.
+** @param	new_len	length of result string.
 */
 
 void	ft_str_realloc(char **str, size_t new_len)

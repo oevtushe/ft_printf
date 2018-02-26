@@ -12,6 +12,14 @@
 
 #include "ft_printf_helpers.h"
 
+/*
+** Adds spaces at the beginning of string or at the end. Count of spaces
+** depends from width specified in @param sfmt.
+**
+** @param	sv		string spaces will be added to.
+** @param	sfmt	current format.
+*/
+
 void	spaces_handling(char **sv, t_format *sfmt)
 {
 	int		len;

@@ -17,7 +17,7 @@
 **
 ** @param	sfmt		format to be normalized.
 ** @param	magic_val	if 1 then flags plus and space will be turned off
-**						(in cases like value in sfmt is negative 
+**						(in cases like value in sfmt is negative
 **						or unsigned).
 */
 

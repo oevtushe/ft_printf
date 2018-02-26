@@ -16,11 +16,11 @@
 ** Validate format string beginning
 ** at @param idx in @param str.
 ** Validates only for absence of alian
-** symbols and bad order. 
+** symbols and bad order.
 **
 ** Example of invalid format: '%z', '%08k', '%08+d', etc.
 ** But format like '%3$.*d' will pass throught this validation.
-** 
+**
 ** @param	str		string to validate
 ** @param	idx		position on @param str
 **

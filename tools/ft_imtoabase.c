@@ -12,6 +12,15 @@
 
 #include "ft_tools.h"
 
+/*
+** Converts signed number to specified base and write it to string.
+**
+** @param	val		value to be converted.
+** @param	base	base value be converted to.
+**
+** @return			string with value in specified base.
+*/
+
 char	*ft_imtoabase(intmax_t val, unsigned int base)
 {
 	int			sign;

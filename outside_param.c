@@ -13,7 +13,14 @@
 #include "ft_printf_helpers.h"
 
 /*
-** function get data from @param gdata by index in @param str
+** Get data (width/precision) from @param gdata by index in @param str
+**
+** @param	str		string to read index from.
+** @param	idx		current position in string.
+** @param	gdata	gdata array.
+** @param	di		order index in gdata array (in case of simple logic).
+**
+** @return			width/precision readed from the gdata array.
 */
 
 int	outside_param(const char *str, size_t *idx, t_gdata **gdata, int *di)

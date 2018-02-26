@@ -12,10 +12,6 @@
 
 #include "ft_printf_helpers.h"
 
-/*
-** After this function no differences between type 'D' and type "ld"
-*/
-
 static int	is_tonormalize(t_type type)
 {
 	if (type == T_LDEC || type == T_LUNSIGNED || type == T_WCHR ||
@@ -23,6 +19,12 @@ static int	is_tonormalize(t_type type)
 		return (1);
 	return (0);
 }
+
+/*
+** After this function no differences between type 'D' and type "ld"
+**
+** @param full_type	type to normalize.
+*/
 
 void		normalize_full_type(t_ftype *full_type)
 {

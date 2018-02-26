@@ -16,6 +16,11 @@
 ** Recreates string @param str with @param new_len length.
 ** Oldlength - newlength characters from side specified in @param side
 ** (where -1 means left, 1 right) will be filled with @param filler character.
+**
+** @param	str		string to be recreated.
+** @param	new_len	length of result string.
+** @param	filler	fill character for rest of the string.
+** @param	side	side filled string will be added to.
 */
 
 void	ft_strcntllr(char **str, size_t new_len, char filler, int side)

@@ -13,6 +13,17 @@
 #include <stdlib.h>
 #include "ft_tools.h"
 
+/*
+** Connects two memory blocks together.
+**
+** @param	p1		pointer at the first memory block.
+** @param	sp1		size of data p1 points to.
+** @param	p2		pointer to second memory block.
+** @param	sp2		size of data p2 points to.
+**
+** @return			memory block filled by data from @param p1 and @param p2.
+*/
+
 void	*ft_memjoin(void *p1, size_t sp1, void *p2, size_t sp2)
 {
 	unsigned char *res;

@@ -20,7 +20,8 @@
 ** @param	start		index in string format is searching from.
 ** @param	end			index to end of format string.
 ** @return				format string if found, also @param start and @param end
-** 						initialized to start and end of format string respectively.
+** 						initialized to start and end of format
+**						string respectively.
 ** @return	NULL		if no more valid format string in @param str.
 */
 
