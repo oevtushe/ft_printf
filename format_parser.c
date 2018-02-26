@@ -54,7 +54,7 @@ static int	get_width(const char *str, int *di, size_t *idx, t_gdata **gdata)
 ** @return			precision based on @param str information.
 */
 
-static int	get_precision(const char *str, int *di, size_t *idx, t_gdata **gdata)
+static int	get_precision(const char *str, int *di, size_t *idx, t_gdata **gd)
 {
 	int precision;
 
@@ -66,7 +66,7 @@ static int	get_precision(const char *str, int *di, size_t *idx, t_gdata **gdata)
 		if (str[(*idx)] == '*')
 		{
 			++(*idx);
-			precision = outside_param(str, idx, gdata, di);
+			precision = outside_param(str, idx, gd, di);
 		}
 		else
 		{
@@ -97,7 +97,7 @@ static void	init_modifiers(const char *str, size_t *idx)
 		mdf = M_Z;
 	if (mdf == M_HH || mdf == M_LL)
 		*idx += 2;
-	else if(mdf == M_L || mdf == M_H || mdf == M_J || mdf == M_Z)
+	else if (mdf == M_L || mdf == M_H || mdf == M_J || mdf == M_Z)
 		(*idx)++;
 }
 
@@ -117,7 +117,7 @@ static void	init_flags(const char *str, t_format *cf, size_t *idx)
 			cf->flag_sharp = 1;
 		else if (str[*idx] == '\'')
 			cf->flag_squote = 1;
-		else 
+		else
 			break ;
 		++(*idx);
 	}
@@ -139,23 +139,20 @@ static void	init_flags(const char *str, t_format *cf, size_t *idx)
 t_format	*format_parser(const char *str, int *di, t_gdata **gdata, int lt)
 {
 	size_t		idx;
+	size_t		len;
 	t_format	*cur_format;
 
 	idx = 1;
-	cur_format = (t_format*)ft_memalloc(sizeof(t_format));
-	if (str[ft_strlen(str) - 1] != T_PT)
-	{
-		if (lt)
-			cur_format->gdata = get_cur_data(str, &idx, di, gdata);
-		init_flags(str, cur_format, &idx);
-		cur_format->width = get_width(str, di, &idx, gdata);
-		cur_format->precision = get_precision(str, di, &idx, gdata);
-		if (!lt)
-			cur_format->gdata = get_cur_data(str, &idx, di, gdata);
-		init_modifiers(str, &idx);
-	}
-	else
-		percent_handler(str, cur_format);
+	cur_format = (t_format *)ft_memalloc(sizeof(t_format));
+	len = ft_strlen(str);
+	if (lt)
+		cur_format->gdata = get_cur_data(str, &idx, di, gdata);
+	init_flags(str, cur_format, &idx);
+	cur_format->width = get_width(str, di, &idx, gdata);
+	cur_format->precision = get_precision(str, di, &idx, gdata);
+	if (!lt)
+		cur_format->gdata = get_cur_data(str, &idx, di, gdata);
+	init_modifiers(str, &idx);
 	normalize_width(cur_format);
 	return (cur_format);
 }
