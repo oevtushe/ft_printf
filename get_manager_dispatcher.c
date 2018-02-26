@@ -22,6 +22,12 @@ t_mng_dpc	*new_dpc(t_type type, char *(*manager)(t_format *sfmt, size_t *len))
 	return (dpc);
 }
 
+/*
+** Creates manager dispatcher.
+**
+** @return		manager dispatcher.
+*/
+
 t_mng_dpc	**get_manager_dispatcher(void)
 {
 	t_mng_dpc **dispatcher;
@@ -37,7 +43,7 @@ t_mng_dpc	**get_manager_dispatcher(void)
 	dispatcher[6] = new_dpc(T_OCT, octal_manager);
 	dispatcher[7] = new_dpc(T_HEX, hex_manager);
 	dispatcher[8] = new_dpc(T_BHEX, hex_manager);
-	dispatcher[9] = new_dpc(T_UNDEF, undef_manager);
+	dispatcher[9] = new_dpc(T_BINARY, binary_manager);
 	dispatcher[10] = NULL;
 	return (dispatcher);
 }

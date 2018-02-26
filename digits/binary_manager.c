@@ -1,27 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_type.c                                          :+:      :+:    :+:   */
+/*   binary_manager.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oevtushe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/20 16:07:26 by oevtushe          #+#    #+#             */
-/*   Updated: 2018/02/20 16:07:28 by oevtushe         ###   ########.fr       */
+/*   Created: 2018/02/26 10:43:03 by oevtushe          #+#    #+#             */
+/*   Updated: 2018/02/26 10:43:05 by oevtushe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_helpers.h"
 
-int		is_type(char c)
+char	*binary_manager(t_format *sfmt, size_t *len)
 {
-	int valid;
+	intmax_t	val;
+	uintmax_t	uval;
+	int			sign;
+	char		*res;
 
-	valid = 0;
-	if (c == T_OCT || c == T_LOCT || c == T_CHR || c == T_WCHR ||
-		c == T_DEC || c == T_DEC2 || c == T_LDEC || c == T_HEX ||
-		c == T_BHEX || c == T_PT || c == T_PTR || c == T_STR ||
-		c == T_WSTR || c == T_UNSIGNED || c == T_LUNSIGNED ||
-		c == T_BINARY)
-		valid = 1;
-	return (valid);
+	val = signed_gdata_load(sfmt->gdata);
+	ft_spsign(val, &uval, &sign);
+	digits_flag_except(sfmt, sign > 0);
+	res = ft_uimtoabase_gen(uval, 0, 2);
+	zeroes_handling(&res, 0, sfmt);
+	if (sfmt->flag_squote)
+		ft_group_by(&res, 8);
+	spaces_handling(&res, sfmt);
+	*len = ft_strlen(res);
+	return (res);
 }

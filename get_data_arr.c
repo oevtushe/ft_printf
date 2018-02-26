@@ -27,7 +27,7 @@ static t_gdata		*get_data(t_ftype *cur_type, va_list ap)
 
 	gdata = (t_gdata *)ft_memalloc(sizeof(t_gdata));
 	gdata->full_type = cur_type;
-	if (cur_type->type == T_DEC)
+	if (cur_type->type == T_DEC || cur_type->type == T_BINARY)
 		signed_decimal_modifiers(cur_type, ap, gdata);
 	else if (cur_type->type == T_UNSIGNED || cur_type->type == T_OCT ||
 			cur_type->type == T_HEX ||

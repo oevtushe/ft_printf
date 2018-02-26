@@ -135,6 +135,7 @@ DIGITS_FILES := digits_flag_except.c \
 				 octal_manager.c \
 				 group_by_thousands.c \
 				 signed_gdata_load.c \
+				 binary_manager.c \
 				 hex_manager.c \
 				 signed_decimal_modifiers.c \
 				 unsigned_decimal_modifiers.c \

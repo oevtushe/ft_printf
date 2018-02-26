@@ -89,6 +89,7 @@ char							*ptr_manager(t_format *sfmt, size_t *len);
 char							*percent_manager(t_format *sfmt, size_t *len);
 char							*undef_manager(t_format *sfmt, size_t *fmt_len);
 
+char		*binary_manager(t_format *sfmt, size_t *len);
 
 /*
 ** Freshers

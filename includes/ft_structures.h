@@ -20,7 +20,6 @@
 
 typedef enum					e_type
 {
-	T_UNDEF = -1,
 	T_DEC = 'd',
 	T_DEC2 = 'i',
 	T_LDEC = 'D',
@@ -35,6 +34,7 @@ typedef enum					e_type
 	T_OCT = 'o',
 	T_LOCT = 'O',
 	T_HEX = 'x',
+	T_BINARY = 'b',
 	T_BHEX = 'X'
 }								t_type;
 
