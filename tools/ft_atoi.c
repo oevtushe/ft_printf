@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_tools.h"
+#include <limits.h>
 
 static int		last_check(unsigned long int val, int sign)
 {
