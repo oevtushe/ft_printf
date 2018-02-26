@@ -269,6 +269,32 @@ void	chr_tests(void)
 	printf("lb: lol%cbol\n\n", 0);
 }
 
+void	percent_tests(void)
+{
+	ft_printf("Percent tests\n\n");
+
+	ft_printf("ft: %06%\n");
+	printf("lb: %06%\n\n");
+
+	ft_printf("ft: %.6%\n");
+	printf("lb: %.6%\n\n");
+
+	ft_printf("ft: %8.6%\n");
+	printf("lb: %8.6%\n\n");
+
+	ft_printf("ft: %08.6%\n");
+	printf("lb: %08.6%\n\n");
+
+	ft_printf("ft: %+08.6%\n");
+	printf("lb: %+08.6%\n\n");
+
+	ft_printf("ft: %-08.6%\n");
+	printf("lb: %-08.6%\n\n");
+
+	ft_printf("ft: %-08.6%\n");
+	printf("lb: %-08.6%\n\n");
+}
+
 int	main(void)
 {
 	setlocale(LC_ALL, "");
@@ -295,5 +321,7 @@ int	main(void)
 	wstr_tests();
 	ft_printf("\n");
 	chr_tests();
+	ft_printf("\n");
+	percent_tests();
 	return (0);
 }
