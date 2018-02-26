@@ -19,7 +19,7 @@ char		*unsigned_decimal_manager(t_format *sfmt, size_t *len)
 
 	digits_flag_except(sfmt, 1);
 	uval = sfmt->gdata->data.uim;
-	res = ft_uimtoa(uval);
+	res = ft_uimtoabase_gen(uval, 0, 10);
 	if (sfmt->flag_squote && MB_CUR_MAX > 0)
 		group_by_thousands(&res);
 	zeroes_handling(&res, 0, sfmt);
