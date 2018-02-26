@@ -31,6 +31,7 @@ void							percent_handler(const char *str, t_format *sfmt);
 t_gdata							*get_cur_data(const char *str, size_t *idx, int *di, t_gdata **gdata);
 int								outside_param(const char *str, size_t *idx, t_gdata **gdata, int *di);
 void							validate_lists(const char *format, t_list **plain, t_list **extra);
+t_ftype		**get_type_arr(t_list *extra, int arr_sz, int lt);
 
 int								is_type(char c);
 void							read_width(const char *str, size_t *idx);

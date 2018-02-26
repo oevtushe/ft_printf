@@ -97,6 +97,7 @@ MAIN_SRCS := ft_printf.c \
 			  get_format_string.c \
 			  get_arr_size.c \
 			  get_data_arr.c \
+			  get_type_arr.c \
 			  spaces_handling.c \
 			  ptr_manager.c \
 			  normalize_full_type.c \
