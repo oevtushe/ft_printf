@@ -113,7 +113,7 @@ char		*ft_format(const char *format, va_list ap, size_t *len)
 	reformat_extra(extra, gdata, lt);
 	str = maker(plain, extra, len);
 	ft_lstdel(&plain, del_simple);
-	ft_lstdel(&extra, del_extra);
 	del_gdata_arr(&gdata);
+	ft_lstdel(&extra, del_extra);
 	return (str);
 }
