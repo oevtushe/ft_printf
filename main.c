@@ -12,30 +12,7 @@ void	mixed_index_tests(void)
 	ft_printf("text %% %1$d%d \n", 4);
 	ft_printf("text %1$d %3$.*d \n", 4);
 	ft_printf("text %1$d %3$+.*d \n", 4);
-}
-
-void	decimal_tests(void)
-{
-	ft_printf("Decimal tests\n\n");
-	ft_printf("ft: %d\n", 8);
-	printf("lb: %d\n\n", 8);
-	ft_printf("ft: %d%d\n", 8, 3);
-	printf("lb: %d%d\n\n", 8, 3);
-	ft_printf("ft: %3d%d\n", 8, 3);
-	printf("lb: %3d%d\n\n", 8, 3);
-	ft_printf("ft: %-3d%d\n", 8, 3);
-	printf("lb: %-3d%d\n", 8, 3);
-}
-
-void	double_percent_test(void)
-{
-	ft_printf("Other tests\n\n");
-	ft_printf("ft: %%\n");
-	printf("lb: %%\n\n");
-	ft_printf("ft: %% %d\n", 3);
-	printf("lb: %% %d\n", 3);
-	ft_printf("ft: %%%%%%%%%% %d\n", 3);
-	printf("ft: %%%%%%%%%% %d\n", 3);
+	ft_printf("text %08% %3$+.*d \n", 4);
 }
 
 void	invalid_format_strings_test(void)
@@ -43,7 +20,6 @@ void	invalid_format_strings_test(void)
 	ft_printf("Invalid format\n\n");
 	ft_printf("ft: %\n");
 	ft_printf("ft: %test%\n");
-	ft_printf("ft: %+03.4%\n");
 	ft_printf("ft: %+03.4k\n");
 	ft_printf("ft: %+03.-4d\n");
 	ft_printf("ft: %+03-.4d\n");
@@ -53,45 +29,68 @@ void	invalid_format_strings_test(void)
 	ft_printf("ft: %hC\n\n", L'🚣');
 	ft_printf("ft: %+-0C\n", L'🚣');
 	ft_printf("ft: lol%.3cbol\n", '*');
+	ft_printf("ft: %**.*d\n", 3, 4);
+	ft_printf("ft: %*****.*d\n", 3, 4);
+	ft_printf("ft: %*.**d\n", 3, 4);
+	ft_printf("ft: %*.8*d\n", 3, 4);
 }
 
 void	dollars_test(void)
 {
 	ft_printf("Dollars test\n\n");
+
 	ft_printf("ft: %1$d\n", 3);
 	printf("lb: %1$d\n\n", 3);
+
 	ft_printf("ft: %1$d %1$d\n", 3);
 	printf("lb: %1$d %1$d\n\n", 3);
+
 	ft_printf("ft: %1$.*1$d %1$d\n", 3);
 	printf("lb: %1$.*1$d %1$d\n\n", 3);
+
+	ft_printf("ft: %1$.*1$d %1$d\n", -3);
+	printf("lb: %1$.*1$d %1$d\n\n", -3);
+
 	ft_printf("ft: %1$.*1$d %2$.*1$d\n", 3, 4);
 	printf("lb: %1$.*1$d %2$.*1$d\n\n", 3, 4);
+
 	ft_printf("ft: %1$+.*1$d %2$.*1$d\n", 3, 4);
 	printf("lb: %1$+.*1$d %2$.*1$d\n\n", 3, 4);
+
 	ft_printf("ft: %1$010.*1$d %2$.*1$d\n", 3, 4);
 	printf("lb: %1$010.*1$d %2$.*1$d\n\n", 3, 4);
+
+	ft_printf("ft: %08% %1$.*1$d %1$d\n", 3);
+	printf("lb: %08% %1$.*1$d %1$d\n\n", 3);
+
+	ft_printf("ft: %1$8% %1$.*1$d %1$d\n", 3);
+	printf("lb: %1$8% %1$.*1$d %1$d\n\n", 3);
 }
 
 void	asterisk_tests(void)
 {
 	ft_printf("Asterisk tests\n\n");
+
 	ft_printf("ft: %*d\n", 3, 4);
 	printf("lb: %*d\n\n", 3, 4);
+
 	ft_printf("ft: %.*d\n", 3, 4);
 	printf("lb: %.*d\n\n", 3, 4);
+
 	ft_printf("ft: %.*d\n", 3, 4);
 	printf("lb: %.*d\n\n", 3, 4);
+
 	ft_printf("ft: % .*d\n", 3, 4);
 	printf("lb: % .*d\n\n", 3, 4);
+
 	ft_printf("ft: %08.*d\n", 3, 4);
 	printf("lb: %08.*d\n\n", 3, 4);
+
 	ft_printf("ft: %*.*d\n", 3, 5, 4);
 	printf("lb: %*.*d\n\n", 3, 5, 4);
-	ft_printf("ft: %**.*d\n", 3, 4);
-	ft_printf("ft: %*****.*d\n", 3, 4);
-	ft_printf("ft: %*.**d\n", 3, 4);
-	ft_printf("ft: %*.8*d\n", 3, 4);
-	//printf("lb: %**.*d\n\n", 3, 4);
+
+	ft_printf("ft: %*d\n", -3, 4);
+	printf("lb: %*d\n\n", -3, 4);
 }
 
 void	decimals_tests(void)
@@ -143,6 +142,9 @@ void	decimals_tests(void)
 	ft_printf("ft: %03.2d\n", 3);
 	printf("lb: %03.2d\n\n", 3);
 
+	ft_printf("ft: %05d\n", -42);
+	printf("lb: %05d\n\n", -42);
+
 	ft_printf("ft: %++04.2d\n", INT_MAX);
 	printf("lb: %++04.2d\n\n", INT_MAX);
 
@@ -159,21 +161,23 @@ void	decimals_tests(void)
 void	decimal_grouping_tests(void)
 {
 	ft_printf("Decimal grouping\n\n");
+
 	ft_printf("ft: %'d\n", INT_MIN);
 	printf("lb: %'d\n\n", INT_MIN);
+
+	ft_printf("ft: %'010d\n", 42);
+	printf("lb: %'010d\n\n", 42);
 }
 
 void	wchar_tests(void)
 {
 	ft_printf("Wchar's tests\n\n");
+
 	ft_printf("ft: %lc\n", (wint_t)9787);
 	printf("lb: %lc\n\n", (wint_t)9787);
 
 	ft_printf("ft: %lc\n", L'🚣');
 	printf("lb: %lc\n\n", L'🚣');
-
-	ft_printf("ft: %C\n", L'🚣');
-	printf("lb: %C\n\n", L'🚣');
 
 	ft_printf("ft: %C\n", L'🚣');
 	printf("lb: %C\n\n", L'🚣');
@@ -269,6 +273,29 @@ void	chr_tests(void)
 	printf("lb: lol%cbol\n\n", 0);
 }
 
+void	binary_tests(void)
+{
+	ft_printf("Binary tests\n\n");
+
+	ft_printf("ft: %b\n", 1024);
+	ft_printf("ft: %b\n", 0);
+	ft_printf("ft: %b\n", 10);
+	ft_printf("ft: %b\n", 127);
+	ft_printf("ft: %8b\n", 127);
+	ft_printf("ft: %.8b\n", 127);
+	ft_printf("ft: %08b\n", 127);
+	ft_printf("ft: %-8b\n", 127);
+	ft_printf("ft: %0b\n", 127);
+	ft_printf("ft: %+b\n", 127);
+	ft_printf("ft: % b\n", 127);
+	ft_printf("ft: %+b\n", -127);
+	ft_printf("ft: % b\n", -127);
+	ft_printf("ft: %16b\n", 100);
+	ft_printf("ft: %'b\n", 100);
+	ft_printf("ft: %'016b\n", 100);
+	ft_printf("ft: %'07b\n", 100);
+}
+
 void	percent_tests(void)
 {
 	ft_printf("Percent tests\n\n");
@@ -293,16 +320,21 @@ void	percent_tests(void)
 
 	ft_printf("ft: %-08.6%\n");
 	printf("lb: %-08.6%\n\n");
+
+	ft_printf("ft: %%\n");
+	printf("lb: %%\n\n");
+
+	ft_printf("ft: %% %d\n", 3);
+	printf("lb: %% %d\n", 3);
+
+	ft_printf("ft: %%%%%%%%%% %d\n", 3);
+	printf("ft: %%%%%%%%%% %d\n", 3);
 }
 
 int	main(void)
 {
 	setlocale(LC_ALL, "");
 	mixed_index_tests();
-	ft_printf("\n");
-	decimal_tests();
-	ft_printf("\n");
-	double_percent_test();
 	ft_printf("\n");
 	invalid_format_strings_test();
 	ft_printf("\n");
@@ -321,6 +353,8 @@ int	main(void)
 	wstr_tests();
 	ft_printf("\n");
 	chr_tests();
+	ft_printf("\n");
+	binary_tests();
 	ft_printf("\n");
 	percent_tests();
 	return (0);
