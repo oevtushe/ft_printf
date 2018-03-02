@@ -331,9 +331,16 @@ void	percent_tests(void)
 	printf("ft: %%%%%%%%%% %d\n", 3);
 }
 
+void	color_tests(void)
+{
+	ft_printf("{RED}Hi{RESET}, i'm {CYAN}colored{RESET}, {UNDERLINE}underlined{RESET}, {MAGENTA}{UNDERLINE}colored and underlined{RESET}.\n");
+	ft_printf("Color {%1$s}given{%3$s} in {%2$s}string{%3$s}.\n", "CYAN", "MAGENTA", "RESET");
+	//ft_printf("{MAGENTA}Purple{RESET}%c{CYAN}cyan{RESET}\n", 0);
+}
+
 int	main(void)
 {
-	setlocale(LC_ALL, "");
+	/*
 	mixed_index_tests();
 	ft_printf("\n");
 	invalid_format_strings_test();
@@ -357,5 +364,13 @@ int	main(void)
 	binary_tests();
 	ft_printf("\n");
 	percent_tests();
+	*/
+	/*
+	ft_printf("Color {%1$s}given{%3$s} in {%2$s}string{%3$s}.\n", "CYAN", "MAGENTA", "RESET");
+	ft_printf("Color {%1$s}given{%3$s} in {%2$s}string{%3$s}.\n", "CYAN", "MAGENTA", "RESET");
+	*/
+		ft_printf("WTF - {%s} works not {RESET} {CYAN}???{RESET}\n", "RED");
+	while (1)
+		ft_printf("{RED}RED{RESET}\n");
 	return (0);
 }
