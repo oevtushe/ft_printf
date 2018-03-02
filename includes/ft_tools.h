@@ -40,6 +40,7 @@ void			ft_strtoupper(char *str);
 char			*ft_strjoin(char const *s1, char const *s2);
 size_t			ft_strlen(const char *s);
 char			*ft_strnew(const size_t len);
+int				ft_strcmp(const char *s1, const char *s2);
 void			ft_strdel(char **str);
 char			*ft_strncpy(char *dst, const char *src, size_t len);
 char			*ft_strsub(char const *s, unsigned int start, size_t len);
