@@ -101,8 +101,10 @@ MAIN_SRCS := ft_printf.c \
 			  percent_manager.c \
 			  logic_type.c \
 			  normalize_width.c \
+			  get_color_code.c \
 			  get_cur_data.c \
 			  outside_param.c \
+			  color_parser.c \
 			  outside_param.c \
 			  is_type.c \
 			  validate_lists.c \
@@ -173,7 +175,7 @@ DEPENDENCY_DIR := includes/
 DEPENDENCY_FILES := ft_printf.h ft_printf_helpers.h ft_tools.h ft_structures.h
 DEPENDENCY := $(addprefix $(DEPENDENCY_DIR),$(DEPENDENCY_FILES))
 
-KEYS :=  -Wall -Werror -Wextra
+KEYS :=  -Wall -Werror -Wextra -g
 # delete -g
 
 all: $(NAME)

@@ -19,12 +19,24 @@ int		ft_printf(const char *format, ...)
 	size_t	len;
 	va_list ap;
 	char	*str;
+	char	*cp;
 
 	len = 0;
 	va_start(ap, format);
 	str = ft_format(format, ap, &len);
+	if (len == ft_strlen(str))
+	{
+		color_parser(str, &cp);
+		ft_strdel(&str);
+		str = cp;
+		len = ft_strlen(str);
+	}
+	else
+	{
+		len = 1;
+	}
 	ft_putstr_ln(str, len);
 	va_end(ap);
-	free(str);
+	ft_strdel(&str);
 	return (len);
 }
