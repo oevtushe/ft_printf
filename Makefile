@@ -103,7 +103,6 @@ MAIN_SRCS := ft_printf.c \
 			  normalize_width.c \
 			  get_color_code.c \
 			  get_cur_data.c \
-			  outside_param.c \
 			  color_parser.c \
 			  outside_param.c \
 			  is_type.c \
