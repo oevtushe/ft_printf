@@ -18,46 +18,6 @@
 
 # define DISPATCHER_SIZE 10
 
-/*
-** Special options for pretty.
-*/
-
-# define BOLD "\033[1m"
-# define DBOLD "\033[2m"
-# define NBOLD "\033[22m"
-# define UNDERLINE "\033[4m"
-# define NUNDERLINE "\033[4m"
-# define INVERSE "\033[7m"
-# define NINVERSE "\033[7m"
-# define RESET "\033[m"
-
-/*
-** Text colors.
-*/
-
-# define BLACK "\033[30m"
-# define RED "\033[31m"
-# define GREEN "\033[32m"
-# define YELLOW "\033[33m"
-# define BLUE "\033[34m"
-# define MAGENTA "\033[35m"
-# define CYAN "\033[36m"
-# define GRAY "\033[37m"
-
-/*
-** Background colors.
-*/
-
-# define BGBLACK "\033[40m"
-# define BGRED "\033[41m"
-# define BGGREEN "\033[42m"
-# define BGBROWN "\033[43m"
-# define BGBLUE "\033[44m"
-# define BGMAGENTA "\033[45m"
-# define BGCYAN "\033[46m"
-# define BGGRAY "\033[47m"
-# define BGDEF "\033[49m"
-
 typedef enum					e_type
 {
 	T_DEC = 'd',
@@ -148,18 +108,5 @@ typedef struct					s_mng_dpc
 	t_type	type;
 	char	*(*manager)(t_format *sfmt, size_t *len);
 }								t_mng_dpc;
-
-typedef struct					s_option
-{
-	char	*abbr;
-	char	*value;
-}								t_option;
-
-typedef	struct					s_pretty
-{
-	t_option	**text_colors;
-	t_option	**background_colors;
-	t_option	**spec_options;
-}								t_pretty;
 
 #endif
