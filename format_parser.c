@@ -139,12 +139,10 @@ static void	init_flags(const char *str, t_format *cf, size_t *idx)
 t_format	*format_parser(const char *str, int *di, t_gdata **gdata, int lt)
 {
 	size_t		idx;
-	size_t		len;
 	t_format	*cur_format;
 
 	idx = 1;
 	cur_format = (t_format *)ft_memalloc(sizeof(t_format));
-	len = ft_strlen(str);
 	if (lt)
 		cur_format->gdata = get_cur_data(str, &idx, di, gdata);
 	init_flags(str, cur_format, &idx);
