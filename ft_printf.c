@@ -31,10 +31,6 @@ int		ft_printf(const char *format, ...)
 		str = cp;
 		len = ft_strlen(str);
 	}
-	else
-	{
-		len = 1;
-	}
 	ft_putstr_ln(str, len);
 	va_end(ap);
 	ft_strdel(&str);
