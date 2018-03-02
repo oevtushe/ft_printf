@@ -33,6 +33,7 @@ MT := ft_memcpy.c \
 	   ft_memconnect.c \
 	   ft_memalloc.c \
 	   ft_memjoin.c \
+	   ft_memchr.c \
 	   ft_memset.c
 
 # Strings Tools
