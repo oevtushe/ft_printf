@@ -16,9 +16,12 @@ t_mng_dpc	*new_dpc(t_type type, char *(*manager)(t_format *sfmt, size_t *len))
 {
 	t_mng_dpc	*dpc;
 
-	dpc = (t_mng_dpc *)ft_memalloc(sizeof(t_mng_dpc *));
-	dpc->type = type;
-	dpc->manager = manager;
+	dpc = (t_mng_dpc *)ft_memalloc(sizeof(t_mng_dpc));
+	if (dpc)
+	{
+		dpc->type = type;
+		dpc->manager = manager;
+	}
 	return (dpc);
 }
 
