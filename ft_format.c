@@ -42,7 +42,7 @@ static char	*maker(t_list *pl, t_list *ex, size_t *len)
 	while (ex)
 	{
 		extra_str = mngr_usr(ex->content, dispatcher, &extra_len);
-		ft_memconnect((void**)&str, *len, pl->content, ft_strlen(pl->content));
+		ft_memconnect((void**)&str, *len, pl->content, ft_strlen(pl->content) + 1);
 		*len += ft_strlen(pl->content);
 		ft_memconnect((void**)&str, *len, extra_str, extra_len);
 		*len += extra_len;
@@ -52,7 +52,7 @@ static char	*maker(t_list *pl, t_list *ex, size_t *len)
 	}
 	if (pl)
 	{
-		ft_memconnect((void**)&str, *len, pl->content, ft_strlen(pl->content));
+		ft_memconnect((void**)&str, *len, pl->content, ft_strlen(pl->content) + 1);
 		*len += ft_strlen(pl->content);
 	}
 	del_void_ptr_arr((void***)&dispatcher);
