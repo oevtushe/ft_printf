@@ -6,7 +6,7 @@
 /*   By: oevtushe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/01 12:49:00 by oevtushe          #+#    #+#             */
-/*   Updated: 2018/03/01 12:49:02 by oevtushe         ###   ########.fr       */
+/*   Updated: 2018/03/04 12:44:34 by oevtushe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ static char	*search_in_background_colors(char *abbr)
 ** @return			color code.
 */
 
-char	*get_color_code(const char *block)
+char		*get_color_code(const char *block)
 {
 	char *abbr;
 	char *clr_val;
@@ -99,11 +99,11 @@ char	*get_color_code(const char *block)
 	abbr = ft_strsub(block, 1, ft_strlen(block) - 2);
 	if (abbr)
 	{
-		if ((tmp= search_in_options(abbr)))
+		if ((tmp = search_in_options(abbr)))
 			clr_val = tmp;
-		else if ((tmp= search_in_text_colors(abbr)))
+		else if ((tmp = search_in_text_colors(abbr)))
 			clr_val = tmp;
-		else if ((tmp= search_in_background_colors(abbr)))
+		else if ((tmp = search_in_background_colors(abbr)))
 			clr_val = tmp;
 		ft_strdel(&abbr);
 	}
