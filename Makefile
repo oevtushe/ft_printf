@@ -6,7 +6,7 @@
 #    By: oevtushe <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/18 12:47:27 by oevtushe          #+#    #+#              #
-#    Updated: 2018/03/04 13:30:03 by oevtushe         ###   ########.fr        #
+#    Updated: 2018/03/04 13:32:24 by oevtushe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -174,8 +174,7 @@ DEPENDENCY_DIR := includes/
 DEPENDENCY_FILES := ft_printf.h ft_printf_helpers.h ft_tools.h ft_structures.h
 DEPENDENCY := $(addprefix $(DEPENDENCY_DIR),$(DEPENDENCY_FILES))
 
-KEYS :=  -Wall -Werror -Wextra -g
-# delete -g
+KEYS := -Wall -Werror -Wextra
 
 all: $(NAME)
 
@@ -199,4 +198,4 @@ re: fclean
 	@echo "$(COLOR_RED)Deleting $(NAME) ...$(END_COLOR)"
 	@make
 
-.PHONY: clean fclean re all link
+.PHONY: clean fclean re all
