@@ -6,7 +6,7 @@
 #    By: oevtushe <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/18 12:47:27 by oevtushe          #+#    #+#              #
-#    Updated: 2018/03/04 12:38:19 by oevtushe         ###   ########.fr        #
+#    Updated: 2018/03/04 13:30:03 by oevtushe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -189,17 +189,6 @@ $(NAME): $(OBJECTS)
 	@echo "$(COLOR_VIOLET)Compiling obj: $@$(END_COLOR)"
 	@gcc $(KEYS) -c -o $@ $< -I./$(DEPENDENCY_DIR)
 
-link_extra: printf_main.o
-
-printf_main.o: printf_main.c $(NAME)
-	gcc $(KEYS) -c printf_main.c -I./$(DEPENDENCY_DIR)
-	gcc $(KEYS) -o printf_main printf_main.o -L. -lftprintf -I./$(DEPENDENCY_DIR)
-
-link: main.o
-
-main.o: main.c $(NAME)
-	gcc $(KEYS) -c main.c -I./$(DEPENDENCY_DIR)
-	gcc $(KEYS) -o main main.o -L. -lftprintf -I./$(DEPENDENCY_DIR)
 clean:
 	@echo "$(COLOR_RED)Deleting obj files ...$(END_COLOR)"
 	@rm -f $(OBJECTS)
