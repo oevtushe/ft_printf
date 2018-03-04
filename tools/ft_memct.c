@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memconnect.c                                    :+:      :+:    :+:   */
+/*   ft_memct.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oevtushe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/18 17:02:22 by oevtushe          #+#    #+#             */
-/*   Updated: 2018/02/18 17:02:23 by oevtushe         ###   ########.fr       */
+/*   Created: 2018/03/04 12:39:54 by oevtushe          #+#    #+#             */
+/*   Updated: 2018/03/04 12:39:56 by oevtushe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 ** @param	sp2		size of data p2 points to.
 */
 
-void	ft_memconnect(void **p1, size_t sp1, void *p2, size_t sp2)
+void	ft_memct(void **p1, size_t sp1, void *p2, size_t sp2)
 {
 	void *tmp;
 

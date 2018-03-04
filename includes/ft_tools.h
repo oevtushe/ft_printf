@@ -6,7 +6,7 @@
 /*   By: oevtushe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/26 16:43:10 by oevtushe          #+#    #+#             */
-/*   Updated: 2018/02/26 16:43:12 by oevtushe         ###   ########.fr       */
+/*   Updated: 2018/03/04 12:42:05 by oevtushe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void			*ft_memalloc(size_t size);
 void			*ft_memdup(void *data, size_t size);
 void			*ft_memdel(void **data);
 void			*ft_memjoin(void *p1, size_t sp1, void *p2, size_t sp2);
-void			ft_memconnect(void **p1, size_t sp1, void *p2, size_t sp2);
+void			ft_memct(void **p1, size_t sp1, void *p2, size_t sp2);
 void			*ft_memchr(const void *s, int c, size_t n);
 
 /*

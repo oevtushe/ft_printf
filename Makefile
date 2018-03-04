@@ -6,7 +6,7 @@
 #    By: oevtushe <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/18 12:47:27 by oevtushe          #+#    #+#              #
-#    Updated: 2018/02/18 12:47:29 by oevtushe         ###   ########.fr        #
+#    Updated: 2018/03/04 12:38:19 by oevtushe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ MT := ft_memcpy.c \
 	   ft_memdup.c \
 	   ft_memdel.c \
 	   ft_memset.c \
-	   ft_memconnect.c \
+	   ft_memct.c \
 	   ft_memalloc.c \
 	   ft_memjoin.c \
 	   ft_memchr.c \
