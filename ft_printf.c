@@ -6,12 +6,11 @@
 /*   By: oevtushe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/18 12:48:00 by oevtushe          #+#    #+#             */
-/*   Updated: 2018/02/18 12:48:01 by oevtushe         ###   ########.fr       */
+/*   Updated: 2018/03/04 13:34:46 by oevtushe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include "ft_printf_helpers.h"
 #include <stdarg.h>
 
 int		ft_printf(const char *format, ...)
