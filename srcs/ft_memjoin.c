@@ -1,33 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memct.c                                         :+:      :+:    :+:   */
+/*   ft_memjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oevtushe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/04 12:39:54 by oevtushe          #+#    #+#             */
-/*   Updated: 2018/03/04 12:39:56 by oevtushe         ###   ########.fr       */
+/*   Created: 2018/02/18 12:42:55 by oevtushe          #+#    #+#             */
+/*   Updated: 2018/03/10 15:45:06 by oevtushe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_tools.h"
+#include <stdlib.h>
+#include "ft_printf_helpers.h"
 
 /*
 ** Connects two memory blocks together.
 **
-** @param	p1		pointer at the first memory block (after function do
-**					stuff it will point at new allocated memory block with
-**					data from previous @param p1 pointed to and @param p2 data).
+** @param	p1		pointer at the first memory block.
 ** @param	sp1		size of data p1 points to.
 ** @param	p2		pointer to second memory block.
 ** @param	sp2		size of data p2 points to.
+**
+** @return			memory block filled by data from @param p1 and @param p2.
 */
 
-void	ft_memct(void **p1, size_t sp1, void *p2, size_t sp2)
+void	*ft_memjoin(void *p1, size_t sp1, void *p2, size_t sp2)
 {
-	void *tmp;
+	unsigned char *res;
 
-	tmp = ft_memjoin(*p1, sp1, p2, sp2);
-	ft_memdel(p1);
-	*p1 = tmp;
+	res = (unsigned char *)ft_memalloc(sizeof(unsigned char) * (sp1 + sp2));
+	if (res)
+	{
+		ft_memcpy(res, p1, sp1);
+		ft_memcpy(res + sp1, p2, sp2);
+	}
+	return (res);
 }

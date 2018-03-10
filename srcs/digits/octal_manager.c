@@ -1,21 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   octal_manager.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oevtushe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/24 15:32:23 by oevtushe          #+#    #+#             */
-/*   Updated: 2017/11/16 16:24:58 by oevtushe         ###   ########.fr       */
+/*   Created: 2018/02/18 12:49:45 by oevtushe          #+#    #+#             */
+/*   Updated: 2018/03/10 15:48:57 by oevtushe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_strcmp(const char *s1, const char *s2)
+#include "ft_printf_helpers.h"
+
+char		*octal_manager(t_format *sfmt, size_t *len)
 {
-	while (*s1 && (unsigned char)(*s1) == (unsigned char)(*s2))
-	{
-		s1++;
-		s2++;
-	}
-	return ((unsigned char)(*s1) - (unsigned char)(*s2));
+	uintmax_t	uval;
+	char		*res;
+
+	digits_flag_except(sfmt, 1);
+	uval = sfmt->gdata->data.uim;
+	res = ft_uitoabase_gen(uval, 0, 8);
+	zeroes_handling(&res, 0, sfmt);
+	if (sfmt->flag_sharp && res[0] != '0')
+		ft_strconnect(&res, "0", -1);
+	spaces_handling(&res, sfmt);
+	*len = ft_strlen(res);
+	return (res);
 }

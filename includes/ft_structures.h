@@ -6,12 +6,13 @@
 /*   By: oevtushe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/18 15:49:19 by oevtushe          #+#    #+#             */
-/*   Updated: 2018/02/19 19:58:37 by oevtushe         ###   ########.fr       */
+/*   Updated: 2018/03/10 15:06:19 by oevtushe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef _FT_STRUCTURES_H
 # define _FT_STRUCTURES_H
+
 # include <string.h>
 # include <inttypes.h>
 # include <wchar.h>

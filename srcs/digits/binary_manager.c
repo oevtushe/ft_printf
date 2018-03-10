@@ -1,34 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   binary_manager.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oevtushe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/30 09:55:05 by oevtushe          #+#    #+#             */
-/*   Updated: 2017/11/16 17:44:54 by oevtushe         ###   ########.fr       */
+/*   Created: 2018/02/26 10:43:03 by oevtushe          #+#    #+#             */
+/*   Updated: 2018/03/10 15:49:21 by oevtushe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_tools.h"
+#include "ft_printf_helpers.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*binary_manager(t_format *sfmt, size_t *len)
 {
-	char	*res;
-	size_t	len1;
-	size_t	len2;
+	intmax_t	val;
+	uintmax_t	uval;
+	int			sign;
+	char		*res;
 
-	res = NULL;
-	if (s1 && s2)
-	{
-		len1 = ft_strlen(s1);
-		len2 = ft_strlen(s2);
-		res = ft_strnew(len1 + len2);
-		if (res)
-		{
-			ft_strcat(res, s1);
-			ft_strcat(res, s2);
-		}
-	}
+	val = signed_gdata_load(sfmt->gdata);
+	ft_spsign(val, &uval, &sign);
+	digits_flag_except(sfmt, sign > 0);
+	res = ft_uitoabase_gen(uval, 0, 2);
+	zeroes_handling(&res, 0, sfmt);
+	if (sfmt->flag_squote)
+		ft_group_by(&res, 8);
+	spaces_handling(&res, sfmt);
+	*len = ft_strlen(res);
 	return (res);
 }

@@ -1,31 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   binary_manager.c                                   :+:      :+:    :+:   */
+/*   hex_manager.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oevtushe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/26 10:43:03 by oevtushe          #+#    #+#             */
-/*   Updated: 2018/02/26 10:43:05 by oevtushe         ###   ########.fr       */
+/*   Created: 2018/02/18 12:49:39 by oevtushe          #+#    #+#             */
+/*   Updated: 2018/03/10 15:49:45 by oevtushe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_helpers.h"
 
-char	*binary_manager(t_format *sfmt, size_t *len)
+char	*hex_manager(t_format *sfmt, size_t *len)
 {
-	intmax_t	val;
 	uintmax_t	uval;
-	int			sign;
 	char		*res;
 
-	val = signed_gdata_load(sfmt->gdata);
-	ft_spsign(val, &uval, &sign);
-	digits_flag_except(sfmt, sign > 0);
-	res = ft_uimtoabase_gen(uval, 0, 2);
-	zeroes_handling(&res, 0, sfmt);
-	if (sfmt->flag_squote)
-		ft_group_by(&res, 8);
+	digits_flag_except(sfmt, 1);
+	uval = sfmt->gdata->data.uim;
+	res = ft_uitoabase_gen(uval, 0, 16);
+	if (sfmt->flag_sharp && uval)
+	{
+		zeroes_handling(&res, 2, sfmt);
+		ft_strconnect(&res, "0x", -1);
+	}
+	else
+		zeroes_handling(&res, 0, sfmt);
+	if (sfmt->gdata->full_type->type == T_BHEX)
+		ft_strtoupper(res);
 	spaces_handling(&res, sfmt);
 	*len = ft_strlen(res);
 	return (res);

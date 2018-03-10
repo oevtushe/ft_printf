@@ -1,26 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oevtushe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/26 21:48:32 by oevtushe          #+#    #+#             */
-/*   Updated: 2017/11/04 12:10:28 by oevtushe         ###   ########.fr       */
+/*   Created: 2018/02/18 12:48:00 by oevtushe          #+#    #+#             */
+/*   Updated: 2018/03/10 17:04:16 by oevtushe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_tools.h"
+#include "ft_printf.h"
+#include <stdarg.h>
 
-void	*ft_memcpy(void *dst, const void *src, size_t n)
+int		ft_printf(const char *format, ...)
 {
-	size_t	i;
+	size_t	len;
+	va_list ap;
+	char	*str;
+	char	*cp;
 
-	i = 0;
-	while (i < n)
+	len = 0;
+	va_start(ap, format);
+	str = ft_format(format, ap, &len);
+	if (len == ft_strlen(str))
 	{
-		((unsigned char*)dst)[i] = ((unsigned char*)src)[i];
-		++i;
+		color_parser(str, &cp);
+		ft_strdel(&str);
+		str = cp;
+		len = ft_strlen(str);
 	}
-	return (dst);
+	ft_putstr_ln(str, len);
+	va_end(ap);
+	ft_strdel(&str);
+	return (len);
 }

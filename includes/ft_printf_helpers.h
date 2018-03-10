@@ -6,14 +6,14 @@
 /*   By: oevtushe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/26 16:42:29 by oevtushe          #+#    #+#             */
-/*   Updated: 2018/02/26 16:42:32 by oevtushe         ###   ########.fr       */
+/*   Updated: 2018/03/10 15:46:59 by oevtushe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef _FT_PRINTF_HELPERS_H
 # define _FT_PRINTF_HELPERS_H
 
-# include "ft_tools.h"
+# include "libft.h"
 # include "ft_structures.h"
 # include <stdlib.h>
 # include <stdarg.h>
@@ -83,6 +83,7 @@ int			logic_type(t_list *extra);
 t_gdata		*get_cur_data(const char *str, size_t *idx, int *di, t_gdata **gd);
 int			outside_param(const char *str, size_t *idx, t_gdata **gd, int *di);
 void		validate_lists(const char *format, t_list **plain, t_list **extra);
+void		ft_lstaddelem(t_list **lst, void **content, size_t content_size);
 
 int			is_type(char c);
 void		read_width(const char *str, size_t *idx);
@@ -90,6 +91,9 @@ void		read_flags(const char *str, size_t *idx);
 void		read_precision(const char *str, size_t *idx);
 void		read_modifiers(const char *str, size_t *idx);
 void		read_type(const char *str, size_t *idx);
+void		ft_memct(void **p1, size_t sp1, void *p2, size_t sp2);
+void		*ft_memjoin(void *p1, size_t sp1, void *p2, size_t sp2);
+void		ft_lstaddelem(t_list **lst, void **content, size_t content_size);
 
 /*
 ** Decimals

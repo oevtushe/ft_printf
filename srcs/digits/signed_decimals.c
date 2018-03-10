@@ -6,7 +6,7 @@
 /*   By: oevtushe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/18 12:50:26 by oevtushe          #+#    #+#             */
-/*   Updated: 2018/02/19 19:42:43 by oevtushe         ###   ########.fr       */
+/*   Updated: 2018/03/10 15:47:40 by oevtushe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char				*signed_decimal_manager(t_format *sfmt, size_t *len)
 	ft_spsign(val, &uval, &sign);
 	prefix = get_dec_prefix(sfmt, sign);
 	digits_flag_except(sfmt, sign);
-	res = ft_uimtoabase_gen(uval, 0, 10);
+	res = ft_uitoabase_gen(uval, 0, 10);
 	if (sfmt->flag_squote && MB_CUR_MAX > 1)
 		group_by_thousands(&res);
 	zeroes_handling(&res, prefix, sfmt);
