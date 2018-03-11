@@ -6,7 +6,7 @@
 #    By: oevtushe <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/18 12:47:27 by oevtushe          #+#    #+#              #
-#    Updated: 2018/03/11 12:34:58 by oevtushe         ###   ########.fr        #
+#    Updated: 2018/03/11 12:40:41 by oevtushe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,9 +63,7 @@ M_SRCF		 := ft_printf.c \
 				 percent_manager.c \
 				 logic_type.c \
 				 normalize_width.c \
-				 get_color_code.c \
 				 get_cur_data.c \
-				 color_parser.c \
 				 outside_param.c \
 				 is_type.c \
 				 validate_lists.c \
@@ -81,7 +79,7 @@ RM			 := rm -rf
 AR			 := ar
 CC			 := gcc
 ARFLAGS		 := rc
-CFLAGS		 := -Wall -Werror -Wextra -g
+CFLAGS		 := -Wall -Werror -Wextra
 MFLAGS		 := --no-print-directory -C
 
 all: $(NAME)

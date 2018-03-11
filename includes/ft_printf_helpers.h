@@ -6,18 +6,18 @@
 /*   By: oevtushe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/26 16:42:29 by oevtushe          #+#    #+#             */
-/*   Updated: 2018/03/10 15:46:59 by oevtushe         ###   ########.fr       */
+/*   Updated: 2018/03/11 12:39:51 by oevtushe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef _FT_PRINTF_HELPERS_H
 # define _FT_PRINTF_HELPERS_H
 
-# include "libft.h"
-# include "ft_structures.h"
 # include <stdlib.h>
 # include <stdarg.h>
 # include <unistd.h>
+# include "libft.h"
+# include "ft_structures.h"
 
 /*
 ** Special options for pretty.
@@ -154,12 +154,5 @@ void		del_simple(void *data, size_t size);
 void		del_extra(void *data, size_t size);
 void		del_void_ptr_arr(void ***dta);
 void		del_gdata_arr(t_gdata ***arr);
-
-/*
-** Colors
-*/
-
-void		color_parser(char *str, char **str2);
-char		*get_color_code(const char *block);
 
 #endif
