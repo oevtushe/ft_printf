@@ -6,7 +6,7 @@
 #    By: oevtushe <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/18 12:47:27 by oevtushe          #+#    #+#              #
-#    Updated: 2018/03/10 17:39:33 by oevtushe         ###   ########.fr        #
+#    Updated: 2018/03/11 12:34:58 by oevtushe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,23 +77,27 @@ SRCS		 := $(M_SRCS) $(DG_SRCS) $(STR_SRCS)
 OBJS		 := $(SRCS:$(SRCS_DIR)/%.c=$(OBJS_DIR)/%.o)
 DEPS		 := $(addprefix $(DEPS_DIR)/,$(DEPF))
 
-CKEYS		 := -Wall -Werror -Wextra -g
+RM			 := rm -rf
+AR			 := ar
+CC			 := gcc
+ARFLAGS		 := rc
+CFLAGS		 := -Wall -Werror -Wextra -g
 MFLAGS		 := --no-print-directory -C
 
 all: $(NAME)
 
 $(NAME): $(FT_OBJS) $(OBJS)
 	@echo "$(GREEN)Making lib ...$(RESET)"
-	@ar -rc $(NAME) $?
+	@$(AR) $(ARFLAGS) $(NAME) $?
 	@ranlib $(NAME)
 	@echo "$(BOLD)Done !$(RESET)"
 
-$(FT_OBJS): $(FT_SRCS) $(FT_DEPS)
+$(FT_OBJS_DIR)/%.o: $(FT_DIR)/%.c $(FT_DEPS)
 	@$(MAKE) obj $(MFLAGS) $(FT_DIR)
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c $(DEPS) $(FT_DEPS)
 	@echo "$(MAGENTA)Compile: $(RESET)$(UNDERLINE)$(GRAY)$@$(RESET)"
-	@gcc $(CKEYS) -o $@ -c $< -I./$(DEPS_DIR) -I./$(FT_DEPS_DIR)
+	@$(CC) $(CFLAGS) -o $@ -c $< -I./$(DEPS_DIR) -I./$(FT_DEPS_DIR)
 
 $(OBJS): |$(OBJS_DIRS)
 
@@ -103,12 +107,12 @@ $(OBJS_DIRS):
 
 clean:
 	@echo "$(RED)Dir $(UNDERLINE)$(OBJS_DIR)$(RESET) $(RED)deleted.$(RESET)"
-	@rm -rf $(OBJS_DIR)
+	@$(RM) $(OBJS_DIR)
 	@$(MAKE) clean $(MFLAGS) $(FT_DIR)
 fclean: clean
 	@echo "$(RED)File $(UNDERLINE)$(NAME)$(RESET) $(RED)deleted.$(RESET)"
-	@rm -f $(NAME)
+	@$(RM) $(NAME)
 re: fclean
-	@make
+	@$(MAKE)
 
 .PHONY: clean fclean re all
