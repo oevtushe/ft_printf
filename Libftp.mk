@@ -6,9 +6,11 @@
 #    By: oevtushe <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/11 12:51:24 by oevtushe          #+#    #+#              #
-#    Updated: 2018/03/11 14:14:32 by oevtushe         ###   ########.fr        #
+#    Updated: 2018/03/12 10:36:07 by oevtushe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+FT_DIR			?= libft
 
 FTP_DG_SRCF		:= digits_flag_except.c \
 				 signed_decimals.c \
@@ -55,7 +57,10 @@ FTP_M_SRCF		:= ft_printf.c \
 				 validate_lists.c \
 				 freshers.c
 
+# When include this Makefile dont forget to set relative path
+# to ft_printf dir in yor makefile before.
 FTP_DIR			?= .
+
 FTP_NAME		:= $(FTP_DIR)/libftprintf.a
 
 FTP_SRCS_DIR	:= $(FTP_DIR)/srcs
