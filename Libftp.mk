@@ -6,12 +6,23 @@
 #    By: oevtushe <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/11 12:51:24 by oevtushe          #+#    #+#              #
-#    Updated: 2018/03/12 10:36:07 by oevtushe         ###   ########.fr        #
+#    Updated: 2018/03/13 14:50:08 by oevtushe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-FT_DIR			?= libft
+# In your makefile set relative path to libft. For correct generating
+FT_DIR			?= ../libft
 
+FTP_DIR			?= .
+FTP_NAME		:= $(FTP_DIR)/libftprintf.a
+
+# Var for relative path. To correct output directories in FTP makefile.
+RPTH			?= $(FTP_DIR)
+
+# Obviously you don't have to include Libft.mk in your makefile.
+include $(FT_DIR)/Libft.mk
+
+FTP_DEPF		:= ft_printf.h ft_printf_helpers.h ft_structures.h
 FTP_DG_SRCF		:= digits_flag_except.c \
 				 signed_decimals.c \
 				 unsigned_decimals.c \
@@ -57,24 +68,19 @@ FTP_M_SRCF		:= ft_printf.c \
 				 validate_lists.c \
 				 freshers.c
 
-# When include this Makefile dont forget to set relative path
-# to ft_printf dir in yor makefile before.
-FTP_DIR			?= .
-
-FTP_NAME		:= $(FTP_DIR)/libftprintf.a
-
 FTP_SRCS_DIR	:= $(FTP_DIR)/srcs
 FTP_DEPS_DIR	:= $(FTP_DIR)/includes
+
+# Auxiliary variables for FTP_SRCS and FTP_OBJS.
+# You don't have to use them.
 FTP_DG_DIR		:= $(FTP_SRCS_DIR)/digits
 FTP_STR_DIR		:= $(FTP_SRCS_DIR)/strings
 FTP_OBJS_DIR	:= $(FTP_DIR)/objs
-
-FTP_DEPF		:= ft_printf.h ft_printf_helpers.h ft_structures.h
-FTP_DEPS		:= $(addprefix $(FTP_DEPS_DIR)/,$(FTP_DEPF))
-
 FTP_M_SRCS		:= $(addprefix $(FTP_SRCS_DIR)/,$(FTP_M_SRCF))
 FTP_DG_SRCS		:= $(addprefix $(FTP_DG_DIR)/,$(FTP_DG_SRCF))
 FTP_STR_SRCS	:= $(addprefix $(FTP_STR_DIR)/,$(FTP_STR_SRCF))
+
+FTP_DEPS		:= $(addprefix $(FTP_DEPS_DIR)/,$(FTP_DEPF))
 FTP_SRCS		:= $(FTP_M_SRCS) $(FTP_DG_SRCS) $(FTP_STR_SRCS)
 FTP_OBJS		:= $(FTP_SRCS:$(FTP_SRCS_DIR)/%.c=$(FTP_OBJS_DIR)/%.o)
 FTP_OBJS_DIRS	:= $(FTP_OBJS_DIR) \
