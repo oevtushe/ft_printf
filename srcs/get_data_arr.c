@@ -6,7 +6,7 @@
 /*   By: oevtushe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/18 12:48:14 by oevtushe          #+#    #+#             */
-/*   Updated: 2018/02/19 19:33:04 by oevtushe         ###   ########.fr       */
+/*   Updated: 2018/06/07 17:07:25 by oevtushe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static t_gdata		*get_data(t_ftype *cur_type, va_list ap)
 		unsigned_decimal_modifiers(cur_type, ap, gdata);
 	else if (cur_type->type == T_STR)
 		str_modifiers(cur_type, ap, gdata);
-	else if (cur_type->type == T_CHR)
+	else if (cur_type->type == T_CHR || cur_type->type == T_SPREAD)
 		chr_modifiers(cur_type, ap, gdata);
 	else if (cur_type->type == T_PTR)
 		gdata->data.pv = va_arg(ap, void *);

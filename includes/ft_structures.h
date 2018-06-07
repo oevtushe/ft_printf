@@ -6,7 +6,7 @@
 /*   By: oevtushe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/18 15:49:19 by oevtushe          #+#    #+#             */
-/*   Updated: 2018/03/10 15:06:19 by oevtushe         ###   ########.fr       */
+/*   Updated: 2018/06/07 17:23:25 by oevtushe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <inttypes.h>
 # include <wchar.h>
 
-# define DISPATCHER_SIZE 10
+# define DISPATCHER_SIZE 11
 
 typedef enum					e_type
 {
@@ -36,6 +36,7 @@ typedef enum					e_type
 	T_LOCT = 'O',
 	T_HEX = 'x',
 	T_BINARY = 'b',
+	T_SPREAD = '&',
 	T_BHEX = 'X'
 }								t_type;
 

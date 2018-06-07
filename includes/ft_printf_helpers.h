@@ -6,7 +6,7 @@
 /*   By: oevtushe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/26 16:42:29 by oevtushe          #+#    #+#             */
-/*   Updated: 2018/03/11 12:39:51 by oevtushe         ###   ########.fr       */
+/*   Updated: 2018/06/07 17:29:11 by oevtushe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,7 @@ void		pos_modifiers(va_list ap, t_gdata *gdata);
 char		*ptr_manager(t_format *sfmt, size_t *len);
 char		*percent_manager(t_format *sfmt, size_t *len);
 char		*binary_manager(t_format *sfmt, size_t *len);
+char		*repeat_manager(t_format *sfmt, size_t *len);
 
 /*
 ** Freshers

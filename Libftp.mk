@@ -6,7 +6,7 @@
 #    By: oevtushe <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/11 12:51:24 by oevtushe          #+#    #+#              #
-#    Updated: 2018/03/13 14:50:08 by oevtushe         ###   ########.fr        #
+#    Updated: 2018/06/07 16:57:12 by oevtushe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,6 +66,7 @@ FTP_M_SRCF		:= ft_printf.c \
 				 outside_param.c \
 				 is_type.c \
 				 validate_lists.c \
+				 repeat_manager.c \
 				 freshers.c
 
 FTP_SRCS_DIR	:= $(FTP_DIR)/srcs
