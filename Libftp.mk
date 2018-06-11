@@ -52,7 +52,7 @@ FTP_M_SRCF		:= ft_printf.c \
 				 ptr_manager.c \
 				 normalize_full_type.c \
 				 ft_memct.c \
-				 ft_format.c \
+				 mk_format.c \
 				 ft_memjoin.c \
 				 new_gdata.c \
 				 new_full_type.c \
@@ -66,6 +66,7 @@ FTP_M_SRCF		:= ft_printf.c \
 				 outside_param.c \
 				 is_type.c \
 				 validate_lists.c \
+				 ft_format.c \
 				 repeat_manager.c \
 				 freshers.c
 

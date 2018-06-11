@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_printf_helpers.h"
 #include "ft_printf.h"
 #include <stdarg.h>
 
@@ -21,7 +22,7 @@ int		ft_printf(const char *format, ...)
 
 	len = 0;
 	va_start(ap, format);
-	str = ft_format(format, ap, &len);
+	str = mk_format(format, ap, &len);
 	ft_putstr_ln(str, len);
 	va_end(ap);
 	ft_strdel(&str);

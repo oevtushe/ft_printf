@@ -63,7 +63,7 @@
 ** Main logic
 */
 
-char		*ft_format(const char *format, va_list ap, size_t *len);
+char		*mk_format(const char *format, va_list ap, size_t *len);
 t_gdata		*new_gdata(void);
 void		free_gdata(t_gdata **gdata);
 void		normalize_full_type(t_ftype *full_type);
