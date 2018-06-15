@@ -44,6 +44,7 @@ static t_ftype	*get_type(const char *str, size_t len)
 	else
 		full_type->modifier = M_DEFAULT;
 	full_type->type = str[len - 1];
+	init_loader(full_type);
 	normalize_full_type(full_type);
 	return (full_type);
 }

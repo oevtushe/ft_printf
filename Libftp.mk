@@ -68,6 +68,7 @@ FTP_M_SRCF		:= ft_printf.c \
 				 validate_lists.c \
 				 ft_format.c \
 				 repeat_manager.c \
+				 init_loader.c \
 				 freshers.c
 
 FTP_SRCS_DIR	:= $(FTP_DIR)/srcs

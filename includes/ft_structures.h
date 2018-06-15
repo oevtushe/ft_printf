@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef _FT_STRUCTURES_H
-# define _FT_STRUCTURES_H
+#ifndef FT_STRUCTURES_H
+# define FT_STRUCTURES_H
 
 # include <string.h>
 # include <inttypes.h>
@@ -79,10 +79,20 @@ typedef union					u_data
 
 }								t_data;
 
-typedef struct					s_full_type
+typedef enum					e_ltype
+{
+	LT_SIGNED_DECIMAL,
+	LT_UNSIGNED_DECIMAL,
+	LT_STRING,
+	LT_CHAR,
+	LT_VOID_PTR
+}								t_ltype;
+
+typedef struct					s_ftype
 {
 	t_type		type;
 	t_modifier	modifier;
+	t_ltype		ltype;
 }								t_ftype;
 
 typedef struct					s_gdata

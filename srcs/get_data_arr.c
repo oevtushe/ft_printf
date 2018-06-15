@@ -27,18 +27,15 @@ static t_gdata		*get_data(t_ftype *cur_type, va_list ap)
 
 	gdata = (t_gdata *)ft_memalloc(sizeof(t_gdata));
 	gdata->full_type = cur_type;
-	if (cur_type->type == T_DEC || cur_type->type == T_BINARY)
+	if (cur_type->ltype == LT_SIGNED_DECIMAL)
 		signed_decimal_modifiers(cur_type, ap, gdata);
-	else if (cur_type->type == T_UNSIGNED || cur_type->type == T_OCT ||
-			cur_type->type == T_HEX ||
-			cur_type->type == T_BHEX ||
-			cur_type->type == T_LOCT)
+	else if (cur_type->ltype == LT_UNSIGNED_DECIMAL)
 		unsigned_decimal_modifiers(cur_type, ap, gdata);
-	else if (cur_type->type == T_STR)
+	else if (cur_type->ltype == LT_STRING)
 		str_modifiers(cur_type, ap, gdata);
-	else if (cur_type->type == T_CHR || cur_type->type == T_SPREAD)
+	else if (cur_type->ltype == LT_CHAR)
 		chr_modifiers(cur_type, ap, gdata);
-	else if (cur_type->type == T_PTR)
+	else if (cur_type->ltype == LT_VOID_PTR)
 		gdata->data.pv = va_arg(ap, void *);
 	return (gdata);
 }

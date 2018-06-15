@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef _FT_PRINTF_HELPERS_H
-# define _FT_PRINTF_HELPERS_H
+#ifndef FT_PRINTF_HELPERS_H
+# define FT_PRINTF_HELPERS_H
 
 # include <stdlib.h>
 # include <stdarg.h>
@@ -64,6 +64,7 @@
 */
 
 char		*mk_format(const char *format, va_list ap, size_t *len);
+void		init_loader(t_ftype *ftype);
 t_gdata		*new_gdata(void);
 void		free_gdata(t_gdata **gdata);
 void		normalize_full_type(t_ftype *full_type);
