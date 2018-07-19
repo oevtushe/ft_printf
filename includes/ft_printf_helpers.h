@@ -6,7 +6,7 @@
 /*   By: oevtushe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/26 16:42:29 by oevtushe          #+#    #+#             */
-/*   Updated: 2018/06/07 17:29:11 by oevtushe         ###   ########.fr       */
+/*   Updated: 2018/07/19 13:39:09 by oevtushe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,46 +18,6 @@
 # include <unistd.h>
 # include "libft.h"
 # include "ft_structures.h"
-
-/*
-** Special options for pretty.
-*/
-
-# define BOLD "\033[1m"
-# define DBOLD "\033[2m"
-# define NBOLD "\033[22m"
-# define UNDERLINE "\033[4m"
-# define NUNDERLINE "\033[4m"
-# define INVERSE "\033[7m"
-# define NINVERSE "\033[7m"
-# define RESET "\033[m"
-
-/*
-** Text colors.
-*/
-
-# define BLACK "\033[30m"
-# define RED "\033[31m"
-# define GREEN "\033[32m"
-# define YELLOW "\033[33m"
-# define BLUE "\033[34m"
-# define MAGENTA "\033[35m"
-# define CYAN "\033[36m"
-# define GRAY "\033[37m"
-
-/*
-** Background colors.
-*/
-
-# define BGBLACK "\033[40m"
-# define BGRED "\033[41m"
-# define BGGREEN "\033[42m"
-# define BGBROWN "\033[43m"
-# define BGBLUE "\033[44m"
-# define BGMAGENTA "\033[45m"
-# define BGCYAN "\033[46m"
-# define BGGRAY "\033[47m"
-# define BGDEF "\033[49m"
 
 /*
 ** Main logic
