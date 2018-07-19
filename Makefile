@@ -10,15 +10,16 @@
 #                                                                              #
 # **************************************************************************** #
 
-include Libftp.mk
-include $(FT_DIR)/Pretty.mk
+override FTP_DIR	:= .
+include 	 		Libftp.mk
+include		 		$(FT_DIR)/Pretty.mk
 
-RM			 := rm -rf
-AR			 := ar
-CC			 := gcc
-ARFLAGS		 := rc
-CFLAGS		 := -Wall -Werror -Wextra
-MFLAGS		 := --no-print-directory -C
+RM			 		:= rm -rf
+AR			 		:= ar
+CC			 		:= gcc
+ARFLAGS		 		:= rc
+CFLAGS		 		:= -Wall -Werror -Wextra
+MFLAGS		 		:= --no-print-directory -C
 
 all: $(FTP_NAME)
 
