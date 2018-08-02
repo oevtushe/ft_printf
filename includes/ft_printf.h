@@ -6,7 +6,7 @@
 /*   By: oevtushe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 19:49:38 by oevtushe          #+#    #+#             */
-/*   Updated: 2018/07/19 13:39:11 by oevtushe         ###   ########.fr       */
+/*   Updated: 2018/08/02 17:04:48 by oevtushe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@
 # define MAGENTA "\033[35m"
 # define CYAN "\033[36m"
 # define GRAY "\033[37m"
+# define ORANGE "\033[38;5;214m"
 
 /*
 ** Background colors.
