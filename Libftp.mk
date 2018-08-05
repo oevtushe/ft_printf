@@ -6,7 +6,7 @@
 #    By: oevtushe <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/11 12:51:24 by oevtushe          #+#    #+#              #
-#    Updated: 2018/06/07 16:57:12 by oevtushe         ###   ########.fr        #
+#    Updated: 2018/08/05 14:34:50 by sasha            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -85,6 +85,11 @@ FTP_STR_SRCS	:= $(addprefix $(FTP_STR_DIR)/,$(FTP_STR_SRCF))
 FTP_DEPS		:= $(addprefix $(FTP_DEPS_DIR)/,$(FTP_DEPF))
 FTP_SRCS		:= $(FTP_M_SRCS) $(FTP_DG_SRCS) $(FTP_STR_SRCS)
 FTP_OBJS		:= $(FTP_SRCS:$(FTP_SRCS_DIR)/%.c=$(FTP_OBJS_DIR)/%.o)
-FTP_OBJS_DIRS	:= $(FTP_OBJS_DIR) \
+FTP_ALL_OBJS_DIRS	:= $(FTP_OBJS_DIR) \
 	$(FTP_DG_DIR:$(FTP_SRCS_DIR)%=$(FTP_OBJS_DIR)%) \
 	$(FTP_STR_DIR:$(FTP_SRCS_DIR)%=$(FTP_OBJS_DIR)%)
+FTP_ALL_DEPS	:= $(FT_ALL_DEPS) $(FTP_DEPS)
+FTP_ALL_DEPS_DIRS	:= $(FT_ALL_DEPS_DIRS) $(FTP_DEPS_DIR)
+FTP_ALL_OBJS	:= $(FT_OBJS) $(FTP_OBJS)
+FTP_ALL_EXTRA_LIBS	:= $(FT_NAME)
+FTP_ALL_SRCS		:= $(FT_SRCS) $(FTP_SRCS)
