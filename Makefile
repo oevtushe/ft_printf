@@ -6,7 +6,7 @@
 #    By: oevtushe <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/18 12:47:27 by oevtushe          #+#    #+#              #
-#    Updated: 2018/08/05 17:01:41 by sasha            ###   ########.fr        #
+#    Updated: 2018/08/07 15:59:46 by oevtushe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@ override FTP_DIR	:= .
 include 	 		Libftp.mk
 include		 		$(FT_DIR)/Pretty.mk
 include				$(FT_DIR)/Templates.mk
+
 
 all: $(FTP_NAME)
 obj: $(FTP_OBJS)

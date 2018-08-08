@@ -6,14 +6,14 @@
 /*   By: oevtushe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 19:49:38 by oevtushe          #+#    #+#             */
-/*   Updated: 2018/08/02 17:04:48 by oevtushe         ###   ########.fr       */
+/*   Updated: 2018/08/08 18:26:50 by oevtushe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef _FT_PRINTF_H
 # define _FT_PRINTF_H
 
-#include <strings.h>
+# include <strings.h>
 
 /*
 ** Special options for pretty.
