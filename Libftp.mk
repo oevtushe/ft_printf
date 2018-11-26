@@ -6,7 +6,7 @@
 #    By: oevtushe <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/11 12:51:24 by oevtushe          #+#    #+#              #
-#    Updated: 2018/08/05 14:34:50 by sasha            ###   ########.fr        #
+#    Updated: 2018/11/26 17:08:42 by oevtushe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,6 +67,9 @@ FTP_M_SRCF		:= ft_printf.c \
 				 is_type.c \
 				 validate_lists.c \
 				 ft_format.c \
+				 ft_dprintf.c \
+				 ft_vdprintf.c \
+				 ft_vprintf.c \
 				 repeat_manager.c \
 				 freshers.c
 

@@ -6,13 +6,14 @@
 /*   By: oevtushe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 19:49:38 by oevtushe          #+#    #+#             */
-/*   Updated: 2018/08/08 18:26:50 by oevtushe         ###   ########.fr       */
+/*   Updated: 2018/11/26 17:02:35 by oevtushe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef _FT_PRINTF_H
 # define _FT_PRINTF_H
 
+# include <stdarg.h>
 # include <strings.h>
 
 /*
@@ -56,6 +57,9 @@
 # define BGGRAY "\033[47m"
 # define BGDEF "\033[49m"
 
+int		ft_vprintf(const char *format, va_list ap);
+int		ft_vdprintf(int fd, const char *format, va_list ap);
+int		ft_dprintf(int fd, const char *format, ...);
 int		ft_printf(const char *format, ...);
 char	*ft_format(const char *format, size_t *len, ...);
 
