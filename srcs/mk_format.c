@@ -6,7 +6,7 @@
 /*   By: oevtushe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/08 18:22:08 by oevtushe          #+#    #+#             */
-/*   Updated: 2018/08/08 18:22:09 by oevtushe         ###   ########.fr       */
+/*   Updated: 2018/11/26 20:38:44 by oevtushe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static char	*maker(t_list *pl, t_list *ex, size_t *len)
 		extra_str = mngr_usr(ex->content, dispatcher, &extra_len);
 		ft_memct((void**)&str, *len, pl->content, ft_strlen(pl->content) + 1);
 		*len += ft_strlen(pl->content);
-		ft_memct((void**)&str, *len, extra_str, extra_len);
+		ft_memct((void**)&str, *len, extra_str, extra_len + 1);
 		*len += extra_len;
 		pl = pl->next;
 		ex = ex->next;
