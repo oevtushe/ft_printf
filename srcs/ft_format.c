@@ -6,7 +6,7 @@
 /*   By: oevtushe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/08 18:22:19 by oevtushe          #+#    #+#             */
-/*   Updated: 2018/08/08 18:22:20 by oevtushe         ###   ########.fr       */
+/*   Updated: 2018/12/17 16:07:04 by oevtushe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,11 @@ char	*ft_format(const char *format, size_t *len, ...)
 {
 	va_list ap;
 	char	*str;
+	size_t	ln;
 
 	str = NULL;
+	if (!len)
+		len = &ln;
 	if (format && len)
 	{
 		*len = 0;
